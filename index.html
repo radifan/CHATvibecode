@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan Vibe Coding & Keamanan Membangun Website</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-200 min-h-screen flex flex-col">
+
+    <!-- Top Sticky Header & Global Progress Tracker -->
+    <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 gap-4">
+                <!-- Brand -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-bold shadow-md shadow-indigo-500/20 shrink-0">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-base sm:text-lg font-bold tracking-tight text-slate-900 dark:text-white leading-tight">VibeCode SafeHub</h1>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">Panduan & Toolkit Web Dev Berbasis AI</p>
+                    </div>
+                </div>
+
+                <!-- Global Progress Bar -->
+                <div class="flex-1 max-w-md mx-2 sm:mx-6">
+                    <div class="flex items-center justify-between text-xs font-medium mb-1">
+                        <span class="text-slate-600 dark:text-slate-300">Progres Ceklis Deploy</span>
+                        <span id="global-progress-text" class="text-indigo-600 dark:text-indigo-400 font-bold">0% (0/15)</span>
+                    </div>
+                    <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                        <div id="global-progress-bar" class="h-full bg-gradient-to-r from-indigo-500 to-emerald-500 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" type="button" aria-label="Ubah Tema Gelap/Terang" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <!-- Sun Icon (Dark mode active) -->
+                    <svg id="icon-sun" class="w-5 h-5 hidden dark:block text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                    <!-- Moon Icon (Light mode active) -->
+                    <svg id="icon-moon" class="w-5 h-5 block dark:hidden text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <nav aria-label="Menu Utama" class="bg-slate-50/80 dark:bg-slate-900/60 border-t border-slate-200/80 dark:border-slate-800/80 overflow-x-auto">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-2 py-2" id="nav-tabs">
+                <button data-tab="tab-vibe" class="tab-btn active-tab flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition-all bg-indigo-600 text-white shadow-sm">
+                    <span>1. Apa Itu Vibe Coding?</span>
+                </button>
+                <button data-tab="tab-ai" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-800">
+                    <span>2. Mesin AI Gratis</span>
+                </button>
+                <button data-tab="tab-security" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-800">
+                    <span>3. Keamanan Vibe Coding</span>
+                </button>
+                <button data-tab="tab-prompt" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-800">
+                    <span>4. Prompting & Ceklis Deploy</span>
+                    <span id="nav-badge-count" class="ml-1 px-2 py-0.5 text-xs rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-900/60 dark:text-indigo-300">0/15</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- ===================================================================== -->
+        <!-- TAB 1: APA ITU VIBE CODING?                                           -->
+        <!-- ===================================================================== -->
+        <section id="tab-vibe" class="tab-panel space-y-8">
+            <!-- Hero Banner -->
+            <div class="bg-gradient-to-br from-indigo-600 via-indigo-700 to-purple-800 rounded-2xl p-6 sm:p-10 text-white shadow-lg">
+                <span class="inline-block px-3 py-1 rounded-full bg-white/15 text-xs font-semibold tracking-wider uppercase mb-3">Paradigma Baru Pengembangan Software</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight mb-4">Memahami Konsep Vibe Coding</h2>
+                <p class="text-indigo-100 text-base sm:text-lg max-w-3xl leading-relaxed">
+                    <strong>Vibe Coding</strong> adalah pendekatan pemrograman berbantuan kecerdasan buatan (AI) di mana pengembang berfokus pada <em>niat, alur logika, dan hasil akhir</em> menggunakan bahasa alami, sementara Large Language Model (LLM) bertugas menulis, memodifikasi, dan memperbaiki sintaks kode secara iteratif.
+                </p>
+            </div>
+
+            <!-- Sejarah & Siklus Kerja -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <span class="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-sm font-bold">i</span>
+                        Asal-Usul & Evolusi Istilah
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Istilah <strong>"Vibe Coding"</strong> dipopulerkan oleh peneliti AI terkemuka <strong>Andrej Karpathy</strong> (mantan Direktur AI di Tesla dan salah satu pendiri OpenAI) pada Februari 2025. Ia menggambarkan cara baru membangun perangkat lunak di mana pengguna sepenuhnya menyerahkan penulisan baris demi baris kode kepada AI, cukup dengan memberikan instruksi dalam bahasa sehari-hari, menjalankan hasilnya, dan menyalin pesan galat (<em>error</em>) kembali ke AI jika terjadi masalah.
+                    </p>
+                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Pergeseran ini mengubah peran pembuat website dari sekadar <em>penulis sintaks</em> menjadi <strong>Arsitek Produk & Pengarah Sistem</strong>. Namun, para pakar rekayasa perangkat lunak seperti Simon Willison menekankan perbedaan penting antara <em>vibe coding murni tanpa membaca kode</em> (cocok untuk prototipe cepat) dengan <em>AI-assisted engineering profesional</em> (di mana kode tetap ditinjau, diuji, dan diamankan sebelum dipublikasikan).
+                    </p>
+
+                    <!-- Siklus 4 Langkah -->
+                    <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
+                        <h4 class="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">Siklus Kerja Vibe Coding</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+                            <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/70 dark:border-slate-700">
+                                <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 mb-1">Langkah 1</div>
+                                <div class="font-semibold text-sm mb-1">Prompt Spesifik</div>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">Jelaskan fitur, struktur data, dan batasan keamanan.</p>
+                            </div>
+                            <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/70 dark:border-slate-700">
+                                <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 mb-1">Langkah 2</div>
+                                <div class="font-semibold text-sm mb-1">Generasi Kode</div>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">AI menghasilkan HTML, CSS, JS, atau struktur full-stack.</p>
+                            </div>
+                            <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/70 dark:border-slate-700">
+                                <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 mb-1">Langkah 3</div>
+                                <div class="font-semibold text-sm mb-1">Uji & Observasi</div>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">Jalankan di browser/preview, uji semua tombol dan input.</p>
+                            </div>
+                            <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/70 dark:border-slate-700">
+                                <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 mb-1">Langkah 4</div>
+                                <div class="font-semibold text-sm mb-1">Iterasi & Audit</div>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">Perbaiki bug lewat prompt lanjutan dan audit keamanan.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kapan Efektif vs Kapan Berisiko -->
+                <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-5">
+                    <div>
+                        <h4 class="text-base font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-2 mb-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Sangat Efektif Untuk:
+                        </h4>
+                        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-300 list-disc pl-5">
+                            <li>Prototipe MVP (<em>Minimum Viable Product</em>) dalam hitungan jam.</li>
+                            <li>Landing page, portofolio, kalkulator interaktif, dan micro-tools.</li>
+                            <li>Eksplorasi desain UI/UX modern dengan Tailwind CSS.</li>
+                            <li>Belajar arsitektur kode melalui contoh nyata yang langsung berjalan.</li>
+                        </ul>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
+                        <h4 class="text-base font-bold text-rose-600 dark:text-rose-400 flex items-center gap-2 mb-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            Berisiko Jika Tanpa Audit Pada:
+                        </h4>
+                        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-300 list-disc pl-5">
+                            <li>Aplikasi yang menyimpan data sensitif pengguna atau transaksi keuangan.</li>
+                            <li>Sistem autentikasi login, manajemen hak akses admin, dan pembayaran.</li>
+                            <li>Integrasi API berbayar yang rawan kebocoran kunci rahasia (API Key).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sumber Referensi Tab 1 -->
+            <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Sumber & Referensi Bacaan Terpercaya</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <a href="https://x.com/karpathy/status/1886192184808149383" target="_blank" rel="noopener noreferrer" class="group p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-500 transition bg-slate-50/50 dark:bg-slate-800/40 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-semibold text-indigo-600 dark:text-indigo-400">Sumber Primer (Februari 2025)</span>
+                            <h4 class="font-bold text-slate-900 dark:text-white mt-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Andrej Karpathy — Definisi Awal "Vibe Coding"</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Utas asli di X (Twitter) yang memperkenalkan istilah vibe coding sebagai gaya pemrograman berbasis instruksi LLM.</p>
+                        </div>
+                        <span class="text-xs font-medium text-indigo-600 dark:text-indigo-400 mt-4 inline-flex items-center gap-1">Buka Sumber &rarr;</span>
+                    </a>
+
+                    <a href="https://simonwillison.net/2025/Mar/19/vibe-coding/" target="_blank" rel="noopener noreferrer" class="group p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-500 transition bg-slate-50/50 dark:bg-slate-800/40 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-semibold text-indigo-600 dark:text-indigo-400">Analisis Teknis (Simon Willison)</span>
+                            <h4 class="font-bold text-slate-900 dark:text-white mt-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Not All AI-Assisted Programming is Vibe Coding</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Penjelasan mendalam tentang batasan antara vibe coding untuk eksperimen dengan rekayasa perangkat lunak yang bertanggung jawab.</p>
+                        </div>
+                        <span class="text-xs font-medium text-indigo-600 dark:text-indigo-400 mt-4 inline-flex items-center gap-1">Buka Sumber &rarr;</span>
+                    </a>
+
+                    <a href="https://arstechnica.com/information-technology/2025/03/is-vibe-coding-with-ai-gnarly-or-reckless-maybe-some-of-both/" target="_blank" rel="noopener noreferrer" class="group p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-500 transition bg-slate-50/50 dark:bg-slate-800/40 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-semibold text-indigo-600 dark:text-indigo-400">Artikel Jurnalistik (Ars Technica)</span>
+                            <h4 class="font-bold text-slate-900 dark:text-white mt-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Fenomena Vibe Coding di Industri Teknologi</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Ulasan dampak demokratisasi pembuatan aplikasi bagi non-programmer serta tantangan pemeliharaan kodenya.</p>
+                        </div>
+                        <span class="text-xs font-medium text-indigo-600 dark:text-indigo-400 mt-4 inline-flex items-center gap-1">Buka Sumber &rarr;</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- TAB 2: MESIN AI GRATIS UNTUK MEMBUAT WEBSITE                          -->
+        <!-- ===================================================================== -->
+        <section id="tab-ai" class="tab-panel hidden space-y-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Katalog Mesin AI Gratis untuk Membuat Website</h2>
+                    <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Pilih platform AI dengan paket gratis (Free Tier) sesuai alur kerja pengembangan Anda.</p>
+                </div>
+
+                <!-- Filter Kategori -->
+                <div class="flex flex-wrap gap-2" id="ai-filter-group">
+                    <button data-filter="all" class="ai-filter-btn px-3.5 py-2 rounded-xl text-xs font-semibold bg-indigo-600 text-white transition">Semua (9)</button>
+                    <button data-filter="llm" class="ai-filter-btn px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">Chat LLM & Canvas</button>
+                    <button data-filter="ide" class="ai-filter-btn px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">AI Code Editor / IDE</button>
+                    <button data-filter="builder" class="ai-filter-btn px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">Full-Stack Web Builder</button>
+                </div>
+            </div>
+
+            <!-- Grid Kartu AI (Dirender aman melalui JS DOM API) -->
+            <div id="ai-tools-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- TAB 3: KEAMANAN DALAM VIBE CODING (SECURITY BY DESIGN)                -->
+        <!-- ===================================================================== -->
+        <section id="tab-security" class="tab-panel hidden space-y-8">
+            <div class="bg-slate-900 dark:bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 text-white shadow-lg">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-rose-500/20 text-rose-400 flex items-center justify-center shrink-0 border border-rose-500/30">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-rose-400">Prinsip Security by Design</span>
+                        <h2 class="text-2xl sm:text-3xl font-bold mt-1">Mengapa Kode Vibe Coding Rawan Celah Keamanan?</h2>
+                        <p class="text-slate-300 text-sm sm:text-base mt-2 max-w-3xl leading-relaxed">
+                            Model AI dilatih dari jutaan repositori publik—termasuk kode tutorial yang mengabaikan keamanan demi kesederhanaan. AI mengutamakan agar kode <em>"langsung berjalan tanpa error"</em>, bukan agar kode <em>"tahan terhadap serangan siber"</em>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6 Kerentanan Utama & Solusinya -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="px-2.5 py-1 rounded-lg bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300 text-xs font-bold">Risiko #1: Kredensial Terekspos</span>
+                        <span class="text-xs font-mono text-slate-400">CWE-798</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Hardcoded API Keys & Rahasia di Frontend</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-300">AI sering menaruh kunci API (Firebase, OpenAI, Supabase Service Key) langsung di file JavaScript browser sehingga siapa pun bisa mencurinya lewat fitur <em>Inspect Element</em>.</p>
+                    <div class="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/60 text-xs text-emerald-900 dark:text-emerald-200">
+                        <strong>Mitigasi Wajib:</strong> Simpan kunci rahasia di file <code>.env</code> pada sisi server/backend, tambahkan <code>.env</code> ke dalam <code>.gitignore</code>, dan gunakan <em>Backend Proxy</em> atau aturan <em>Row-Level Security (RLS)</em>.
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="px-2.5 py-1 rounded-lg bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300 text-xs font-bold">Risiko #2: Injeksi Skrip Browser</span>
+                        <span class="text-xs font-mono text-slate-400">OWASP A03 / XSS</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Cross-Site Scripting (XSS) via innerHTML</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-300">Untuk menampilkan input form atau data API dengan cepat, AI gemar memakai <code>element.innerHTML = userInput</code>. Penyerang dapat menyisipkan tag <code>&lt;script&gt;</code> berbahaya untuk mencuri sesi pengguna.</p>
+                    <div class="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/60 text-xs text-emerald-900 dark:text-emerald-200">
+                        <strong>Mitigasi Wajib:</strong> Selalu gunakan <code>element.textContent</code> untuk teks biasa, atau bersihkan HTML menggunakan pustaka teruji seperti <strong>DOMPurify</strong> sebelum merender.
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="px-2.5 py-1 rounded-lg bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 text-xs font-bold">Risiko #3: Manipulasi Database</span>
+                        <span class="text-xs font-mono text-slate-400">OWASP A03 / SQLi</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">SQL Injection & Validasi Hanya di Klien</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-300">AI terkadang menggabungkan string query SQL secara langsung (<code>"SELECT * FROM users WHERE id = " + id</code>) atau hanya memasang validasi HTML <code>required</code> tanpa pengecekan di server.</p>
+                    <div class="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/60 text-xs text-emerald-900 dark:text-emerald-200">
+                        <strong>Mitigasi Wajib:</strong> Gunakan <em>Prepared Statements / Parameterized Queries</em> pada setiap akses database dan selalu ulangi validasi tipe/panjang data di server.
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="px-2.5 py-1 rounded-lg bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 text-xs font-bold">Risiko #4: Kontrol Akses Lemah</span>
+                        <span class="text-xs font-mono text-slate-400">OWASP A01 / IDOR</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Broken Access Control & CORS Terbuka Lebar</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-300">Endpoint API hasil AI sering mengatur <code>Access-Control-Allow-Origin: *</code> dan lupa mengecek apakah pengguna yang sedang login benar-benar pemilik data yang diminta.</p>
+                    <div class="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/60 text-xs text-emerald-900 dark:text-emerald-200">
+                        <strong>Mitigasi Wajib:</strong> Terapkan prinsip <em>Least Privilege</em>, verifikasi kepemilikan sesi di setiap rute API, dan batasi domain CORS hanya ke domain produksi Anda.
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="px-2.5 py-1 rounded-lg bg-purple-100 dark:bg-purple-900/40 text-purple-800 dark:text-purple-300 text-xs font-bold">Risiko #5: Supply Chain</span>
+                        <span class="text-xs font-mono text-slate-400">Slopsquatting</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Halusinasi Paket & Dependensi Usang</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-300">AI bisa menyarankan pustaka npm/pip yang sudah tidak dipelihara (memiliki celah CVE) atau bahkan nama paket fiktif yang didaftarkan oleh peretas (<em>package hallucination attack</em>).</p>
+                    <div class="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/60 text-xs text-emerald-900 dark:text-emerald-200">
+                        <strong>Mitigasi Wajib:</strong> Verifikasi eksistensi paket di registry resmi (npmjs.com / pypi.org) sebelum menginstal dan jalankan <code>npm audit</code> secara berkala.
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="px-2.5 py-1 rounded-lg bg-purple-100 dark:bg-purple-900/40 text-purple-800 dark:text-purple-300 text-xs font-bold">Risiko #6: Konfigurasi Server</span>
+                        <span class="text-xs font-mono text-slate-400">OWASP A05</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Ketiadaan HTTP Security Headers</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-300">Website statis maupun dinamis yang langsung di-deploy tanpa header keamanan rentan terhadap serangan <em>Clickjacking</em> (website disematkan di iframe palsu) dan <em>MIME-sniffing</em>.</p>
+                    <div class="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/60 text-xs text-emerald-900 dark:text-emerald-200">
+                        <strong>Mitigasi Wajib:</strong> Tambahkan konfigurasi header <code>X-Frame-Options: DENY</code>, <code>X-Content-Type-Options: nosniff</code>, dan <code>Content-Security-Policy</code> pada <code>vercel.json</code> atau server.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sumber Keamanan Resmi -->
+            <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Referensi & Standar Keamanan Siber Resmi</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <a href="https://owasp.org/www-project-top-ten/" target="_blank" rel="noopener noreferrer" class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-rose-500 transition bg-slate-50/60 dark:bg-slate-800/40">
+                        <div class="text-xs font-bold text-rose-600 dark:text-rose-400">Standar Web Global</div>
+                        <div class="font-bold text-sm text-slate-900 dark:text-white mt-1">OWASP Top 10 Web Security</div>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1.5">Daftar 10 risiko keamanan aplikasi web paling kritis di dunia.</p>
+                    </a>
+
+                    <a href="https://genai.owasp.org/" target="_blank" rel="noopener noreferrer" class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-rose-500 transition bg-slate-50/60 dark:bg-slate-800/40">
+                        <div class="text-xs font-bold text-rose-600 dark:text-rose-400">Keamanan GenAI & LLM</div>
+                        <div class="font-bold text-sm text-slate-900 dark:text-white mt-1">OWASP Top 10 for LLM Apps</div>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1.5">Panduan mitigasi risiko keamanan pada pengembangan berbasis LLM.</p>
+                    </a>
+
+                    <a href="https://cwe.mitre.org/top25/" target="_blank" rel="noopener noreferrer" class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-rose-500 transition bg-slate-50/60 dark:bg-slate-800/40">
+                        <div class="text-xs font-bold text-rose-600 dark:text-rose-400">MITRE Corporation</div>
+                        <div class="font-bold text-sm text-slate-900 dark:text-white mt-1">CWE Top 25 Software Weaknesses</div>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1.5">Katalog kelemahan kode perangkat lunak paling berbahaya.</p>
+                    </a>
+
+                    <a href="https://arxiv.org/abs/2211.03622" target="_blank" rel="noopener noreferrer" class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-rose-500 transition bg-slate-50/60 dark:bg-slate-800/40">
+                        <div class="text-xs font-bold text-rose-600 dark:text-rose-400">Riset Akademik (Stanford)</div>
+                        <div class="font-bold text-sm text-slate-900 dark:text-white mt-1">Do Users Write More Insecure Code with AI Assistants?</div>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1.5">Studi empiris mengenai kerentanan kode yang dihasilkan dengan bantuan AI.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- TAB 4: PANDUAN PROMPTING, TEMPLATE & CEKLIS DEPLOYMENT                 -->
+        <!-- ===================================================================== -->
+        <section id="tab-prompt" class="tab-panel hidden space-y-8">
+
+            <!-- Bagian A: Kriteria Prompt yang Baik -->
+            <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Bagian A: 4 Pilar Prompt Berkualitas (Fungsional & Aman)</h2>
+                <p class="text-sm text-slate-600 dark:text-slate-300 mb-4">Sebelum menulis prompt, pastikan empat komponen berikut tercantum agar AI tidak menghasilkan kode setengah jadi atau rentan:</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/50">
+                        <div class="font-bold text-sm text-indigo-700 dark:text-indigo-300">1. Peran & Konteks Stack</div>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">Tetapkan peran AI (<em>Senior Developer & Security Engineer</em>) dan teknologi spesifik yang dipakai.</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/50">
+                        <div class="font-bold text-sm text-indigo-700 dark:text-indigo-300">2. Alur Input-Proses-Output</div>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">Rinci setiap fitur serta kondisi khusus seperti <em>empty state</em> dan pesan error ramah pengguna.</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/50">
+                        <div class="font-bold text-sm text-indigo-700 dark:text-indigo-300">3. Batasan Keamanan Eksplisit</div>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">Wajibkan anti-XSS (<code>textContent</code>), validasi input berlapis, dan larangan hardcode API key.</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/50">
+                        <div class="font-bold text-sm text-indigo-700 dark:text-indigo-300">4. Anti-Placeholder Rule</div>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">Larang AI menyingkat kode dengan komentar seperti <code>// tulis logika di sini</code>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bagian B: Generator / Editor Template Prompt Interaktif -->
+            <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900 dark:text-white">Bagian B: Generator Template Prompt Modular</h2>
+                        <p class="text-sm text-slate-600 dark:text-slate-300">Isi kolom di bawah ini untuk merakit prompt siap pakai yang sesuai dengan kebutuhan website Anda.</p>
+                    </div>
+                    <button id="btn-fill-example" type="button" class="self-start sm:self-auto px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+                        Isi Contoh Otomatis
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <!-- Form Input -->
+                    <div class="lg:col-span-6 space-y-4">
+                        <div>
+                            <label for="inp-project-name" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Nama Proyek Website</label>
+                            <input type="text" id="inp-project-name" placeholder="Contoh: Katalog Kopi Nusantara" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                        </div>
+
+                        <div>
+                            <label for="inp-project-goal" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Tujuan Utama & Target Pengguna</label>
+                            <input type="text" id="inp-project-goal" placeholder="Contoh: Menampilkan daftar menu kopi dan menghitung estimasi pesanan untuk pelanggan UMKM" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                        </div>
+
+                        <div>
+                            <label for="inp-tech-stack" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Tech Stack & Struktur File</label>
+                            <select id="inp-tech-stack" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                                <option value="Single-file HTML5, Tailwind CSS (CDN), dan Vanilla JavaScript (ES6+) dengan penyimpanan LocalStorage">Static Web: HTML5 + Tailwind CSS + Vanilla JS (1 File Utuh)</option>
+                                <option value="Multi-file HTML5, Tailwind CSS, dan Vanilla JavaScript (terpisah: index.html, app.js)">Static Web: HTML5 + Tailwind CSS + Vanilla JS (Multi-File)</option>
+                                <option value="React (Vite) + Tailwind CSS dengan state management hooks">Frontend Modern: React + Tailwind CSS</option>
+                                <option value="Next.js (App Router) + Tailwind CSS + Supabase (PostgreSQL & Auth)">Full-Stack: Next.js + Tailwind CSS + Supabase</option>
+                                <option value="Python Flask + HTML/Tailwind CSS + SQLite dengan SQLAlchemy">Full-Stack: Python Flask + SQLite</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="inp-features" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Daftar Fitur Utama (Pisahkan per baris)</label>
+                            <textarea id="inp-features" rows="4" placeholder="1. Pencarian dan filter kategori produk secara real-time&#10;2. Keranjang belanja interaktif yang tersimpan di browser&#10;3. Formulir pemesanan dengan validasi nomor WhatsApp" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"></textarea>
+                        </div>
+
+                        <div>
+                            <span class="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">Opsi Keamanan Wajib</span>
+                            <div class="space-y-2 text-xs text-slate-700 dark:text-slate-300">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" id="sec-xss" checked class="rounded text-indigo-600 focus:ring-indigo-500">
+                                    <span>Anti-XSS (Wajib <code>textContent</code> / sanitasi DOM, dilarang <code>innerHTML</code> mentah)</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" id="sec-env" checked class="rounded text-indigo-600 focus:ring-indigo-500">
+                                    <span>Isolasi Kredensial (Dilarang hardcode API key, gunakan <code>.env</code>)</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" id="sec-val" checked class="rounded text-indigo-600 focus:ring-indigo-500">
+                                    <span>Validasi Input Ketat & Penanganan Error Ramah Pengguna</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" id="sec-headers" checked class="rounded text-indigo-600 focus:ring-indigo-500">
+                                    <span>Sertakan konfigurasi Security Headers (<code>vercel.json</code> / CSP)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live Output Prompt -->
+                    <div class="lg:col-span-6 flex flex-col">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">Hasil Prompt Siap Salin</span>
+                            <button id="btn-copy-prompt" type="button" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-sm transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                                <span id="copy-prompt-label">Salin Prompt</span>
+                            </button>
+                        </div>
+                        <textarea id="generated-prompt-output" readonly class="flex-1 min-h-[340px] w-full p-4 rounded-xl bg-slate-900 text-slate-100 font-mono text-xs leading-relaxed border border-slate-700 focus:outline-none resize-none"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bagian C: Ceklis Interaktif Dari Ide hingga Deploy Gratis (GitHub & Vercel) -->
+            <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-800">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900 dark:text-white">Bagian C: Ceklis Langkah demi Langkah Hingga Deploy Gratis</h2>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Centang setiap langkah yang telah Anda selesaikan. Progres otomatis tersimpan di browser Anda.</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span id="checklist-summary-pill" class="px-3.5 py-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 text-xs font-bold border border-emerald-200 dark:border-emerald-900">
+                            0 dari 15 Selesai
+                        </span>
+                        <button id="btn-reset-checklist" type="button" class="px-3.5 py-2 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-900/50 text-xs font-semibold transition border border-rose-200 dark:border-rose-900/60">
+                            Reset Progres
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Container Tahapan Ceklis (Dirender aman melalui JS DOM API) -->
+                <div id="checklist-stages-container" class="space-y-6"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Toast Notification (Pengganti alert() yang aman) -->
+    <div id="toast-notification" role="status" aria-live="polite" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-slate-900 dark:bg-slate-800 text-white px-4 py-3 rounded-xl shadow-lg border border-slate-700 flex items-center gap-2.5 text-sm font-medium">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+            <span id="toast-message">Pesan notifikasi</span>
+        </div>
+    </div>
+
+    <!-- Custom Confirmation Modal (Pengganti confirm() yang aman) -->
+    <div id="reset-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/60 backdrop-blur-sm p-4">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-6 border border-slate-200 dark:border-slate-800 shadow-xl space-y-4">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Reset Seluruh Progres Ceklis?</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300">Semua tanda centang pada panduan deployment akan dikembalikan ke status belum selesai.</p>
+            <div class="flex justify-end gap-3 pt-2">
+                <button id="btn-cancel-reset" type="button" class="px-4 py-2 rounded-xl text-sm font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">Batal</button>
+                <button id="btn-confirm-reset" type="button" class="px-4 py-2 rounded-xl text-sm font-semibold bg-rose-600 hover:bg-rose-700 text-white transition">Ya, Reset Progres</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
+            <p>VibeCode SafeHub &mdash; Panduan Edukasi Vibe Coding, Keamanan Web & Deployment Gratis.</p>
+            <p>Dibangun dengan prinsip <em>Security by Design</em> (Zero-XSS & LocalStorage Persistence).</p>
+        </div>
+    </footer>
+
+    <!-- Application Logic (Security-Hardened Vanilla JS) -->
+    <script>
+        (function () {
+            'use strict';
+
+            // =========================================================================
+            // 1. DATA KATALOG MESIN AI GRATIS
+            // =========================================================================
+            const AI_TOOLS_DATA = [
+                {
+                    name: 'Google AI Studio (Gemini)',
+                    category: 'llm',
+                    categoryLabel: 'Chat LLM & Canvas',
+                    badgeColor: 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300',
+                    strengths: 'Jendela konteks sangat besar (hingga jutaan token), ideal untuk memproses seluruh kode proyek sekaligus dan melakukan iterasi desain cepat.',
+                    freeLimit: 'Gratis melalui Google AI Studio & aplikasi Gemini dengan batas kuota harian/menit yang sangat longgar.',
+                    bestFor: 'Merancang arsitektur penuh, menghasilkan aplikasi satu file lengkap, dan audit kode panjang.',
+                    url: 'https://aistudio.google.com/'
+                },
+                {
+                    name: 'Claude (Anthropic)',
+                    category: 'llm',
+                    categoryLabel: 'Chat LLM & Canvas',
+                    badgeColor: 'bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300',
+                    strengths: 'Fitur Claude Artifacts merender tampilan HTML/React secara langsung di panel samping sehingga hasil UI bisa langsung diuji.',
+                    freeLimit: 'Tersedia paket gratis harian dengan pembatasan jumlah pesan setiap beberapa jam.',
+                    bestFor: 'Prototyping komponen antarmuka (UI) interaktif dan visualisasi data instan.',
+                    url: 'https://claude.ai/'
+                },
+                {
+                    name: 'ChatGPT (OpenAI)',
+                    category: 'llm',
+                    categoryLabel: 'Chat LLM & Canvas',
+                    badgeColor: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300',
+                    strengths: 'Fitur Canvas memungkinkan pengeditan bagian kode tertentu secara kolaboratif tanpa harus menulis ulang seluruh file.',
+                    freeLimit: 'Paket gratis mencakup akses model standar dan Canvas dengan kuota penggunaan harian.',
+                    bestFor: 'Debugging pesan error, penjelasan konsep backend, dan penyusunan skrip konfigurasi.',
+                    url: 'https://chatgpt.com/'
+                },
+                {
+                    name: 'Cursor AI Editor',
+                    category: 'ide',
+                    categoryLabel: 'AI Code Editor / IDE',
+                    badgeColor: 'bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300',
+                    strengths: 'Editor kode berbasis VS Code dengan fitur Composer/Agent yang mampu membuat dan mengedit banyak file proyek secara otomatis.',
+                    freeLimit: 'Paket Hobby (Gratis) mencakup kuota pelengkapan kode (Tab) dan permintaan AI bulanan terbatas.',
+                    bestFor: 'Proyek multi-file (Next.js, React, Python) di komputer lokal.',
+                    url: 'https://www.cursor.com/'
+                },
+                {
+                    name: 'Windsurf (Codeium)',
+                    category: 'ide',
+                    categoryLabel: 'AI Code Editor / IDE',
+                    badgeColor: 'bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-300',
+                    strengths: 'IDE agentik dengan mesin Cascade yang memahami konteks seluruh repositori serta dapat menjalankan perintah terminal.',
+                    freeLimit: 'Paket Free menyediakan fitur autocomplete tanpa batas dasar dan kredit agen AI bulanan.',
+                    bestFor: 'Pengembangan aplikasi terstruktur dengan asisten AI yang aktif memeriksa struktur folder.',
+                    url: 'https://windsurf.com/'
+                },
+                {
+                    name: 'GitHub Copilot Free',
+                    category: 'ide',
+                    categoryLabel: 'AI Code Editor / IDE',
+                    badgeColor: 'bg-slate-200 text-slate-800 dark:bg-slate-800 dark:text-slate-200',
+                    strengths: 'Terintegrasi langsung ke dalam VS Code dan ekosistem GitHub untuk saran kode real-time dan obrolan kode.',
+                    freeLimit: 'Tersedia gratis untuk semua akun GitHub dengan kuota bulanan (pelengkapan kode & pesan chat).',
+                    bestFor: 'Pengguna VS Code yang ingin bantuan AI langsung saat menulis atau merapikan kode.',
+                    url: 'https://github.com/features/copilot'
+                },
+                {
+                    name: 'v0 by Vercel',
+                    category: 'builder',
+                    categoryLabel: 'Full-Stack Web Builder',
+                    badgeColor: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300',
+                    strengths: 'Menghasilkan komponen UI modern berbasis Tailwind CSS & shadcn/ui dengan kualitas estetika tinggi dan deploy 1-klik ke Vercel.',
+                    freeLimit: 'Paket gratis memberikan kredit pesan bulanan untuk membuat dan mempratinjau UI.',
+                    bestFor: 'Membuat tampilan halaman depan (landing page) dan dashboard modern dengan cepat.',
+                    url: 'https://v0.dev/'
+                },
+                {
+                    name: 'Bolt.new (StackBlitz)',
+                    category: 'builder',
+                    categoryLabel: 'Full-Stack Web Builder',
+                    badgeColor: 'bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-300',
+                    strengths: 'Menjalankan lingkungan Node.js penuh di dalam browser (WebContainers)—menginstal paket npm dan menjalankan server langsung dari prompt.',
+                    freeLimit: 'Tersedia token gratis harian dan bulanan untuk membangun serta mengunduh kode proyek.',
+                    bestFor: 'Membangun aplikasi full-stack langsung dari browser tanpa instalasi lokal.',
+                    url: 'https://bolt.new/'
+                },
+                {
+                    name: 'Lovable',
+                    category: 'builder',
+                    categoryLabel: 'Full-Stack Web Builder',
+                    badgeColor: 'bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300',
+                    strengths: 'Fokus pada pembuatan aplikasi web interaktif yang terhubung mudah dengan database Supabase dan sinkronisasi dua arah ke GitHub.',
+                    freeLimit: 'Paket gratis menawarkan batas pesan harian untuk membangun prototipe web.',
+                    bestFor: 'Membuat aplikasi web dengan database dan autentikasi yang langsung terhubung ke GitHub.',
+                    url: 'https://lovable.dev/'
+                }
+            ];
+
+            // =========================================================================
+            // 2. DATA CEKLIS LANGKAH DEMI LANGKAH (DARI IDE HINGGA DEPLOY GITHUB & VERCEL)
+            // =========================================================================
+            const DEPLOY_CHECKLIST_STAGES = [
+                {
+                    stageTitle: 'Tahap 1: Persiapan & Perancangan Prompt',
+                    stageDesc: 'Menentukan spesifikasi website dan menyusun instruksi yang aman sebelum membuka AI.',
+                    items: [
+                        {
+                            id: 'step-1-1',
+                            title: 'Tentukan tujuan website, struktur halaman, dan target pengguna',
+                            guide: 'Catat fitur inti yang benar-benar dibutuhkan (misal: katalog produk, kalkulator, atau portofolio) agar AI tidak membuat fitur berlebihan yang sulit dipelihara.'
+                        },
+                        {
+                            id: 'step-1-2',
+                            title: 'Rakit prompt menggunakan Generator Template di Bagian B',
+                            guide: 'Pastikan bagian Tech Stack, Daftar Fitur, dan Opsi Keamanan Wajib sudah terisi jelas sebelum disalin ke mesin AI pilihan Anda.'
+                        },
+                        {
+                            id: 'step-1-3',
+                            title: 'Siapkan folder proyek lokal di komputer Anda',
+                            guide: 'Buat folder baru khusus proyek ini (misal: C:\\Projects\\website-saya) agar file kode sumber tersimpan rapi dan mudah diunggah ke GitHub.'
+                        }
+                    ]
+                },
+                {
+                    stageTitle: 'Tahap 2: Generasi Kode & Pengujian Lokal',
+                    stageDesc: 'Menghasilkan kode dari AI dan memverifikasi fungsionalitas serta keamanan dasar di browser.',
+                    items: [
+                        {
+                            id: 'step-2-1',
+                            title: 'Generate kode di mesin AI & simpan ke file proyek (misal: index.html)',
+                            guide: 'Tempelkan prompt Anda ke Google AI Studio, Claude, atau Cursor. Simpan seluruh kode hasil AI ke dalam folder proyek lokal Anda.'
+                        },
+                        {
+                            id: 'step-2-2',
+                            title: 'Uji semua fitur interaktif & tampilan responsif (Desktop & Mobile)',
+                            guide: 'Buka file di browser, tekan F12 (Inspect Element) lalu aktifkan mode perangkat seluler untuk memastikan tidak ada tombol terpotong atau error di tab Console.'
+                        },
+                        {
+                            id: 'step-2-3',
+                            title: 'Audit keamanan dasar: Cek kebocoran API Key & penggunaan innerHTML',
+                            guide: 'Gunakan fitur pencarian (Ctrl+F) di editor kode untuk mencari kata kunci seperti "apiKey", "secret", atau "innerHTML". Pastikan tidak ada kunci rahasia yang tertulis langsung di kode.'
+                        }
+                    ]
+                },
+                {
+                    stageTitle: 'Tahap 3: Manajemen Kode Sumber di GitHub (Gratis)',
+                    stageDesc: 'Menyimpan kode sumber ke repositori GitHub sebagai pusat kendali versi sebelum deployment.',
+                    items: [
+                        {
+                            id: 'step-3-1',
+                            title: 'Buat akun GitHub & buat Repositori Baru (New Repository)',
+                            guide: 'Buka github.com, login, klik tombol "+" di pojok kanan atas > "New repository". Beri nama repositori (misal: my-vibe-website), pilih Public atau Private, lalu klik "Create repository".'
+                        },
+                        {
+                            id: 'step-3-2',
+                            title: 'Pastikan file rahasia (.env) masuk ke dalam file .gitignore',
+                            guide: 'Jika proyek Anda memakai file .env untuk menyimpan kunci API, buat file bernama .gitignore dan tulis ".env" di baris pertama agar kunci rahasia tidak ikut terunggah ke GitHub.'
+                        },
+                        {
+                            id: 'step-3-3',
+                            title: 'Unggah (Push) kode sumber ke repositori GitHub',
+                            guide: 'Anda bisa memakai aplikasi GitHub Desktop (pilih Add Local Repository > Publish) atau menjalankan perintah terminal: git init, git add ., git commit -m "Initial commit", git branch -M main, git remote add origin [URL_REPO], dan git push -u origin main.'
+                        }
+                    ]
+                },
+                {
+                    stageTitle: 'Tahap 4: Deployment Gratis ke Vercel',
+                    stageDesc: 'Menghubungkan repositori GitHub ke Vercel agar website dapat diakses publik melalui internet.',
+                    items: [
+                        {
+                            id: 'step-4-1',
+                            title: 'Daftar / Login ke Vercel menggunakan akun GitHub',
+                            guide: 'Kunjungi vercel.com, klik "Sign Up" atau "Log In", lalu pilih "Continue with GitHub" agar Vercel otomatis memiliki izin membaca repositori proyek Anda.'
+                        },
+                        {
+                            id: 'step-4-2',
+                            title: 'Klik "Add New Project" dan Import repositori website Anda',
+                            guide: 'Di dashboard Vercel, klik "Add New..." > "Project", cari nama repositori GitHub yang baru saja Anda buat, lalu klik tombol "Import".'
+                        },
+                        {
+                            id: 'step-4-3',
+                            title: 'Atur Environment Variables (jika ada) & klik tombol "Deploy"',
+                            guide: 'Jika website membutuhkan kunci API dari file .env, masukkan pada bagian "Environment Variables" di pengaturan Vercel. Setelah itu klik "Deploy" dan tunggu proses build sekitar 30–60 detik.'
+                        }
+                    ]
+                },
+                {
+                    stageTitle: 'Tahap 5: Verifikasi Akhir & Pemeliharaan Berkelanjutan',
+                    stageDesc: 'Memastikan website live berjalan aman dengan sertifikat SSL/HTTPS aktif.',
+                    items: [
+                        {
+                            id: 'step-5-1',
+                            title: 'Buka URL produksi (*.vercel.app) & pastikan ikon gembok HTTPS aktif',
+                            guide: 'Vercel otomatis menyediakan sertifikat SSL gratis. Buka tautan publik yang diberikan Vercel melalui ponsel dan komputer untuk memastikan halaman termuat sempurna.'
+                        },
+                        {
+                            id: 'step-5-2',
+                            title: 'Uji ulang semua formulir & interaksi pada lingkungan live',
+                            guide: 'Pastikan tidak ada aset gambar yang gagal dimuat atau skrip yang terblokir pada domain produksi.'
+                        },
+                        {
+                            id: 'step-5-3',
+                            title: 'Pahami alur update otomatis (Continuous Deployment)',
+                            guide: 'Setiap kali Anda meminta AI memperbarui kode dan melakukan "git push" ke GitHub, Vercel akan otomatis membangun ulang dan memperbarui website live Anda tanpa konfigurasi ulang.'
+                        }
+                    ]
+                }
+            ];
+
+            // =========================================================================
+            // 3. STATE MANAGEMENT & LOCALSTORAGE PERSISTENCE
+            // =========================================================================
+            const STORAGE_KEY_CHECKLIST = 'vibecode_safehub_checklist_v1';
+            const STORAGE_KEY_THEME = 'vibecode_safehub_theme_v1';
+
+            let completedSteps = loadChecklistState();
+
+            function loadChecklistState() {
+                try {
+                    const saved = localStorage.getItem(STORAGE_KEY_CHECKLIST);
+                    if (!saved) return {};
+                    const parsed = JSON.parse(saved);
+                    return (parsed && typeof parsed === 'object') ? parsed : {};
+                } catch (e) {
+                    return {};
+                }
+            }
+
+            function saveChecklistState() {
+                try {
+                    localStorage.setItem(STORAGE_KEY_CHECKLIST, JSON.stringify(completedSteps));
+                } catch (e) {
+                    showToast('Gagal menyimpan progres ke penyimpanan browser.');
+                }
+            }
+
+            // =========================================================================
+            // 4. UTILITAS UI (TOAST NOTIFICATION & THEME)
+            // =========================================================================
+            let toastTimer = null;
+            function showToast(message) {
+                const toast = document.getElementById('toast-notification');
+                const toastMsg = document.getElementById('toast-message');
+                if (!toast || !toastMsg) return;
+
+                // Keamanan: selalu gunakan textContent untuk mencegah XSS
+                toastMsg.textContent = message;
+                toast.classList.remove('translate-y-20', 'opacity-0');
+                toast.classList.add('translate-y-0', 'opacity-100');
+
+                if (toastTimer) clearTimeout(toastTimer);
+                toastTimer = setTimeout(() => {
+                    toast.classList.remove('translate-y-0', 'opacity-100');
+                    toast.classList.add('translate-y-20', 'opacity-0');
+                }, 2800);
+            }
+
+            function initTheme() {
+                const savedTheme = localStorage.getItem(STORAGE_KEY_THEME);
+                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+
+                const toggleBtn = document.getElementById('theme-toggle');
+                if (toggleBtn) {
+                    toggleBtn.addEventListener('click', () => {
+                        const isDark = document.documentElement.classList.toggle('dark');
+                        try {
+                            localStorage.setItem(STORAGE_KEY_THEME, isDark ? 'dark' : 'light');
+                        } catch (e) { /* abaikan jika storage diblokir */ }
+                    });
+                }
+            }
+
+            // =========================================================================
+            // 5. NAVIGASI TAB INTERAKTIF
+            // =========================================================================
+            function initTabs() {
+                const tabButtons = document.querySelectorAll('.tab-btn');
+                const tabPanels = document.querySelectorAll('.tab-panel');
+
+                tabButtons.forEach((btn) => {
+                    btn.addEventListener('click', () => {
+                        const targetId = btn.getAttribute('data-tab');
+
+                        // Reset status tombol
+                        tabButtons.forEach((b) => {
+                            b.classList.remove('bg-indigo-600', 'text-white', 'shadow-sm', 'font-semibold');
+                            b.classList.add('text-slate-600', 'dark:text-slate-300', 'hover:bg-slate-200/70', 'dark:hover:bg-slate-800', 'font-medium');
+                        });
+
+                        // Aktifkan tombol terpilih
+                        btn.classList.remove('text-slate-600', 'dark:text-slate-300', 'hover:bg-slate-200/70', 'dark:hover:bg-slate-800', 'font-medium');
+                        btn.classList.add('bg-indigo-600', 'text-white', 'shadow-sm', 'font-semibold');
+
+                        // Tampilkan panel terpilih
+                        tabPanels.forEach((panel) => {
+                            if (panel.id === targetId) {
+                                panel.classList.remove('hidden');
+                            } else {
+                                panel.classList.add('hidden');
+                            }
+                        });
+                    });
+                });
+            }
+
+            // =========================================================================
+            // 6. RENDER KATALOG MESIN AI GRATIS (DOM API AMAN)
+            // =========================================================================
+            function renderAiTools(filterCategory = 'all') {
+                const grid = document.getElementById('ai-tools-grid');
+                if (!grid) return;
+
+                // Bersihkan kontainer secara aman
+                while (grid.firstChild) {
+                    grid.removeChild(grid.firstChild);
+                }
+
+                const filtered = filterCategory === 'all'
+                    ? AI_TOOLS_DATA
+                    : AI_TOOLS_DATA.filter((item) => item.category === filterCategory);
+
+                filtered.forEach((tool) => {
+                    const card = document.createElement('article');
+                    card.className = 'bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between hover:border-indigo-400 dark:hover:border-indigo-600 transition';
+
+                    const topWrap = document.createElement('div');
+                    topWrap.className = 'space-y-3';
+
+                    const badge = document.createElement('span');
+                    badge.className = `inline-block px-2.5 py-1 rounded-lg text-xs font-semibold ${tool.badgeColor}`;
+                    badge.textContent = tool.categoryLabel;
+
+                    const title = document.createElement('h3');
+                    title.className = 'text-lg font-bold text-slate-900 dark:text-white';
+                    title.textContent = tool.name;
+
+                    const strengthP = document.createElement('p');
+                    strengthP.className = 'text-sm text-slate-600 dark:text-slate-300 leading-relaxed';
+                    strengthP.textContent = tool.strengths;
+
+                    const infoBox = document.createElement('div');
+                    infoBox.className = 'p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 space-y-2 text-xs';
+
+                    const limitDiv = document.createElement('div');
+                    const limitLabel = document.createElement('strong');
+                    limitLabel.className = 'text-slate-800 dark:text-slate-200';
+                    limitLabel.textContent = 'Kuota Gratis: ';
+                    const limitText = document.createElement('span');
+                    limitText.className = 'text-slate-600 dark:text-slate-400';
+                    limitText.textContent = tool.freeLimit;
+                    limitDiv.appendChild(limitLabel);
+                    limitDiv.appendChild(limitText);
+
+                    const bestDiv = document.createElement('div');
+                    const bestLabel = document.createElement('strong');
+                    bestLabel.className = 'text-slate-800 dark:text-slate-200';
+                    bestLabel.textContent = 'Terbaik Untuk: ';
+                    const bestText = document.createElement('span');
+                    bestText.className = 'text-slate-600 dark:text-slate-400';
+                    bestText.textContent = tool.bestFor;
+                    bestDiv.appendChild(bestLabel);
+                    bestDiv.appendChild(bestText);
+
+                    infoBox.appendChild(limitDiv);
+                    infoBox.appendChild(bestDiv);
+
+                    topWrap.appendChild(badge);
+                    topWrap.appendChild(title);
+                    topWrap.appendChild(strengthP);
+                    topWrap.appendChild(infoBox);
+
+                    const link = document.createElement('a');
+                    link.href = tool.url;
+                    link.target = '_blank';
+                    link.rel = 'noopener noreferrer';
+                    link.className = 'mt-5 inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-600 text-slate-800 dark:text-slate-200 text-xs font-semibold transition';
+                    link.textContent = 'Kunjungi Platform Resmi ↗';
+
+                    card.appendChild(topWrap);
+                    card.appendChild(link);
+                    grid.appendChild(card);
+                });
+            }
+
+            function initAiFilters() {
+                const filterBtns = document.querySelectorAll('.ai-filter-btn');
+                filterBtns.forEach((btn) => {
+                    btn.addEventListener('click', () => {
+                        const filterVal = btn.getAttribute('data-filter');
+                        filterBtns.forEach((b) => {
+                            b.classList.remove('bg-indigo-600', 'text-white');
+                            b.classList.add('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+                        });
+                        btn.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+                        btn.classList.add('bg-indigo-600', 'text-white');
+
+                        renderAiTools(filterVal);
+                    });
+                });
+            }
+
+            // =========================================================================
+            // 7. GENERATOR TEMPLATE PROMPT MODULAR
+            // =========================================================================
+            function updateGeneratedPrompt() {
+                const nameInput = document.getElementById('inp-project-name');
+                const goalInput = document.getElementById('inp-project-goal');
+                const stackInput = document.getElementById('inp-tech-stack');
+                const featuresInput = document.getElementById('inp-features');
+                const outputBox = document.getElementById('generated-prompt-output');
+
+                const secXss = document.getElementById('sec-xss').checked;
+                const secEnv = document.getElementById('sec-env').checked;
+                const secVal = document.getElementById('sec-val').checked;
+                const secHeaders = document.getElementById('sec-headers').checked;
+
+                const projectName = nameInput.value.trim() || '[Isi Nama Proyek Website]';
+                const projectGoal = goalInput.value.trim() || '[Jelaskan tujuan utama dan target pengguna website]';
+                const techStack = stackInput.value;
+                const features = featuresInput.value.trim() || '1. [Fitur Utama 1]\n2. [Fitur Utama 2]\n3. [Fitur Utama 3]';
+
+                const securityRules = [];
+                if (secXss) {
+                    securityRules.push('- Anti-XSS: Dilarang merender input pengguna mentah menggunakan innerHTML. Wajib gunakan textContent atau fungsi sanitasi DOM.');
+                }
+                if (secEnv) {
+                    securityRules.push('- Keamanan Kredensial: Dilarang melakukan hardcode API key atau token rahasia di dalam kode frontend. Gunakan variabel lingkungan (.env) dan sediakan .env.example.');
+                }
+                if (secVal) {
+                    securityRules.push('- Validasi & Error Handling: Validasi semua tipe dan panjang input pengguna. Tangani kondisi data kosong (empty state) serta error dengan pesan yang ramah tanpa membocorkan stack trace.');
+                }
+                if (secHeaders) {
+                    securityRules.push('- Security Headers: Sertakan konfigurasi header keamanan dasar (X-Frame-Options: DENY, X-Content-Type-Options: nosniff, Referrer-Policy) yang siap diterapkan saat deploy ke Vercel.');
+                }
+
+                const securitySection = securityRules.length > 0
+                    ? securityRules.join('\n')
+                    : '- Terapkan praktik keamanan web standar dan validasi input dasar.';
+
+                const promptText = `Bertindaklah sebagai Senior Full-Stack Developer dan Application Security Engineer. Bangun sebuah website yang fungsional, responsif (mobile-first), dan menerapkan prinsip Security by Design dengan spesifikasi berikut:
+
+### 1. Identitas & Tujuan Proyek
+- Nama Proyek: ${projectName}
+- Tujuan & Target Pengguna: ${projectGoal}
+
+### 2. Arsitektur & Tech Stack
+- Teknologi: ${techStack}
+
+### 3. Fitur Fungsional Utama
+${features}
+
+### 4. Standar Keamanan Wajib (Security by Design)
+${securitySection}
+
+### 5. Aturan Penulisan Kode
+- Tuliskan seluruh kode secara lengkap dan langsung siap dijalankan.
+- Dilarang keras memotong kode dengan placeholder seperti "// implementasikan di sini".
+- Berikan komentar ringkas pada bagian logika utama dan mekanisme keamanan.`;
+
+                // Gunakan .value pada textarea agar aman dari injeksi HTML
+                outputBox.value = promptText;
+            }
+
+            function initPromptGenerator() {
+                const inputs = ['inp-project-name', 'inp-project-goal', 'inp-tech-stack', 'inp-features', 'sec-xss', 'sec-env', 'sec-val', 'sec-headers'];
+                inputs.forEach((id) => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.addEventListener('input', updateGeneratedPrompt);
+                        el.addEventListener('change', updateGeneratedPrompt);
+                    }
+                });
+
+                // Tombol isi contoh otomatis
+                const fillBtn = document.getElementById('btn-fill-example');
+                if (fillBtn) {
+                    fillBtn.addEventListener('click', () => {
+                        document.getElementById('inp-project-name').value = 'Kalkulator Anggaran & Tabungan Pribadi';
+                        document.getElementById('inp-project-goal').value = 'Membantu mahasiswa dan pekerja mencatat pemasukan, pengeluaran, serta simulasi target tabungan secara lokal di browser.';
+                        document.getElementById('inp-features').value = '1. Form pencatatan transaksi (Pemasukan/Pengeluaran) dengan kategori\n2. Ringkasan saldo otomatis dan grafik persentase pengeluaran\n3. Fitur ekspor laporan ke format CSV dan penyimpanan otomatis di LocalStorage';
+                        updateGeneratedPrompt();
+                        showToast('Contoh spesifikasi proyek berhasil diisi!');
+                    });
+                }
+
+                // Tombol salin prompt (menggunakan document.execCommand('copy') sesuai kompatibilitas iFrame)
+                const copyBtn = document.getElementById('btn-copy-prompt');
+                if (copyBtn) {
+                    copyBtn.addEventListener('click', () => {
+                        const outputBox = document.getElementById('generated-prompt-output');
+                        if (!outputBox) return;
+
+                        outputBox.select();
+                        outputBox.setSelectionRange(0, 99999);
+
+                        try {
+                            const success = document.execCommand('copy');
+                            if (success) {
+                                showToast('Template prompt berhasil disalin ke clipboard!');
+                            } else {
+                                showToast('Silakan salin teks secara manual (Ctrl+C).');
+                            }
+                        } catch (err) {
+                            showToast('Silakan salin teks secara manual (Ctrl+C).');
+                        }
+                        window.getSelection().removeAllRanges();
+                    });
+                }
+
+                updateGeneratedPrompt();
+            }
+
+            // =========================================================================
+            // 8. CEKLIS INTERAKTIF DEPLOYMENT (GITHUB & VERCEL) + PROGRESS BAR
+            // =========================================================================
+            function getTotalChecklistCount() {
+                return DEPLOY_CHECKLIST_STAGES.reduce((acc, stage) => acc + stage.items.length, 0);
+            }
+
+            function updateProgressIndicators() {
+                const total = getTotalChecklistCount();
+                let doneCount = 0;
+
+                DEPLOY_CHECKLIST_STAGES.forEach((stage) => {
+                    stage.items.forEach((item) => {
+                        if (completedSteps[item.id] === true) {
+                            doneCount++;
+                        }
+                    });
+                });
+
+                const percentage = total > 0 ? Math.round((doneCount / total) * 100) : 0;
+
+                const bar = document.getElementById('global-progress-bar');
+                const text = document.getElementById('global-progress-text');
+                const navBadge = document.getElementById('nav-badge-count');
+                const summaryPill = document.getElementById('checklist-summary-pill');
+
+                if (bar) bar.style.width = `${percentage}%`;
+                if (text) text.textContent = `${percentage}% (${doneCount}/${total})`;
+                if (navBadge) navBadge.textContent = `${doneCount}/${total}`;
+                if (summaryPill) summaryPill.textContent = `${doneCount} dari ${total} Selesai (${percentage}%)`;
+            }
+
+            function renderChecklistStages() {
+                const container = document.getElementById('checklist-stages-container');
+                if (!container) return;
+
+                while (container.firstChild) {
+                    container.removeChild(container.firstChild);
+                }
+
+                DEPLOY_CHECKLIST_STAGES.forEach((stage, stageIdx) => {
+                    const stageCard = document.createElement('div');
+                    stageCard.className = 'rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-800/30 p-5 space-y-4';
+
+                    // Header Tahap
+                    const headerDiv = document.createElement('div');
+                    const stageTitle = document.createElement('h3');
+                    stageTitle.className = 'text-base font-bold text-slate-900 dark:text-white';
+                    stageTitle.textContent = stage.stageTitle;
+
+                    const stageDesc = document.createElement('p');
+                    stageDesc.className = 'text-xs text-slate-500 dark:text-slate-400 mt-0.5';
+                    stageDesc.textContent = stage.stageDesc;
+
+                    headerDiv.appendChild(stageTitle);
+                    headerDiv.appendChild(stageDesc);
+                    stageCard.appendChild(headerDiv);
+
+                    // Daftar Item
+                    const itemsList = document.createElement('div');
+                    itemsList.className = 'space-y-3';
+
+                    stage.items.forEach((item) => {
+                        const isChecked = completedSteps[item.id] === true;
+
+                        const itemWrapper = document.createElement('div');
+                        itemWrapper.className = `p-4 rounded-xl border transition ${isChecked
+                            ? 'bg-emerald-50/70 dark:bg-emerald-950/25 border-emerald-200 dark:border-emerald-900/60'
+                            : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800'}`;
+
+                        const rowTop = document.createElement('div');
+                        rowTop.className = 'flex items-start justify-between gap-3';
+
+                        // Label & Checkbox
+                        const label = document.createElement('label');
+                        label.className = 'flex items-start gap-3 cursor-pointer flex-1 select-none';
+
+                        const checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.checked = isChecked;
+                        checkbox.className = 'mt-0.5 w-5 h-5 rounded-md text-indigo-600 focus:ring-indigo-500 border-slate-300 dark:border-slate-700 cursor-pointer shrink-0';
+
+                        const titleSpan = document.createElement('span');
+                        titleSpan.className = `text-sm font-medium leading-snug ${isChecked
+                            ? 'line-through text-slate-500 dark:text-slate-400'
+                            : 'text-slate-800 dark:text-slate-100'}`;
+                        titleSpan.textContent = item.title;
+
+                        checkbox.addEventListener('change', () => {
+                            completedSteps[item.id] = checkbox.checked;
+                            saveChecklistState();
+                            updateProgressIndicators();
+                            renderChecklistStages();
+                            if (checkbox.checked) {
+                                showToast('Langkah ditandai selesai!');
+                            }
+                        });
+
+                        label.appendChild(checkbox);
+                        label.appendChild(titleSpan);
+
+                        // Tombol Panduan Detail
+                        const toggleGuideBtn = document.createElement('button');
+                        toggleGuideBtn.type = 'button';
+                        toggleGuideBtn.className = 'px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 transition shrink-0';
+                        toggleGuideBtn.textContent = 'Panduan';
+
+                        rowTop.appendChild(label);
+                        rowTop.appendChild(toggleGuideBtn);
+
+                        // Box Panduan Ekspansi
+                        const guideBox = document.createElement('div');
+                        guideBox.className = 'hidden mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300 leading-relaxed pl-8';
+                        guideBox.textContent = item.guide;
+
+                        toggleGuideBtn.addEventListener('click', () => {
+                            const isHidden = guideBox.classList.contains('hidden');
+                            if (isHidden) {
+                                guideBox.classList.remove('hidden');
+                                toggleGuideBtn.textContent = 'Tutup';
+                            } else {
+                                guideBox.classList.add('hidden');
+                                toggleGuideBtn.textContent = 'Panduan';
+                            }
+                        });
+
+                        itemWrapper.appendChild(rowTop);
+                        itemWrapper.appendChild(guideBox);
+                        itemsList.appendChild(itemWrapper);
+                    });
+
+                    stageCard.appendChild(itemsList);
+                    container.appendChild(stageCard);
+                });
+
+                updateProgressIndicators();
+            }
+
+            function initChecklistReset() {
+                const resetBtn = document.getElementById('btn-reset-checklist');
+                const modal = document.getElementById('reset-modal');
+                const cancelBtn = document.getElementById('btn-cancel-reset');
+                const confirmBtn = document.getElementById('btn-confirm-reset');
+
+                if (!resetBtn || !modal) return;
+
+                resetBtn.addEventListener('click', () => {
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                });
+
+                cancelBtn.addEventListener('click', () => {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                });
+
+                confirmBtn.addEventListener('click', () => {
+                    completedSteps = {};
+                    saveChecklistState();
+                    renderChecklistStages();
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                    showToast('Seluruh progres ceklis telah direset.');
+                });
+            }
+
+            // =========================================================================
+            // 9. INISIALISASI APLIKASI
+            // =========================================================================
+            document.addEventListener('DOMContentLoaded', () => {
+                initTheme();
+                initTabs();
+                renderAiTools('all');
+                initAiFilters();
+                initPromptGenerator();
+                renderChecklistStages();
+                initChecklistReset();
+            });
+        })();
+    </script>
+</body>
+</html>
