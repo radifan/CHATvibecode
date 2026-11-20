@@ -46,8 +46,8 @@
                 <!-- Global Progress Bar -->
                 <div class="flex-1 max-w-md mx-2 sm:mx-6">
                     <div class="flex items-center justify-between text-xs font-medium mb-1">
-                        <span class="text-slate-600 dark:text-slate-300">Progres Ceklis Deploy</span>
-                        <span id="global-progress-text" class="text-indigo-600 dark:text-indigo-400 font-bold">0% (0/15)</span>
+                        <span class="text-slate-600 dark:text-slate-300">Progres Ceklis Go-Live</span>
+                        <span id="global-progress-text" class="text-indigo-600 dark:text-indigo-400 font-bold">0% (0/18)</span>
                     </div>
                     <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
                         <div id="global-progress-bar" class="h-full bg-gradient-to-r from-indigo-500 to-emerald-500 rounded-full transition-all duration-300" style="width: 0%"></div>
@@ -81,8 +81,8 @@
                     <span>3. Keamanan Vibe Coding</span>
                 </button>
                 <button data-tab="tab-prompt" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-800">
-                    <span>4. Prompting & Ceklis Deploy</span>
-                    <span id="nav-badge-count" class="ml-1 px-2 py-0.5 text-xs rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-900/60 dark:text-indigo-300">0/15</span>
+                    <span>4. Prompting & Deploy Go Live</span>
+                    <span id="nav-badge-count" class="ml-1 px-2 py-0.5 text-xs rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-900/60 dark:text-indigo-300">0/18</span>
                 </button>
             </div>
         </nav>
@@ -368,10 +368,15 @@
         <!-- ===================================================================== -->
         <section id="tab-prompt" class="tab-panel hidden space-y-8">
 
-            <!-- Bagian A: Kriteria Prompt yang Baik -->
-            <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
-                <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Bagian A: 4 Pilar Prompt Berkualitas (Fungsional & Aman)</h2>
-                <p class="text-sm text-slate-600 dark:text-slate-300 mb-4">Sebelum menulis prompt, pastikan empat komponen berikut tercantum agar AI tidak menghasilkan kode setengah jadi atau rentan:</p>
+            <!-- Bagian A: Kriteria Prompt Berkualitas & Generator Template Modular -->
+            <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+                <div>
+                    <span class="inline-block px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 text-xs font-bold uppercase tracking-wider mb-2">Tahap Awal &middot; Prompt Engineering</span>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">Bagian A: Kriteria & Generator Template Prompt Modular</h2>
+                    <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Susun instruksi yang jelas agar AI menghasilkan kode fungsional, aman dari celah siber, dan bebas dari potongan kode yang hilang.</p>
+                </div>
+
+                <!-- 4 Pilar Prompt -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div class="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/50">
                         <div class="font-bold text-sm text-indigo-700 dark:text-indigo-300">1. Peran & Konteks Stack</div>
@@ -383,103 +388,394 @@
                     </div>
                     <div class="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/50">
                         <div class="font-bold text-sm text-indigo-700 dark:text-indigo-300">3. Batasan Keamanan Eksplisit</div>
-                        <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">Wajibkan anti-XSS (<code>textContent</code>), validasi input berlapis, dan larangan hardcode API key.</p>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">Wajibkan anti-XSS (<code>textContent</code>), validasi berlapis, dan larangan hardcode API key.</p>
                     </div>
                     <div class="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/50">
                         <div class="font-bold text-sm text-indigo-700 dark:text-indigo-300">4. Anti-Placeholder Rule</div>
                         <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">Larang AI menyingkat kode dengan komentar seperti <code>// tulis logika di sini</code>.</p>
                     </div>
                 </div>
-            </div>
 
-            <!-- Bagian B: Generator / Editor Template Prompt Interaktif -->
-            <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
-                    <div>
-                        <h2 class="text-xl font-bold text-slate-900 dark:text-white">Bagian B: Generator Template Prompt Modular</h2>
-                        <p class="text-sm text-slate-600 dark:text-slate-300">Isi kolom di bawah ini untuk merakit prompt siap pakai yang sesuai dengan kebutuhan website Anda.</p>
+                <!-- Tabel Matriks Kriteria Audit Prompt (C1 - C10) -->
+                <div class="pt-4 border-t border-slate-100 dark:border-slate-800 space-y-3">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <h3 class="text-base font-bold text-slate-900 dark:text-white">Matriks 10 Kriteria Fungsionalitas, Bisnis & Keamanan Web (C1&ndash;C10)</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Gunakan tabel indikator berikut sebagai standar spesifikasi wajib dalam prompt agar website hasil AI siap rilis dan lolos uji kelayakan.</p>
+                        </div>
+                        <span class="self-start sm:self-center px-2.5 py-1 rounded-lg bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 text-xs font-semibold">10 Parameter Audit</span>
                     </div>
-                    <button id="btn-fill-example" type="button" class="self-start sm:self-auto px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
-                        Isi Contoh Otomatis
-                    </button>
+
+                    <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
+                        <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-800 text-left text-xs sm:text-sm">
+                            <thead class="bg-slate-100/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200 font-semibold">
+                                <tr>
+                                    <th scope="col" class="px-4 py-3 w-20">Kode</th>
+                                    <th scope="col" class="px-4 py-3 w-64">Nama Kriteria</th>
+                                    <th scope="col" class="px-4 py-3">Parameter / Indikator yang Diperiksa</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200 dark:divide-slate-800 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300">
+                                <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition">
+                                    <td class="px-4 py-3 font-mono font-bold text-indigo-600 dark:text-indigo-400">C1</td>
+                                    <td class="px-4 py-3 font-semibold text-slate-900 dark:text-white">Navigasi &amp; CTA</td>
+                                    <td class="px-4 py-3">Jumlah tautan navigasi utama (<code>nav</code>/<code>header</code>), tombol ajakan bertindak (CTA), ketiadaan <em>broken link</em>, serta fitur pencarian/filter.</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition">
+                                    <td class="px-4 py-3 font-mono font-bold text-indigo-600 dark:text-indigo-400">C2</td>
+                                    <td class="px-4 py-3 font-semibold text-slate-900 dark:text-white">Responsivitas &amp; Viewport</td>
+                                    <td class="px-4 py-3">Keberadaan konfigurasi tag <code>&lt;meta name="viewport"&gt;</code> untuk tampilan <em>mobile</em>.</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition">
+                                    <td class="px-4 py-3 font-mono font-bold text-indigo-600 dark:text-indigo-400">C3</td>
+                                    <td class="px-4 py-3 font-semibold text-slate-900 dark:text-white">Informasi Profil / About Us</td>
+                                    <td class="px-4 py-3">Ketersediaan bagian atau halaman informasi profil usaha ("Tentang Kami" / "About Us").</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition">
+                                    <td class="px-4 py-3 font-mono font-bold text-indigo-600 dark:text-indigo-400">C4</td>
+                                    <td class="px-4 py-3 font-semibold text-slate-900 dark:text-white">Kanal Komunikasi Umum</td>
+                                    <td class="px-4 py-3">Keberadaan informasi kontak umum seperti alamat, email, telepon, atau halaman "Hubungi Kami".</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition">
+                                    <td class="px-4 py-3 font-mono font-bold text-indigo-600 dark:text-indigo-400">C5</td>
+                                    <td class="px-4 py-3 font-semibold text-slate-900 dark:text-white">Kontak Langsung Penjual</td>
+                                    <td class="px-4 py-3">Keberadaan dan validitas tautan kontak langsung ke penjual (seperti nomor tujuan WhatsApp yang aktif/valid dan tidak rusak).</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition">
+                                    <td class="px-4 py-3 font-mono font-bold text-indigo-600 dark:text-indigo-400">C6</td>
+                                    <td class="px-4 py-3 font-semibold text-slate-900 dark:text-white">Alur Keranjang Belanja</td>
+                                    <td class="px-4 py-3">Ketersediaan fitur keranjang belanja / troli (<em>add to cart</em>).</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition">
+                                    <td class="px-4 py-3 font-mono font-bold text-indigo-600 dark:text-indigo-400">C7</td>
+                                    <td class="px-4 py-3 font-semibold text-slate-900 dark:text-white">Mekanisme Pembayaran</td>
+                                    <td class="px-4 py-3">Ketersediaan alur atau informasi metode pembayaran (<em>checkout</em>, QRIS, transfer bank, <em>e-wallet</em>).</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition">
+                                    <td class="px-4 py-3 font-mono font-bold text-rose-600 dark:text-rose-400">C8</td>
+                                    <td class="px-4 py-3 font-semibold text-slate-900 dark:text-white">HTTP Security Headers</td>
+                                    <td class="px-4 py-3">Kelengkapan 4 <em>header</em> keamanan HTTP: <code>Content-Security-Policy</code> (CSP), <code>X-Frame-Options</code>, <code>X-Content-Type-Options</code>, dan <code>Strict-Transport-Security</code> (HSTS).</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition">
+                                    <td class="px-4 py-3 font-mono font-bold text-indigo-600 dark:text-indigo-400">C9</td>
+                                    <td class="px-4 py-3 font-semibold text-slate-900 dark:text-white">Performa &amp; Pemuatan</td>
+                                    <td class="px-4 py-3">Status keterjangkauan halaman (<em>reachable</em>), ketiadaan <em>error</em> pemuatan, dan kelengkapan atribut <code>src</code> pada elemen gambar.</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition">
+                                    <td class="px-4 py-3 font-mono font-bold text-rose-600 dark:text-rose-400">C10</td>
+                                    <td class="px-4 py-3 font-semibold text-slate-900 dark:text-white">Struktur Semantik DOM</td>
+                                    <td class="px-4 py-3">Validitas judul halaman (<code>&lt;title&gt;</code>), struktur halaman (termasuk deteksi <em>client-side SPA</em>), serta kebersihan HTML dari komentar sensitif atau informasi <em>debug</em>.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                    <!-- Form Input -->
-                    <div class="lg:col-span-6 space-y-4">
-                        <div>
-                            <label for="inp-project-name" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Nama Proyek Website</label>
-                            <input type="text" id="inp-project-name" placeholder="Contoh: Katalog Kopi Nusantara" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
-                        </div>
+                <!-- Generator Form & Live Output -->
+                <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5">
+                        <h3 class="text-base font-bold text-slate-900 dark:text-white">Rakit Prompt Spesifikasi Website Anda</h3>
+                        <button id="btn-fill-example" type="button" class="self-start sm:self-auto px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+                            Isi Contoh Otomatis
+                        </button>
+                    </div>
 
-                        <div>
-                            <label for="inp-project-goal" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Tujuan Utama & Target Pengguna</label>
-                            <input type="text" id="inp-project-goal" placeholder="Contoh: Menampilkan daftar menu kopi dan menghitung estimasi pesanan untuk pelanggan UMKM" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
-                        </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                        <!-- Form Input -->
+                        <div class="lg:col-span-6 space-y-4">
+                            <div>
+                                <label for="inp-project-name" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Nama Proyek Website</label>
+                                <input type="text" id="inp-project-name" placeholder="Contoh: Katalog Kopi Nusantara" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                            </div>
 
-                        <div>
-                            <label for="inp-tech-stack" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Tech Stack & Struktur File</label>
-                            <select id="inp-tech-stack" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
-                                <option value="Single-file HTML5, Tailwind CSS (CDN), dan Vanilla JavaScript (ES6+) dengan penyimpanan LocalStorage">Static Web: HTML5 + Tailwind CSS + Vanilla JS (1 File Utuh)</option>
-                                <option value="Multi-file HTML5, Tailwind CSS, dan Vanilla JavaScript (terpisah: index.html, app.js)">Static Web: HTML5 + Tailwind CSS + Vanilla JS (Multi-File)</option>
-                                <option value="React (Vite) + Tailwind CSS dengan state management hooks">Frontend Modern: React + Tailwind CSS</option>
-                                <option value="Next.js (App Router) + Tailwind CSS + Supabase (PostgreSQL & Auth)">Full-Stack: Next.js + Tailwind CSS + Supabase</option>
-                                <option value="Python Flask + HTML/Tailwind CSS + SQLite dengan SQLAlchemy">Full-Stack: Python Flask + SQLite</option>
-                            </select>
-                        </div>
+                            <div>
+                                <label for="inp-project-goal" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Tujuan Utama & Target Pengguna</label>
+                                <input type="text" id="inp-project-goal" placeholder="Contoh: Menampilkan daftar menu kopi dan menghitung estimasi pesanan untuk pelanggan UMKM" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                            </div>
 
-                        <div>
-                            <label for="inp-features" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Daftar Fitur Utama (Pisahkan per baris)</label>
-                            <textarea id="inp-features" rows="4" placeholder="1. Pencarian dan filter kategori produk secara real-time&#10;2. Keranjang belanja interaktif yang tersimpan di browser&#10;3. Formulir pemesanan dengan validasi nomor WhatsApp" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"></textarea>
-                        </div>
+                            <div>
+                                <label for="inp-tech-stack" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Tech Stack & Struktur File</label>
+                                <select id="inp-tech-stack" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                                    <option value="Single-file HTML5, Tailwind CSS (CDN), dan Vanilla JavaScript (ES6+) dengan penyimpanan LocalStorage">Static Web: HTML5 + Tailwind CSS + Vanilla JS (1 File Utuh)</option>
+                                    <option value="Multi-file HTML5, Tailwind CSS, dan Vanilla JavaScript (terpisah: index.html, style.css, app.js)">Static Web: HTML5 + Tailwind CSS + Vanilla JS (Multi-File)</option>
+                                    <option value="React (Vite) + Tailwind CSS dengan state management hooks">Frontend Modern: React + Tailwind CSS</option>
+                                    <option value="Next.js (App Router) + Tailwind CSS + Supabase (PostgreSQL & Auth)">Full-Stack: Next.js + Tailwind CSS + Supabase</option>
+                                    <option value="Python Flask + HTML/Tailwind CSS + SQLite dengan SQLAlchemy">Full-Stack: Python Flask + SQLite</option>
+                                </select>
+                            </div>
 
-                        <div>
-                            <span class="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">Opsi Keamanan Wajib</span>
-                            <div class="space-y-2 text-xs text-slate-700 dark:text-slate-300">
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" id="sec-xss" checked class="rounded text-indigo-600 focus:ring-indigo-500">
-                                    <span>Anti-XSS (Wajib <code>textContent</code> / sanitasi DOM, dilarang <code>innerHTML</code> mentah)</span>
-                                </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" id="sec-env" checked class="rounded text-indigo-600 focus:ring-indigo-500">
-                                    <span>Isolasi Kredensial (Dilarang hardcode API key, gunakan <code>.env</code>)</span>
-                                </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" id="sec-val" checked class="rounded text-indigo-600 focus:ring-indigo-500">
-                                    <span>Validasi Input Ketat & Penanganan Error Ramah Pengguna</span>
-                                </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" id="sec-headers" checked class="rounded text-indigo-600 focus:ring-indigo-500">
-                                    <span>Sertakan konfigurasi Security Headers (<code>vercel.json</code> / CSP)</span>
-                                </label>
+                            <div>
+                                <label for="inp-features" class="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Daftar Fitur Utama (Pisahkan per baris)</label>
+                                <textarea id="inp-features" rows="3" placeholder="1. Pencarian dan filter kategori produk secara real-time&#10;2. Keranjang belanja interaktif yang tersimpan di browser&#10;3. Formulir pemesanan dengan validasi nomor WhatsApp" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"></textarea>
+                            </div>
+
+                            <div>
+                                <span class="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">Sertakan Kriteria C1&ndash;C10 ke Dalam Prompt</span>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700 dark:text-slate-300 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-800">
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="crit-c1" checked class="rounded text-indigo-600 focus:ring-indigo-500">
+                                        <span><strong>C1</strong> Navigasi, CTA &amp; Pencarian</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="crit-c2" checked class="rounded text-indigo-600 focus:ring-indigo-500">
+                                        <span><strong>C2</strong> Responsivitas &amp; Viewport</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="crit-c3" checked class="rounded text-indigo-600 focus:ring-indigo-500">
+                                        <span><strong>C3</strong> Profil / About Us</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="crit-c4" checked class="rounded text-indigo-600 focus:ring-indigo-500">
+                                        <span><strong>C4</strong> Kanal Komunikasi Umum</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="crit-c5" class="rounded text-indigo-600 focus:ring-indigo-500">
+                                        <span><strong>C5</strong> Kontak Langsung (WhatsApp)</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="crit-c6" class="rounded text-indigo-600 focus:ring-indigo-500">
+                                        <span><strong>C6</strong> Alur Keranjang Belanja</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="crit-c7" class="rounded text-indigo-600 focus:ring-indigo-500">
+                                        <span><strong>C7</strong> Mekanisme Pembayaran</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="crit-c8" checked class="rounded text-indigo-600 focus:ring-indigo-500">
+                                        <span><strong>C8</strong> 4 HTTP Security Headers</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="crit-c9" checked class="rounded text-indigo-600 focus:ring-indigo-500">
+                                        <span><strong>C9</strong> Performa &amp; Validitas Gambar</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="crit-c10" checked class="rounded text-indigo-600 focus:ring-indigo-500">
+                                        <span><strong>C10</strong> Semantik DOM &amp; Anti-Debug</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div>
+                                <span class="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">Opsi Keamanan Kode &amp; Arsitektur</span>
+                                <div class="space-y-2 text-xs text-slate-700 dark:text-slate-300">
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="sec-xss" checked class="rounded text-indigo-600 focus:ring-indigo-500">
+                                        <span>Anti-XSS (Wajib <code>textContent</code> / sanitasi DOM, dilarang <code>innerHTML</code> mentah)</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="sec-env" checked class="rounded text-indigo-600 focus:ring-indigo-500">
+                                        <span>Isolasi Kredensial (Dilarang hardcode API key, gunakan <code>.env</code> & <code>.gitignore</code>)</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="sec-val" checked class="rounded text-indigo-600 focus:ring-indigo-500">
+                                        <span>Validasi Input Ketat & Penanganan Error Ramah Pengguna</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="sec-db" class="rounded text-indigo-600 focus:ring-indigo-500">
+                                        <span>Keamanan Database & Auth (<em>Prepared Statements</em>, proteksi CSRF & kontrol akses RBAC/RLS)</span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Live Output Prompt -->
-                    <div class="lg:col-span-6 flex flex-col">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">Hasil Prompt Siap Salin</span>
-                            <button id="btn-copy-prompt" type="button" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-sm transition">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
-                                <span id="copy-prompt-label">Salin Prompt</span>
-                            </button>
+                        <!-- Live Output Prompt -->
+                        <div class="lg:col-span-6 flex flex-col">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">Hasil Prompt Siap Salin</span>
+                                <button id="btn-copy-prompt" type="button" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-sm transition">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                                    <span id="copy-prompt-label">Salin Prompt</span>
+                                </button>
+                            </div>
+                            <textarea id="generated-prompt-output" readonly class="flex-1 min-h-[420px] w-full p-4 rounded-xl bg-slate-900 text-slate-100 font-mono text-xs leading-relaxed border border-slate-700 focus:outline-none resize-none"></textarea>
                         </div>
-                        <textarea id="generated-prompt-output" readonly class="flex-1 min-h-[340px] w-full p-4 rounded-xl bg-slate-900 text-slate-100 font-mono text-xs leading-relaxed border border-slate-700 focus:outline-none resize-none"></textarea>
                     </div>
                 </div>
             </div>
 
-            <!-- Bagian C: Ceklis Interaktif Dari Ide hingga Deploy Gratis (GitHub & Vercel) -->
+            <!-- Bagian B: End-to-End Blueprint dari 0 hingga Siap Go Live (Berbasis GitHub Web UI) -->
+            <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <span class="inline-block px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-xs font-bold uppercase tracking-wider mb-2">End-to-End Blueprint &middot; Tanpa Terminal (100% Web UI)</span>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">Bagian B: Panduan Lengkap GitHub Web UI &amp; Vercel (Dari 0 Hingga Go Live)</h2>
+                    <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Ikuti langkah demi langkah langsung melalui tampilan antarmuka laman web <strong>github.com</strong> dan <strong>vercel.com</strong> tanpa perlu menginstal Git CLI atau mengetik perintah terminal.</p>
+                </div>
+
+                <!-- Alur Visual Ringkas 5 Fase -->
+                <div class="grid grid-cols-1 sm:grid-cols-5 gap-3">
+                    <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700">
+                        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400">Fase 1</div>
+                        <div class="text-sm font-bold mt-0.5">Kode AI &amp; Audit C1&ndash;C10</div>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Generate kode, uji lokal &amp; bersihkan komentar debug.</p>
+                    </div>
+                    <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700">
+                        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400">Fase 2</div>
+                        <div class="text-sm font-bold mt-0.5">Akun &amp; Repo GitHub</div>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Buat akun, aktifkan 2FA &amp; klik <em>New repository</em>.</p>
+                    </div>
+                    <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700">
+                        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400">Fase 3</div>
+                        <div class="text-sm font-bold mt-0.5">Upload &amp; Commit di Web</div>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Klik <em>Add file &rarr; Upload files</em> &amp; <em>Commit changes</em>.</p>
+                    </div>
+                    <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700">
+                        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400">Fase 4</div>
+                        <div class="text-sm font-bold mt-0.5">Branch &amp; Pull Request UI</div>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Buat branch via dropdown, audit diff &amp; <em>Merge PR</em>.</p>
+                    </div>
+                    <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700">
+                        <div class="text-xs font-bold text-emerald-600 dark:text-emerald-400">Fase 5</div>
+                        <div class="text-sm font-bold mt-0.5">Deploy Vercel Go Live</div>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Import repo, set Env Vars &amp; rilis URL HTTPS publik.</p>
+                    </div>
+                </div>
+
+                <!-- Detail Teknis 5 Fase Berbasis Laman Web UI -->
+                <div class="space-y-5">
+                    <!-- FASE 1 -->
+                    <div class="rounded-2xl border border-slate-200 dark:border-slate-800 p-5 bg-slate-50/50 dark:bg-slate-800/20 space-y-3">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">Fase 1: Persiapan &amp; Pembuatan Kode dengan AI</h3>
+                            <span class="px-2.5 py-1 rounded-lg bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 text-xs font-semibold">Lokal &middot; Persiapan</span>
+                        </div>
+                        <ol class="list-decimal pl-5 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                            <li><strong>Rakit Prompt &amp; Generate Kode:</strong> Salin prompt dari Bagian A (yang sudah memuat indikator C1&ndash;C10) ke mesin AI pilihan Anda. Simpan kode yang dihasilkan ke folder khusus di komputer Anda (misalnya file utama <code>index.html</code>).</li>
+                            <li><strong>Uji Fungsionalitas &amp; Responsivitas di Browser:</strong> Klik ganda file <code>index.html</code> untuk membukanya di browser, tekan <code>F12</code> &rarr; tab <strong>Console</strong> (pastikan nol error merah), lalu aktifkan ikon ponsel/tablet untuk memastikan tampilan responsif (Kriteria C2 &amp; C9).</li>
+                            <li><strong>Siapkan File <code>vercel.json</code> (Untuk Kriteria C8 Security Headers):</strong> Jika ingin menerapkan 4 header keamanan HTTP secara otomatis saat deploy ke Vercel, buat file bernama <code>vercel.json</code> di folder proyek Anda dengan isi berikut:</li>
+                        </ol>
+                        <div class="bg-slate-900 rounded-xl p-4 border border-slate-800">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-mono text-slate-400">Contoh isi file vercel.json (Kriteria C8: 4 HTTP Security Headers)</span>
+                                <button type="button" data-copy-target="cmd-fase-1" class="copy-cmd-btn px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 font-medium transition">Salin JSON</button>
+                            </div>
+                            <pre id="cmd-fase-1" class="text-xs font-mono text-emerald-400 overflow-x-auto leading-relaxed">{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
+        { "key": "Content-Security-Policy", "value": "default-src 'self' https: 'unsafe-inline'; img-src 'self' https: data:;" }
+      ]
+    }
+  ]
+}</pre>
+                        </div>
+                    </div>
+
+                    <!-- FASE 2 -->
+                    <div class="rounded-2xl border border-slate-200 dark:border-slate-800 p-5 bg-slate-50/50 dark:bg-slate-800/20 space-y-3">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">Fase 2: Membuat Akun &amp; Repository di Laman GitHub</h3>
+                            <span class="px-2.5 py-1 rounded-lg bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 text-xs font-semibold">Laman GitHub.com &middot; UI</span>
+                        </div>
+                        <ol class="list-decimal pl-5 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                            <li><strong>Buat Akun GitHub:</strong> Buka <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-indigo-600 dark:text-indigo-400 underline font-medium">github.com</a>, klik tombol <strong>Sign up</strong> di pojok kanan atas, masukkan email aktif, buat kata sandi kuat, tentukan <em>username</em>, dan selesaikan kode verifikasi yang dikirim ke email Anda.</li>
+                            <li><strong>Aktifkan Wajib Two-Factor Authentication (2FA):</strong> Klik foto profil Anda di pojok kanan atas &rarr; pilih <strong>Settings</strong> &rarr; di menu kiri klik <strong>Password and authentication</strong> &rarr; klik tombol hijau <strong>Enable two-factor authentication</strong> dan pindai kode QR menggunakan aplikasi Authenticator di ponsel Anda.</li>
+                            <li><strong>Buat Repository Baru via Tombol UI:</strong> Kembali ke halaman beranda GitHub, klik ikon <strong><code>+</code></strong> di bilah atas (sebelah ikon profil) &rarr; pilih <strong>New repository</strong>.</li>
+                            <li><strong>Konfigurasi Pengaturan Repository:</strong>
+                                <ul class="list-disc pl-5 mt-1 space-y-1 text-xs text-slate-600 dark:text-slate-400">
+                                    <li><strong>Repository name:</strong> Ketik nama proyek tanpa spasi (contoh: <code>katalog-kopi-nusantara</code>).</li>
+                                    <li><strong>Public / Private:</strong> Pilih lingkaran <strong>Public</strong> agar dapat langsung di-deploy gratis pada paket Hobby Vercel.</li>
+                                    <li><strong>Initialize this repository with:</strong> Centang kotak <strong>Add a README file</strong> agar cabang utama (<code>main</code>) langsung terbentuk secara otomatis.</li>
+                                    <li>Klik tombol hijau <strong>Create repository</strong> di bagian bawah halaman.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <!-- FASE 3 -->
+                    <div class="rounded-2xl border border-slate-200 dark:border-slate-800 p-5 bg-slate-50/50 dark:bg-slate-800/20 space-y-3">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">Fase 3: Unggah File &amp; Commit Pertama di Laman GitHub (Tanpa Terminal)</h3>
+                            <span class="px-2.5 py-1 rounded-lg bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 text-xs font-semibold">Laman GitHub.com &middot; Drag &amp; Drop</span>
+                        </div>
+                        <ol class="list-decimal pl-5 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                            <li><strong>Buka Menu Unggah File di Laman Repository:</strong> Pada halaman utama repository Anda (tab <strong>&lt;&gt; Code</strong>), klik tombol dropdown <strong>Add file</strong> (di sebelah kanan atas daftar file) &rarr; pilih <strong>Upload files</strong>.</li>
+                            <li><strong>Seret &amp; Lepas (Drag &amp; Drop) File Website:</strong> Seret file <code>index.html</code> (serta <code>vercel.json</code> atau aset lainnya) dari folder komputer Anda ke area kotak <em>"Drag files here to add them to your repository"</em>, atau klik tautan <strong>choose your files</strong>. <em>(Pastikan Anda tidak ikut menyeret file <code>.env</code> yang berisi kunci rahasia!)</em>.</li>
+                            <li><strong>Tulis Pesan Commit Pertama &amp; Simpan ke Cabang <code>main</code>:</strong>
+                                <ul class="list-disc pl-5 mt-1 space-y-1 text-xs text-slate-600 dark:text-slate-400">
+                                    <li>Gulir ke bagian bawah halaman pada kotak berjudul <strong>Commit changes</strong>.</li>
+                                    <li>Pada kolom baris pertama (ringkasan commit), ketik pesan yang jelas, misalnya: <code>feat: unggah struktur awal website</code>.</li>
+                                    <li>Pastikan opsi radio <strong>Commit directly to the <code>main</code> branch</strong> terpilih.</li>
+                                    <li>Klik tombol hijau <strong>Commit changes</strong>. Tunggu beberapa detik hingga Anda diarahkan kembali ke halaman utama repository dan melihat file <code>index.html</code> sudah terdaftar di cabang <code>main</code>.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <!-- FASE 4 -->
+                    <div class="rounded-2xl border border-slate-200 dark:border-slate-800 p-5 bg-slate-50/50 dark:bg-slate-800/20 space-y-3">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">Fase 4: Membuat Branch, Edit/Commit Perubahan &amp; Pull Request di Laman GitHub</h3>
+                            <span class="px-2.5 py-1 rounded-lg bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-300 text-xs font-semibold">Quality Gate &middot; UI Review</span>
+                        </div>
+                        <p class="text-sm text-slate-600 dark:text-slate-300">Saat Anda memperbarui kode hasil iterasi AI, gunakan fitur cabang (<em>branch</em>) dan <strong>Pull Request (PR)</strong> langsung di antarmuka web GitHub agar perubahan teraudit sebelum tayang ke publik:</p>
+                        <ol class="list-decimal pl-5 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                            <li><strong>Buat Branch Fitur Baru Lewat Dropdown Cabang:</strong>
+                                <ul class="list-disc pl-5 mt-1 space-y-1 text-xs text-slate-600 dark:text-slate-400">
+                                    <li>Di halaman utama repository, klik tombol dropdown cabang bertuliskan <strong><code>main</code></strong> (di sebelah kiri atas daftar file).</li>
+                                    <li>Ketik nama cabang baru di kolom pencarian dropdown, misalnya: <code>fitur-update-ui</code>.</li>
+                                    <li>Klik tulisan biru <strong>Create branch: <code>fitur-update-ui</code> from <code>main</code></strong> yang muncul di bawahnya. Anda otomatis berpindah ke cabang baru tersebut.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Perbarui File &amp; Lakukan Commit pada Cabang Fitur:</strong>
+                                <ul class="list-disc pl-5 mt-1 space-y-1 text-xs text-slate-600 dark:text-slate-400">
+                                    <li><strong>Cara A (Edit Langsung di Web):</strong> Klik nama file (misal <code>index.html</code>) &rarr; klik ikon <strong>pensil (Edit this file)</strong> di pojok kanan atas kotak kode &rarr; tempelkan kode pembaruan dari AI &rarr; klik tombol hijau <strong>Commit changes...</strong> di kanan atas.</li>
+                                    <li><strong>Cara B (Unggah File Pengganti):</strong> Klik <strong>Add file &rarr; Upload files</strong> (pastikan dropdown cabang di kiri atas menunjukkan <code>fitur-update-ui</code>), unggah file terbaru dengan nama yang sama untuk menimpanya, lalu klik <strong>Commit changes</strong>.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Buka Pull Request (PR) di Laman GitHub:</strong>
+                                <ul class="list-disc pl-5 mt-1 space-y-1 text-xs text-slate-600 dark:text-slate-400">
+                                    <li>Kembali ke tab <strong>&lt;&gt; Code</strong>. Anda akan melihat banner kuning bertuliskan <em>"fitur-update-ui had recent pushes"</em>; klik tombol hijau <strong>Compare &amp; pull request</strong> (atau buka tab <strong>Pull requests &rarr; New pull request</strong>).</li>
+                                    <li>Pastikan panah penggabungan menunjukkan <strong><code>base: main</code> &larr; <code>compare: fitur-update-ui</code></strong>.</li>
+                                    <li>Isi judul dan deskripsi perubahan, lalu klik tombol hijau <strong>Create pull request</strong>.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Audit Kode di Tab <em>Files changed</em> &amp; Merge Pull Request:</strong>
+                                <ul class="list-disc pl-5 mt-1 space-y-1 text-xs text-slate-600 dark:text-slate-400">
+                                    <li>Di halaman Pull Request, klik tab <strong>Files changed</strong> untuk memeriksa perbedaan baris hijau (ditambah) dan merah (dihapus). Pastikan tidak ada API key yang bocor, <code>innerHTML</code> berbahaya, atau komentar debug sensitif (Kriteria C10).</li>
+                                    <li>Kembali ke tab <strong>Conversation</strong>, gulir ke bawah, lalu klik tombol hijau <strong>Merge pull request</strong> &rarr; klik <strong>Confirm merge</strong>.</li>
+                                    <li>Setelah status berubah menjadi ungu (<em>Merged</em>), klik tombol <strong>Delete branch</strong> untuk membersihkan cabang sementara.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <!-- FASE 5 -->
+                    <div class="rounded-2xl border border-emerald-200 dark:border-emerald-900/60 p-5 bg-emerald-50/40 dark:bg-emerald-950/20 space-y-3">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">Fase 5: Publish ke Vercel &amp; Continuous Deployment (Go Live)</h3>
+                            <span class="px-2.5 py-1 rounded-lg bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300 text-xs font-semibold">Vercel.com &middot; Publik HTTPS</span>
+                        </div>
+                        <ol class="list-decimal pl-5 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                            <li><strong>Buat Akun Hobby Gratis di Vercel:</strong> Kunjungi <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" class="text-emerald-700 dark:text-emerald-400 underline font-medium">vercel.com</a>, klik <strong>Sign Up</strong>, pilih paket <strong>Hobby (Gratis)</strong>, lalu klik <strong>Continue with GitHub</strong> dan berikan izin akses ke akun GitHub Anda.</li>
+                            <li><strong>Import Git Repository:</strong> Di dashboard Vercel, klik tombol <strong>Add New... &rarr; Project</strong>, cari nama repository Anda pada daftar <em>Import Git Repository</em>, lalu klik tombol <strong>Import</strong>.</li>
+                            <li><strong>Atur Preset &amp; Environment Variables:</strong>
+                                <ul class="list-disc pl-5 mt-1 space-y-1 text-xs text-slate-600 dark:text-slate-400">
+                                    <li><strong>Framework Preset:</strong> Pilih <em>Other</em> jika menggunakan HTML/CSS/JS statis, atau biarkan terdeteksi otomatis untuk Next.js/React/Vite.</li>
+                                    <li><strong>Environment Variables:</strong> Jika aplikasi membutuhkan API key rahasia, buka bagian <em>Environment Variables</em>, masukkan pasangan <code>KEY</code> dan <code>VALUE</code>, lalu klik <strong>Add</strong>.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Klik Deploy &amp; Dapatkan URL Publik:</strong> Tekan tombol <strong>Deploy</strong> dan tunggu 30&ndash;60 detik. Setelah muncul layar perayaan, klik tombol <strong>Visit</strong> atau kartu pratinjau untuk membuka alamat publik ber-HTTPS Anda (contoh: <code>https://nama-proyek.vercel.app</code>).</li>
+                            <li><strong>Otomatisasi Continuous Deployment &amp; Preview URL:</strong> Setiap kali Anda menekan <strong>Merge pull request</strong> ke cabang <code>main</code> di laman GitHub, Vercel otomatis membangun ulang dan memperbarui website publik Anda. Selain itu, setiap Pull Request yang masih terbuka di GitHub otomatis mendapatkan <strong>Preview URL</strong> sementara dari Vercel untuk diuji secara online sebelum di-merge.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bagian C: Ceklis Interaktif Go-Live (18 Item Terstruktur + Catatan Pribadi) -->
             <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-800">
                     <div>
-                        <h2 class="text-xl font-bold text-slate-900 dark:text-white">Bagian C: Ceklis Langkah demi Langkah Hingga Deploy Gratis</h2>
-                        <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Centang setiap langkah yang telah Anda selesaikan. Progres otomatis tersimpan di browser Anda.</p>
+                        <span class="inline-block px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 text-xs font-bold uppercase tracking-wider mb-2">Interactive Tracker &middot; Tersimpan Otomatis</span>
+                        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">Bagian C: Ceklis Interaktif Go-Live (18 Langkah Verifikasi)</h2>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Centang setiap tahapan yang sudah dikerjakan, buka detail panduan perintah jika diperlukan, dan simpan catatan pribadi (seperti URL Repo & URL Live Vercel) langsung di tiap item.</p>
                     </div>
-                    <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-3 shrink-0">
                         <span id="checklist-summary-pill" class="px-3.5 py-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 text-xs font-bold border border-emerald-200 dark:border-emerald-900">
-                            0 dari 15 Selesai
+                            0 dari 18 Selesai
                         </span>
                         <button id="btn-reset-checklist" type="button" class="px-3.5 py-2 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-900/50 text-xs font-semibold transition border border-rose-200 dark:border-rose-900/60">
                             Reset Progres
@@ -527,207 +823,249 @@
             'use strict';
 
             // =========================================================================
-            // 1. DATA KATALOG MESIN AI GRATIS
+            // 1. DATA KATALOG MESIN AI GRATIS UNTUK MEMBUAT WEBSITE
             // =========================================================================
             const AI_TOOLS_DATA = [
                 {
                     name: 'Google AI Studio (Gemini)',
                     category: 'llm',
                     categoryLabel: 'Chat LLM & Canvas',
-                    badgeColor: 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300',
-                    strengths: 'Jendela konteks sangat besar (hingga jutaan token), ideal untuk memproses seluruh kode proyek sekaligus dan melakukan iterasi desain cepat.',
-                    freeLimit: 'Gratis melalui Google AI Studio & aplikasi Gemini dengan batas kuota harian/menit yang sangat longgar.',
-                    bestFor: 'Merancang arsitektur penuh, menghasilkan aplikasi satu file lengkap, dan audit kode panjang.',
+                    badge: 'Gratis Kuota Besar',
+                    description: 'Akses langsung ke model Gemini terbaru dengan jendela konteks sangat panjang (1M+ token), ideal untuk menghasilkan aplikasi web 1 file utuh maupun menganalisis banyak file kode sekaligus.',
+                    pros: 'Gratis tanpa kartu kredit, cepat, dan sangat akurat untuk struktur HTML/Tailwind/JS modern.',
                     url: 'https://aistudio.google.com/'
                 },
                 {
                     name: 'Claude (Anthropic)',
                     category: 'llm',
                     categoryLabel: 'Chat LLM & Canvas',
-                    badgeColor: 'bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300',
-                    strengths: 'Fitur Claude Artifacts merender tampilan HTML/React secara langsung di panel samping sehingga hasil UI bisa langsung diuji.',
-                    freeLimit: 'Tersedia paket gratis harian dengan pembatasan jumlah pesan setiap beberapa jam.',
-                    bestFor: 'Prototyping komponen antarmuka (UI) interaktif dan visualisasi data instan.',
+                    badge: 'Gratis + Artifacts',
+                    description: 'Dilengkapi fitur Claude Artifacts yang langsung merender pratinjau live website di sebelah jendela chat sehingga memudahkan iterasi desain UI secara visual.',
+                    pros: 'Kualitas penulisan kode bersih dan tampilan pratinjau langsung di browser.',
                     url: 'https://claude.ai/'
                 },
                 {
                     name: 'ChatGPT (OpenAI)',
                     category: 'llm',
                     categoryLabel: 'Chat LLM & Canvas',
-                    badgeColor: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300',
-                    strengths: 'Fitur Canvas memungkinkan pengeditan bagian kode tertentu secara kolaboratif tanpa harus menulis ulang seluruh file.',
-                    freeLimit: 'Paket gratis mencakup akses model standar dan Canvas dengan kuota penggunaan harian.',
-                    bestFor: 'Debugging pesan error, penjelasan konsep backend, dan penyusunan skrip konfigurasi.',
+                    badge: 'Gratis + Canvas',
+                    description: 'Menyediakan mode Canvas untuk menyunting bagian kode tertentu secara interaktif tanpa harus menulis ulang keseluruhan file dari awal.',
+                    pros: 'Ekosistem luas dan mudah diajak berdiskusi merancang arsitektur fitur.',
                     url: 'https://chatgpt.com/'
                 },
                 {
                     name: 'Cursor AI Editor',
                     category: 'ide',
                     categoryLabel: 'AI Code Editor / IDE',
-                    badgeColor: 'bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300',
-                    strengths: 'Editor kode berbasis VS Code dengan fitur Composer/Agent yang mampu membuat dan mengedit banyak file proyek secara otomatis.',
-                    freeLimit: 'Paket Hobby (Gratis) mencakup kuota pelengkapan kode (Tab) dan permintaan AI bulanan terbatas.',
-                    bestFor: 'Proyek multi-file (Next.js, React, Python) di komputer lokal.',
+                    badge: 'Free Tier (Hobby)',
+                    description: 'Editor kode berbasis VS Code dengan integrasi AI bawaan (Composer & Tab Autocomplete) yang memahami seluruh struktur folder proyek lokal Anda.',
+                    pros: 'Sangat efisien untuk mengedit banyak file dan memperbaiki error langsung di proyek.',
                     url: 'https://www.cursor.com/'
                 },
                 {
                     name: 'Windsurf (Codeium)',
                     category: 'ide',
                     categoryLabel: 'AI Code Editor / IDE',
-                    badgeColor: 'bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-300',
-                    strengths: 'IDE agentik dengan mesin Cascade yang memahami konteks seluruh repositori serta dapat menjalankan perintah terminal.',
-                    freeLimit: 'Paket Free menyediakan fitur autocomplete tanpa batas dasar dan kredit agen AI bulanan.',
-                    bestFor: 'Pengembangan aplikasi terstruktur dengan asisten AI yang aktif memeriksa struktur folder.',
-                    url: 'https://windsurf.com/'
+                    badge: 'Free Tier Generous',
+                    description: 'IDE berbasis agen AI (Cascade) yang mampu membuat file, menjalankan perintah pemeriksaan, dan menyelaraskan perubahan lintas file secara otomatis.',
+                    pros: 'Paket gratisnya memberikan kuota autocompletion dan kredit agen yang cukup untuk proyek pemula.',
+                    url: 'https://codeium.com/windsurf'
                 },
                 {
                     name: 'GitHub Copilot Free',
                     category: 'ide',
                     categoryLabel: 'AI Code Editor / IDE',
-                    badgeColor: 'bg-slate-200 text-slate-800 dark:bg-slate-800 dark:text-slate-200',
-                    strengths: 'Terintegrasi langsung ke dalam VS Code dan ekosistem GitHub untuk saran kode real-time dan obrolan kode.',
-                    freeLimit: 'Tersedia gratis untuk semua akun GitHub dengan kuota bulanan (pelengkapan kode & pesan chat).',
-                    bestFor: 'Pengguna VS Code yang ingin bantuan AI langsung saat menulis atau merapikan kode.',
+                    badge: 'Gratis di VS Code',
+                    description: 'Kini tersedia paket gratis langsung di dalam Visual Studio Code dengan dukungan multi-model (GPT-4o & Claude) untuk saran kode dan chat inline.',
+                    pros: 'Terintegrasi mulus dengan akun GitHub dan VS Code tanpa perlu berpindah editor.',
                     url: 'https://github.com/features/copilot'
                 },
                 {
                     name: 'v0 by Vercel',
                     category: 'builder',
                     categoryLabel: 'Full-Stack Web Builder',
-                    badgeColor: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300',
-                    strengths: 'Menghasilkan komponen UI modern berbasis Tailwind CSS & shadcn/ui dengan kualitas estetika tinggi dan deploy 1-klik ke Vercel.',
-                    freeLimit: 'Paket gratis memberikan kredit pesan bulanan untuk membuat dan mempratinjau UI.',
-                    bestFor: 'Membuat tampilan halaman depan (landing page) dan dashboard modern dengan cepat.',
+                    badge: 'Kredit Gratis Bulanan',
+                    description: 'Generator antarmuka web berbasis prompt yang menghasilkan komponen React/Tailwind modern dengan pratinjau instan dan deployment sekali klik ke Vercel.',
+                    pros: 'Hasil desain UI sangat estetis dan siap terhubung dengan ekosistem Vercel.',
                     url: 'https://v0.dev/'
                 },
                 {
                     name: 'Bolt.new (StackBlitz)',
                     category: 'builder',
                     categoryLabel: 'Full-Stack Web Builder',
-                    badgeColor: 'bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-300',
-                    strengths: 'Menjalankan lingkungan Node.js penuh di dalam browser (WebContainers)—menginstal paket npm dan menjalankan server langsung dari prompt.',
-                    freeLimit: 'Tersedia token gratis harian dan bulanan untuk membangun serta mengunduh kode proyek.',
-                    bestFor: 'Membangun aplikasi full-stack langsung dari browser tanpa instalasi lokal.',
+                    badge: 'Token Gratis Harian',
+                    description: 'Lingkungan pengembangan full-stack langsung di browser (WebContainers) yang dapat menginstal paket npm, menjalankan server, dan menampilkan preview live.',
+                    pros: 'Tidak perlu instalasi apa pun di komputer lokal untuk membangun aplikasi React/Next.js.',
                     url: 'https://bolt.new/'
                 },
                 {
                     name: 'Lovable',
                     category: 'builder',
                     categoryLabel: 'Full-Stack Web Builder',
-                    badgeColor: 'bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300',
-                    strengths: 'Fokus pada pembuatan aplikasi web interaktif yang terhubung mudah dengan database Supabase dan sinkronisasi dua arah ke GitHub.',
-                    freeLimit: 'Paket gratis menawarkan batas pesan harian untuk membangun prototipe web.',
-                    bestFor: 'Membuat aplikasi web dengan database dan autentikasi yang langsung terhubung ke GitHub.',
+                    badge: 'Kredit Gratis Harian',
+                    description: 'Platform pembangunan aplikasi web berbasis percakapan dengan sinkronisasi dua arah langsung ke repositori GitHub dan integrasi database Supabase.',
+                    pros: 'Sangat cepat untuk membuat prototipe aplikasi full-stack dan menyimpannya ke GitHub.',
                     url: 'https://lovable.dev/'
                 }
             ];
 
             // =========================================================================
-            // 2. DATA CEKLIS LANGKAH DEMI LANGKAH (DARI IDE HINGGA DEPLOY GITHUB & VERCEL)
+            // 2. DATA CEKLIS LANGKAH DEMI LANGKAH (18 ITEM: LAMAN GITHUB UI & VERCEL)
             // =========================================================================
             const DEPLOY_CHECKLIST_STAGES = [
                 {
-                    stageTitle: 'Tahap 1: Persiapan & Perancangan Prompt',
-                    stageDesc: 'Menentukan spesifikasi website dan menyusun instruksi yang aman sebelum membuka AI.',
+                    stageTitle: 'Fase 1: Persiapan & Pembuatan Kode dengan AI (Kriteria C1–C10)',
+                    stageDesc: 'Merancang spesifikasi aman berbasis 10 parameter audit, menghasilkan kode, dan menguji lokal.',
                     items: [
                         {
                             id: 'step-1-1',
-                            title: 'Tentukan tujuan website, struktur halaman, dan target pengguna',
-                            guide: 'Catat fitur inti yang benar-benar dibutuhkan (misal: katalog produk, kalkulator, atau portofolio) agar AI tidak membuat fitur berlebihan yang sulit dipelihara.'
+                            priority: 'Wajib',
+                            title: 'Tentukan tujuan website, struktur halaman, dan indikator C1–C10 yang dibutuhkan',
+                            guide: 'Tinjau tabel Matriks Kriteria C1–C10 (Navigasi/CTA, Viewport, About Us, Kontak, WhatsApp, Keranjang, Pembayaran, Security Headers, Performa Gambar, dan Semantik DOM) sesuai jenis website yang akan dibuat.',
+                            notePlaceholder: 'Catatan: Daftar kriteria C1–C10 yang diterapkan pada proyek ini...'
                         },
                         {
                             id: 'step-1-2',
-                            title: 'Rakit prompt menggunakan Generator Template di Bagian B',
-                            guide: 'Pastikan bagian Tech Stack, Daftar Fitur, dan Opsi Keamanan Wajib sudah terisi jelas sebelum disalin ke mesin AI pilihan Anda.'
+                            priority: 'Wajib',
+                            title: 'Rakit & salin prompt lengkap menggunakan Generator Template di Bagian A',
+                            guide: 'Isi Nama Proyek, Tujuan, Tech Stack, Fitur Utama, centang kriteria C1–C10 serta opsi keamanan, lalu klik "Salin Prompt" dan tempelkan ke mesin AI pilihan Anda.',
+                            notePlaceholder: 'Catatan: Mesin AI yang digunakan (misal: Gemini / Claude / v0)...'
                         },
                         {
                             id: 'step-1-3',
-                            title: 'Siapkan folder proyek lokal di komputer Anda',
-                            guide: 'Buat folder baru khusus proyek ini (misal: C:\\Projects\\website-saya) agar file kode sumber tersimpan rapi dan mudah diunggah ke GitHub.'
+                            priority: 'Wajib',
+                            title: 'Simpan kode hasil AI ke komputer lokal & uji di browser (Desktop & Mobile)',
+                            guide: 'Simpan file hasil AI (misal: index.html) di folder lokal. Buka di browser, tekan F12 > tab Console untuk memastikan nol error, dan aktifkan mode tampilan ponsel untuk menguji C2 (Responsivitas).',
+                            notePlaceholder: 'Catatan: Hasil pengujian tampilan desktop & mobile...'
+                        },
+                        {
+                            id: 'step-1-4',
+                            priority: 'Keamanan',
+                            title: 'Audit kode lokal (cek innerHTML, API key, komentar debug) & siapkan vercel.json',
+                            guide: 'Pastikan tidak ada innerHTML mentah, API key hardcoded, atau komentar sensitif (C10). Siapkan juga file vercel.json untuk menerapkan 4 HTTP Security Headers (C8) saat deploy.',
+                            notePlaceholder: 'Catatan: Status audit keamanan lokal & kesiapan file vercel.json...'
                         }
                     ]
                 },
                 {
-                    stageTitle: 'Tahap 2: Generasi Kode & Pengujian Lokal',
-                    stageDesc: 'Menghasilkan kode dari AI dan memverifikasi fungsionalitas serta keamanan dasar di browser.',
+                    stageTitle: 'Fase 2: Membuat Akun & Repository di Laman GitHub',
+                    stageDesc: 'Menyiapkan akun pengembang ber-2FA dan membuat repositori kode sumber melalui browser.',
                     items: [
                         {
                             id: 'step-2-1',
-                            title: 'Generate kode di mesin AI & simpan ke file proyek (misal: index.html)',
-                            guide: 'Tempelkan prompt Anda ke Google AI Studio, Claude, atau Cursor. Simpan seluruh kode hasil AI ke dalam folder proyek lokal Anda.'
+                            priority: 'Wajib',
+                            title: 'Buat akun GitHub di laman github.com & selesaikan verifikasi email',
+                            guide: 'Buka https://github.com di browser, klik tombol "Sign up" di pojok kanan atas, isi email, password kuat, serta username, lalu masukkan kode verifikasi dari email.',
+                            notePlaceholder: 'Catatan: Username GitHub Anda...'
                         },
                         {
                             id: 'step-2-2',
-                            title: 'Uji semua fitur interaktif & tampilan responsif (Desktop & Mobile)',
-                            guide: 'Buka file di browser, tekan F12 (Inspect Element) lalu aktifkan mode perangkat seluler untuk memastikan tidak ada tombol terpotong atau error di tab Console.'
+                            priority: 'Keamanan',
+                            title: 'Aktifkan Two-Factor Authentication (2FA) di menu Settings GitHub',
+                            guide: 'Klik foto profil di pojok kanan atas GitHub > Settings > Password and authentication > klik "Enable two-factor authentication" dan hubungkan dengan aplikasi Authenticator.',
+                            notePlaceholder: 'Catatan: Metode 2FA yang diaktifkan...'
                         },
                         {
                             id: 'step-2-3',
-                            title: 'Audit keamanan dasar: Cek kebocoran API Key & penggunaan innerHTML',
-                            guide: 'Gunakan fitur pencarian (Ctrl+F) di editor kode untuk mencari kata kunci seperti "apiKey", "secret", atau "innerHTML". Pastikan tidak ada kunci rahasia yang tertulis langsung di kode.'
+                            priority: 'Wajib',
+                            title: 'Klik ikon "+" > New repository, pilih Public & centang Add a README file',
+                            guide: 'Di laman GitHub, klik tanda "+" di bilah atas > "New repository". Isi nama repo tanpa spasi, pilih opsi "Public", centang "Add a README file" agar branch main langsung terbentuk, lalu klik "Create repository".',
+                            notePlaceholder: 'Catatan: Simpan URL Repository GitHub Anda di sini...'
                         }
                     ]
                 },
                 {
-                    stageTitle: 'Tahap 3: Manajemen Kode Sumber di GitHub (Gratis)',
-                    stageDesc: 'Menyimpan kode sumber ke repositori GitHub sebagai pusat kendali versi sebelum deployment.',
+                    stageTitle: 'Fase 3: Unggah File & Commit Pertama di Laman GitHub (Web UI)',
+                    stageDesc: 'Mengunggah file kode sumber langsung melalui antarmuka web GitHub tanpa terminal.',
                     items: [
                         {
                             id: 'step-3-1',
-                            title: 'Buat akun GitHub & buat Repositori Baru (New Repository)',
-                            guide: 'Buka github.com, login, klik tombol "+" di pojok kanan atas > "New repository". Beri nama repositori (misal: my-vibe-website), pilih Public atau Private, lalu klik "Create repository".'
+                            priority: 'Wajib',
+                            title: 'Klik tombol "Add file" > "Upload files" di laman utama repository GitHub',
+                            guide: 'Pastikan Anda berada di tab "<> Code" pada halaman repository Anda, klik dropdown "Add file" di sisi kanan atas daftar file, lalu pilih "Upload files".',
+                            notePlaceholder: 'Catatan: Daftar file yang siap diunggah...'
                         },
                         {
                             id: 'step-3-2',
-                            title: 'Pastikan file rahasia (.env) masuk ke dalam file .gitignore',
-                            guide: 'Jika proyek Anda memakai file .env untuk menyimpan kunci API, buat file bernama .gitignore dan tulis ".env" di baris pertama agar kunci rahasia tidak ikut terunggah ke GitHub.'
+                            priority: 'Keamanan',
+                            title: 'Seret & lepas (Drag & Drop) file website ke area unggah (tanpa file rahasia .env)',
+                            guide: 'Seret file index.html dan vercel.json ke kotak "Drag files here to add them to your repository". Pastikan tidak ada file .env atau kredensial rahasia yang ikut diseret.',
+                            notePlaceholder: 'Catatan: Verifikasi file yang diunggah bebas kredensial rahasia...'
                         },
                         {
                             id: 'step-3-3',
-                            title: 'Unggah (Push) kode sumber ke repositori GitHub',
-                            guide: 'Anda bisa memakai aplikasi GitHub Desktop (pilih Add Local Repository > Publish) atau menjalankan perintah terminal: git init, git add ., git commit -m "Initial commit", git branch -M main, git remote add origin [URL_REPO], dan git push -u origin main.'
+                            priority: 'Wajib',
+                            title: 'Isi pesan commit pertama & klik "Commit changes" ke cabang utama (main)',
+                            guide: 'Gulir ke kotak "Commit changes" di bawah, ketik pesan commit (misal: "feat: unggah struktur awal website"), pilih "Commit directly to the main branch", lalu klik tombol hijau "Commit changes".',
+                            notePlaceholder: 'Catatan: Pesan commit pertama Anda...'
                         }
                     ]
                 },
                 {
-                    stageTitle: 'Tahap 4: Deployment Gratis ke Vercel',
-                    stageDesc: 'Menghubungkan repositori GitHub ke Vercel agar website dapat diakses publik melalui internet.',
+                    stageTitle: 'Fase 4: Branching, Edit/Commit & Pull Request di Laman GitHub',
+                    stageDesc: 'Mengelola pembaruan kode menggunakan fitur branch dan Pull Request langsung di browser.',
                     items: [
                         {
                             id: 'step-4-1',
-                            title: 'Daftar / Login ke Vercel menggunakan akun GitHub',
-                            guide: 'Kunjungi vercel.com, klik "Sign Up" atau "Log In", lalu pilih "Continue with GitHub" agar Vercel otomatis memiliki izin membaca repositori proyek Anda.'
+                            priority: 'Praktik Terbaik',
+                            title: 'Buat cabang baru lewat dropdown "main" di kiri atas laman repository',
+                            guide: 'Klik tombol dropdown bertuliskan "main" di kiri atas daftar file, ketik nama cabang baru (misal: "fitur-update-ui"), lalu klik tulisan "Create branch: fitur-update-ui from main".',
+                            notePlaceholder: 'Catatan: Nama cabang fitur yang dibuat di UI GitHub...'
                         },
                         {
                             id: 'step-4-2',
-                            title: 'Klik "Add New Project" dan Import repositori website Anda',
-                            guide: 'Di dashboard Vercel, klik "Add New..." > "Project", cari nama repositori GitHub yang baru saja Anda buat, lalu klik tombol "Import".'
+                            priority: 'Praktik Terbaik',
+                            title: 'Edit kode (ikon pensil) atau unggah pembaruan file & Commit ke cabang fitur',
+                            guide: 'Pada cabang fitur tersebut, klik file yang ingin diubah > klik ikon pensil (Edit this file) atau gunakan "Add file > Upload files", lalu klik "Commit changes" ke cabang fitur.',
+                            notePlaceholder: 'Catatan: Perubahan kode yang di-commit pada cabang fitur...'
                         },
                         {
                             id: 'step-4-3',
-                            title: 'Atur Environment Variables (jika ada) & klik tombol "Deploy"',
-                            guide: 'Jika website membutuhkan kunci API dari file .env, masukkan pada bagian "Environment Variables" di pengaturan Vercel. Setelah itu klik "Deploy" dan tunggu proses build sekitar 30–60 detik.'
+                            priority: 'Keamanan',
+                            title: 'Klik "Compare & pull request", audit tab "Files changed" & klik "Merge pull request"',
+                            guide: 'Klik tombol hijau "Compare & pull request" (pastikan base: main <- compare: fitur-update-ui), buat PR, periksa baris kode di tab "Files changed", lalu klik "Merge pull request" > "Confirm merge".',
+                            notePlaceholder: 'Catatan: Status Merge PR & penghapusan branch sementara...'
                         }
                     ]
                 },
                 {
-                    stageTitle: 'Tahap 5: Verifikasi Akhir & Pemeliharaan Berkelanjutan',
-                    stageDesc: 'Memastikan website live berjalan aman dengan sertifikat SSL/HTTPS aktif.',
+                    stageTitle: 'Fase 5: Publish ke Vercel & Continuous Deployment (Go Live)',
+                    stageDesc: 'Menghubungkan GitHub ke Vercel untuk menayangkan website publik ber-HTTPS secara gratis.',
                     items: [
                         {
                             id: 'step-5-1',
-                            title: 'Buka URL produksi (*.vercel.app) & pastikan ikon gembok HTTPS aktif',
-                            guide: 'Vercel otomatis menyediakan sertifikat SSL gratis. Buka tautan publik yang diberikan Vercel melalui ponsel dan komputer untuk memastikan halaman termuat sempurna.'
+                            priority: 'Wajib',
+                            title: 'Daftar / Login ke Vercel (vercel.com) menggunakan akun GitHub',
+                            guide: 'Kunjungi https://vercel.com, klik "Sign Up", pilih paket "Hobby" (Gratis), lalu klik "Continue with GitHub" agar Vercel terhubung dengan repositori Anda.',
+                            notePlaceholder: 'Catatan: Nama akun/workspace Vercel...'
                         },
                         {
                             id: 'step-5-2',
-                            title: 'Uji ulang semua formulir & interaksi pada lingkungan live',
-                            guide: 'Pastikan tidak ada aset gambar yang gagal dimuat atau skrip yang terblokir pada domain produksi.'
+                            priority: 'Wajib',
+                            title: 'Import Repository GitHub & atur Framework Preset / Environment Variables',
+                            guide: 'Di dashboard Vercel, klik "Add New... > Project", klik "Import" pada repo Anda. Pilih Framework Preset ("Other" untuk HTML/JS statis) dan isi Environment Variables jika menggunakan API key.',
+                            notePlaceholder: 'Catatan: Framework preset & daftar Environment Variables...'
                         },
                         {
                             id: 'step-5-3',
-                            title: 'Pahami alur update otomatis (Continuous Deployment)',
-                            guide: 'Setiap kali Anda meminta AI memperbarui kode dan melakukan "git push" ke GitHub, Vercel akan otomatis membangun ulang dan memperbarui website live Anda tanpa konfigurasi ulang.'
+                            priority: 'Wajib',
+                            title: 'Klik tombol "Deploy" & tunggu proses build selesai',
+                            guide: 'Tekan tombol "Deploy" di Vercel dan tunggu sekitar 30-60 detik hingga status berubah menjadi "Ready" dan muncul pratinjau tampilan website Anda.',
+                            notePlaceholder: 'Catatan: Durasi & status build deployment...'
+                        },
+                        {
+                            id: 'step-5-4',
+                            priority: 'Wajib',
+                            title: 'Buka URL publik (*.vercel.app), verifikasi HTTPS & cek kriteria C1–C10 secara live',
+                            guide: 'Klik tombol "Visit" di Vercel untuk membuka alamat publik (misal: https://proyek-anda.vercel.app). Pastikan sertifikat SSL/HTTPS aktif, security headers (C8) terpasang, dan seluruh fitur berjalan normal.',
+                            notePlaceholder: 'Simpan URL Publik Live Website Anda di sini (https://...vercel.app)'
+                        },
+                        {
+                            id: 'step-5-5',
+                            priority: 'Opsional',
+                            title: 'Verifikasi alur Continuous Deployment & Preview URL pada Pull Request',
+                            guide: 'Pahami bahwa setiap Merge PR ke cabang main di laman GitHub otomatis memperbarui website live, sedangkan setiap PR baru otomatis menghasilkan Preview URL sementara di Vercel.',
+                            notePlaceholder: 'Catatan: Tautan Preview URL atau rencana pembaruan berikutnya...'
                         }
                     ]
                 }
@@ -736,74 +1074,109 @@
             // =========================================================================
             // 3. STATE MANAGEMENT & LOCALSTORAGE PERSISTENCE
             // =========================================================================
-            const STORAGE_KEY_CHECKLIST = 'vibecode_safehub_checklist_v1';
+            const STORAGE_KEY_CHECKLIST = 'vibecode_safehub_checklist_v2';
+            const STORAGE_KEY_NOTES = 'vibecode_safehub_notes_v2';
             const STORAGE_KEY_THEME = 'vibecode_safehub_theme_v1';
 
-            let completedSteps = loadChecklistState();
+            let completedIds = new Set();
+            let itemNotes = {};
 
-            function loadChecklistState() {
+            function loadState() {
                 try {
-                    const saved = localStorage.getItem(STORAGE_KEY_CHECKLIST);
-                    if (!saved) return {};
-                    const parsed = JSON.parse(saved);
-                    return (parsed && typeof parsed === 'object') ? parsed : {};
-                } catch (e) {
-                    return {};
+                    const savedChecklist = localStorage.getItem(STORAGE_KEY_CHECKLIST);
+                    if (savedChecklist) {
+                        const parsed = JSON.parse(savedChecklist);
+                        if (Array.isArray(parsed)) {
+                            completedIds = new Set(parsed);
+                        }
+                    }
+                    const savedNotes = localStorage.getItem(STORAGE_KEY_NOTES);
+                    if (savedNotes) {
+                        const parsedNotes = JSON.parse(savedNotes);
+                        if (parsedNotes && typeof parsedNotes === 'object') {
+                            itemNotes = parsedNotes;
+                        }
+                    }
+                } catch (err) {
+                    console.warn('Gagal membaca localStorage:', err);
                 }
             }
 
-            function saveChecklistState() {
+            function saveState() {
                 try {
-                    localStorage.setItem(STORAGE_KEY_CHECKLIST, JSON.stringify(completedSteps));
-                } catch (e) {
-                    showToast('Gagal menyimpan progres ke penyimpanan browser.');
+                    localStorage.setItem(STORAGE_KEY_CHECKLIST, JSON.stringify(Array.from(completedIds)));
+                    localStorage.setItem(STORAGE_KEY_NOTES, JSON.stringify(itemNotes));
+                } catch (err) {
+                    console.warn('Gagal menyimpan ke localStorage:', err);
                 }
             }
 
             // =========================================================================
-            // 4. UTILITAS UI (TOAST NOTIFICATION & THEME)
+            // 4. UTILITAS UI: TOAST NOTIFICATION & SAFE CLIPBOARD
             // =========================================================================
             let toastTimer = null;
-            function showToast(message) {
-                const toast = document.getElementById('toast-notification');
-                const toastMsg = document.getElementById('toast-message');
-                if (!toast || !toastMsg) return;
 
-                // Keamanan: selalu gunakan textContent untuk mencegah XSS
-                toastMsg.textContent = message;
-                toast.classList.remove('translate-y-20', 'opacity-0');
-                toast.classList.add('translate-y-0', 'opacity-100');
+            function showToast(message) {
+                const toastEl = document.getElementById('toast-notification');
+                const toastMsgEl = document.getElementById('toast-message');
+                if (!toastEl || !toastMsgEl) return;
+
+                toastMsgEl.textContent = message;
+                toastEl.classList.remove('translate-y-20', 'opacity-0');
+                toastEl.classList.add('translate-y-0', 'opacity-100');
 
                 if (toastTimer) clearTimeout(toastTimer);
                 toastTimer = setTimeout(() => {
-                    toast.classList.remove('translate-y-0', 'opacity-100');
-                    toast.classList.add('translate-y-20', 'opacity-0');
-                }, 2800);
+                    toastEl.classList.remove('translate-y-0', 'opacity-100');
+                    toastEl.classList.add('translate-y-20', 'opacity-0');
+                }, 3000);
             }
 
+            function copyTextSafely(text, successMsg) {
+                const tempTextarea = document.createElement('textarea');
+                tempTextarea.value = text;
+                tempTextarea.setAttribute('readonly', '');
+                tempTextarea.style.position = 'fixed';
+                tempTextarea.style.left = '-9999px';
+                document.body.appendChild(tempTextarea);
+                tempTextarea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast(successMsg || 'Teks berhasil disalin!');
+                } catch (err) {
+                    showToast('Gagal menyalin otomatis. Silakan salin manual.');
+                }
+                document.body.removeChild(tempTextarea);
+            }
+
+            // =========================================================================
+            // 5. TEMA GELAP / TERANG & NAVIGASI TAB
+            // =========================================================================
             function initTheme() {
-                const savedTheme = localStorage.getItem(STORAGE_KEY_THEME);
-                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-                if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-                    document.documentElement.classList.add('dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
+                const htmlEl = document.documentElement;
+                const toggleBtn = document.getElementById('theme-toggle');
+                try {
+                    const savedTheme = localStorage.getItem(STORAGE_KEY_THEME);
+                    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                        htmlEl.classList.add('dark');
+                    }
+                } catch (e) {
+                    // Abaikan jika storage dibatasi
                 }
 
-                const toggleBtn = document.getElementById('theme-toggle');
                 if (toggleBtn) {
                     toggleBtn.addEventListener('click', () => {
-                        const isDark = document.documentElement.classList.toggle('dark');
+                        htmlEl.classList.toggle('dark');
+                        const isDark = htmlEl.classList.contains('dark');
                         try {
                             localStorage.setItem(STORAGE_KEY_THEME, isDark ? 'dark' : 'light');
-                        } catch (e) { /* abaikan jika storage diblokir */ }
+                        } catch (e) {
+                            // Abaikan
+                        }
                     });
                 }
             }
 
-            // =========================================================================
-            // 5. NAVIGASI TAB INTERAKTIF
-            // =========================================================================
             function initTabs() {
                 const tabButtons = document.querySelectorAll('.tab-btn');
                 const tabPanels = document.querySelectorAll('.tab-panel');
@@ -812,17 +1185,14 @@
                     btn.addEventListener('click', () => {
                         const targetId = btn.getAttribute('data-tab');
 
-                        // Reset status tombol
                         tabButtons.forEach((b) => {
                             b.classList.remove('bg-indigo-600', 'text-white', 'shadow-sm', 'font-semibold');
                             b.classList.add('text-slate-600', 'dark:text-slate-300', 'hover:bg-slate-200/70', 'dark:hover:bg-slate-800', 'font-medium');
                         });
 
-                        // Aktifkan tombol terpilih
                         btn.classList.remove('text-slate-600', 'dark:text-slate-300', 'hover:bg-slate-200/70', 'dark:hover:bg-slate-800', 'font-medium');
                         btn.classList.add('bg-indigo-600', 'text-white', 'shadow-sm', 'font-semibold');
 
-                        // Tampilkan panel terpilih
                         tabPanels.forEach((panel) => {
                             if (panel.id === targetId) {
                                 panel.classList.remove('hidden');
@@ -835,242 +1205,264 @@
             }
 
             // =========================================================================
-            // 6. RENDER KATALOG MESIN AI GRATIS (DOM API AMAN)
+            // 6. RENDER KATALOG MESIN AI GRATIS (DOM API AMAN ANTI-XSS)
             // =========================================================================
-            function renderAiTools(filterCategory = 'all') {
+            function renderAiTools(filterCategory) {
                 const grid = document.getElementById('ai-tools-grid');
                 if (!grid) return;
 
-                // Bersihkan kontainer secara aman
                 while (grid.firstChild) {
                     grid.removeChild(grid.firstChild);
                 }
 
                 const filtered = filterCategory === 'all'
                     ? AI_TOOLS_DATA
-                    : AI_TOOLS_DATA.filter((item) => item.category === filterCategory);
+                    : AI_TOOLS_DATA.filter((tool) => tool.category === filterCategory);
 
                 filtered.forEach((tool) => {
                     const card = document.createElement('article');
-                    card.className = 'bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between hover:border-indigo-400 dark:hover:border-indigo-600 transition';
+                    card.className = 'bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-indigo-500/60 transition flex flex-col justify-between space-y-4';
 
-                    const topWrap = document.createElement('div');
-                    topWrap.className = 'space-y-3';
+                    const topWrapper = document.createElement('div');
+                    topWrapper.className = 'space-y-3';
 
-                    const badge = document.createElement('span');
-                    badge.className = `inline-block px-2.5 py-1 rounded-lg text-xs font-semibold ${tool.badgeColor}`;
-                    badge.textContent = tool.categoryLabel;
+                    const badgeRow = document.createElement('div');
+                    badgeRow.className = 'flex items-center justify-between gap-2';
 
-                    const title = document.createElement('h3');
-                    title.className = 'text-lg font-bold text-slate-900 dark:text-white';
-                    title.textContent = tool.name;
+                    const catSpan = document.createElement('span');
+                    catSpan.className = 'text-xs font-semibold text-indigo-600 dark:text-indigo-400';
+                    catSpan.textContent = tool.categoryLabel;
 
-                    const strengthP = document.createElement('p');
-                    strengthP.className = 'text-sm text-slate-600 dark:text-slate-300 leading-relaxed';
-                    strengthP.textContent = tool.strengths;
+                    const freeBadge = document.createElement('span');
+                    freeBadge.className = 'px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 text-xs font-bold';
+                    freeBadge.textContent = tool.badge;
 
-                    const infoBox = document.createElement('div');
-                    infoBox.className = 'p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 space-y-2 text-xs';
+                    badgeRow.appendChild(catSpan);
+                    badgeRow.appendChild(freeBadge);
 
-                    const limitDiv = document.createElement('div');
-                    const limitLabel = document.createElement('strong');
-                    limitLabel.className = 'text-slate-800 dark:text-slate-200';
-                    limitLabel.textContent = 'Kuota Gratis: ';
-                    const limitText = document.createElement('span');
-                    limitText.className = 'text-slate-600 dark:text-slate-400';
-                    limitText.textContent = tool.freeLimit;
-                    limitDiv.appendChild(limitLabel);
-                    limitDiv.appendChild(limitText);
+                    const titleEl = document.createElement('h3');
+                    titleEl.className = 'text-lg font-bold text-slate-900 dark:text-white';
+                    titleEl.textContent = tool.name;
 
-                    const bestDiv = document.createElement('div');
-                    const bestLabel = document.createElement('strong');
-                    bestLabel.className = 'text-slate-800 dark:text-slate-200';
-                    bestLabel.textContent = 'Terbaik Untuk: ';
-                    const bestText = document.createElement('span');
-                    bestText.className = 'text-slate-600 dark:text-slate-400';
-                    bestText.textContent = tool.bestFor;
-                    bestDiv.appendChild(bestLabel);
-                    bestDiv.appendChild(bestText);
+                    const descEl = document.createElement('p');
+                    descEl.className = 'text-sm text-slate-600 dark:text-slate-300 leading-relaxed';
+                    descEl.textContent = tool.description;
 
-                    infoBox.appendChild(limitDiv);
-                    infoBox.appendChild(bestDiv);
+                    const prosBox = document.createElement('div');
+                    prosBox.className = 'p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/70 text-xs text-slate-600 dark:text-slate-300';
+                    const prosStrong = document.createElement('strong');
+                    prosStrong.className = 'text-slate-800 dark:text-slate-200';
+                    prosStrong.textContent = 'Keunggulan: ';
+                    prosBox.appendChild(prosStrong);
+                    prosBox.appendChild(document.createTextNode(tool.pros));
 
-                    topWrap.appendChild(badge);
-                    topWrap.appendChild(title);
-                    topWrap.appendChild(strengthP);
-                    topWrap.appendChild(infoBox);
+                    topWrapper.appendChild(badgeRow);
+                    topWrapper.appendChild(titleEl);
+                    topWrapper.appendChild(descEl);
+                    topWrapper.appendChild(prosBox);
 
-                    const link = document.createElement('a');
-                    link.href = tool.url;
-                    link.target = '_blank';
-                    link.rel = 'noopener noreferrer';
-                    link.className = 'mt-5 inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-600 text-slate-800 dark:text-slate-200 text-xs font-semibold transition';
-                    link.textContent = 'Kunjungi Platform Resmi ↗';
+                    const linkEl = document.createElement('a');
+                    linkEl.href = tool.url;
+                    linkEl.target = '_blank';
+                    linkEl.rel = 'noopener noreferrer';
+                    linkEl.className = 'inline-flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-600 dark:hover:text-white text-xs font-semibold transition';
+                    linkEl.textContent = 'Kunjungi Situs Resmi \u2192';
 
-                    card.appendChild(topWrap);
-                    card.appendChild(link);
+                    card.appendChild(topWrapper);
+                    card.appendChild(linkEl);
                     grid.appendChild(card);
                 });
             }
 
-            function initAiFilters() {
+            function initAiFilter() {
                 const filterBtns = document.querySelectorAll('.ai-filter-btn');
                 filterBtns.forEach((btn) => {
                     btn.addEventListener('click', () => {
-                        const filterVal = btn.getAttribute('data-filter');
+                        const category = btn.getAttribute('data-filter');
                         filterBtns.forEach((b) => {
                             b.classList.remove('bg-indigo-600', 'text-white');
                             b.classList.add('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
                         });
                         btn.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
                         btn.classList.add('bg-indigo-600', 'text-white');
-
-                        renderAiTools(filterVal);
+                        renderAiTools(category);
                     });
                 });
+                renderAiTools('all');
             }
 
             // =========================================================================
-            // 7. GENERATOR TEMPLATE PROMPT MODULAR
+            // 7. GENERATOR TEMPLATE PROMPT MODULAR (TERINTEGRASI KRITERIA C1 - C10)
             // =========================================================================
-            function updateGeneratedPrompt() {
-                const nameInput = document.getElementById('inp-project-name');
-                const goalInput = document.getElementById('inp-project-goal');
-                const stackInput = document.getElementById('inp-tech-stack');
-                const featuresInput = document.getElementById('inp-features');
-                const outputBox = document.getElementById('generated-prompt-output');
+            function initPromptGenerator() {
+                const nameInp = document.getElementById('inp-project-name');
+                const goalInp = document.getElementById('inp-project-goal');
+                const stackSelect = document.getElementById('inp-tech-stack');
+                const featuresInp = document.getElementById('inp-features');
+                const outputTextarea = document.getElementById('generated-prompt-output');
+                const fillExampleBtn = document.getElementById('btn-fill-example');
+                const copyPromptBtn = document.getElementById('btn-copy-prompt');
+                const copyPromptLabel = document.getElementById('copy-prompt-label');
 
-                const secXss = document.getElementById('sec-xss').checked;
-                const secEnv = document.getElementById('sec-env').checked;
-                const secVal = document.getElementById('sec-val').checked;
-                const secHeaders = document.getElementById('sec-headers').checked;
+                const criteriaConfig = [
+                    { id: 'crit-c1', code: 'C1', label: 'Navigasi & CTA: Sediakan tautan navigasi utama (nav/header) yang jelas, tombol ajakan bertindak (CTA), bebas broken link, serta fitur pencarian/filter.' },
+                    { id: 'crit-c2', code: 'C2', label: 'Responsivitas & Viewport: Wajib menyertakan tag <meta name="viewport" content="width=device-width, initial-scale=1.0"> dan tata letak responsif optimal di mobile maupun desktop.' },
+                    { id: 'crit-c3', code: 'C3', label: 'Informasi Profil / About Us: Sertakan bagian atau halaman profil usaha ("Tentang Kami" / "About Us") yang kredibel.' },
+                    { id: 'crit-c4', code: 'C4', label: 'Kanal Komunikasi Umum: Tampilkan informasi kontak umum (alamat, email, nomor telepon, atau bagian "Hubungi Kami").' },
+                    { id: 'crit-c5', code: 'C5', label: 'Kontak Langsung Penjual: Sediakan tautan kontak langsung yang valid menuju WhatsApp penjual (format URL wa.me/62... yang aktif dan tervalidasi).' },
+                    { id: 'crit-c6', code: 'C6', label: 'Alur Keranjang Belanja: Implementasikan fitur keranjang belanja / troli interaktif (tambah item, ubah jumlah, hapus item, hitung total otomatis).' },
+                    { id: 'crit-c7', code: 'C7', label: 'Mekanisme Pembayaran: Sediakan alur checkout dan informasi metode pembayaran yang jelas (QRIS, transfer bank, atau e-wallet).' },
+                    { id: 'crit-c8', code: 'C8', label: 'HTTP Security Headers: Sertakan konfigurasi header keamanan HTTP (Content-Security-Policy, X-Frame-Options: DENY, X-Content-Type-Options: nosniff, Strict-Transport-Security).' },
+                    { id: 'crit-c9', code: 'C9', label: 'Performa & Pemuatan: Pastikan semua aset gambar memiliki atribut src valid (dengan fallback onerror), ringan, dan bebas error konsol.' },
+                    { id: 'crit-c10', code: 'C10', label: 'Struktur Semantik DOM: Gunakan tag <title> yang deskriptif, elemen HTML5 semantik (header, main, nav, section, footer), serta bersihkan kode dari komentar sensitif atau informasi debug.' }
+                ];
 
-                const projectName = nameInput.value.trim() || '[Isi Nama Proyek Website]';
-                const projectGoal = goalInput.value.trim() || '[Jelaskan tujuan utama dan target pengguna website]';
-                const techStack = stackInput.value;
-                const features = featuresInput.value.trim() || '1. [Fitur Utama 1]\n2. [Fitur Utama 2]\n3. [Fitur Utama 3]';
+                const securityConfig = [
+                    { id: 'sec-xss', label: 'Anti-XSS (Cross-Site Scripting): Dilarang merender input pengguna mentah menggunakan innerHTML atau dangerouslySetInnerHTML. Wajib menggunakan textContent atau fungsi sanitasi karakter khusus HTML.' },
+                    { id: 'sec-env', label: 'Isolasi Kredensial & API: Dilarang keras melakukan hardcode API key, token, atau password di kode frontend. Gunakan variabel lingkungan (.env) dan sertakan .gitignore.' },
+                    { id: 'sec-val', label: 'Validasi Input & Error Handling: Terapkan validasi tipe, format, dan panjang karakter pada setiap input serta tampilkan pesan error ramah pengguna tanpa membocorkan detail teknis.' },
+                    { id: 'sec-db', label: 'Keamanan Database & Autentikasi: Gunakan Prepared Statements / Parameterized Queries untuk mencegah SQL Injection, proteksi CSRF pada form, dan pembatasan akses RBAC/RLS.' }
+                ];
 
-                const securityRules = [];
-                if (secXss) {
-                    securityRules.push('- Anti-XSS: Dilarang merender input pengguna mentah menggunakan innerHTML. Wajib gunakan textContent atau fungsi sanitasi DOM.');
-                }
-                if (secEnv) {
-                    securityRules.push('- Keamanan Kredensial: Dilarang melakukan hardcode API key atau token rahasia di dalam kode frontend. Gunakan variabel lingkungan (.env) dan sediakan .env.example.');
-                }
-                if (secVal) {
-                    securityRules.push('- Validasi & Error Handling: Validasi semua tipe dan panjang input pengguna. Tangani kondisi data kosong (empty state) serta error dengan pesan yang ramah tanpa membocorkan stack trace.');
-                }
-                if (secHeaders) {
-                    securityRules.push('- Security Headers: Sertakan konfigurasi header keamanan dasar (X-Frame-Options: DENY, X-Content-Type-Options: nosniff, Referrer-Policy) yang siap diterapkan saat deploy ke Vercel.');
-                }
+                function buildPromptText() {
+                    if (!outputTextarea) return;
 
-                const securitySection = securityRules.length > 0
-                    ? securityRules.join('\n')
-                    : '- Terapkan praktik keamanan web standar dan validasi input dasar.';
+                    const projectName = (nameInp && nameInp.value.trim()) || '[Isi Nama Website Anda]';
+                    const projectGoal = (goalInp && goalInp.value.trim()) || '[Jelaskan tujuan utama website dan target penggunanya]';
+                    const techStack = (stackSelect && stackSelect.value) || 'Single-file HTML5, Tailwind CSS (CDN), dan Vanilla JavaScript (ES6+)';
+                    const rawFeatures = (featuresInp && featuresInp.value.trim()) || '1. Halaman utama informatif dengan navigasi jelas\n2. Katalog produk/layanan dengan pencarian interaktif\n3. Formulir kontak atau pemesanan dengan validasi input';
 
-                const promptText = `Bertindaklah sebagai Senior Full-Stack Developer dan Application Security Engineer. Bangun sebuah website yang fungsional, responsif (mobile-first), dan menerapkan prinsip Security by Design dengan spesifikasi berikut:
+                    const selectedCriteria = criteriaConfig
+                        .filter((item) => {
+                            const el = document.getElementById(item.id);
+                            return el && el.checked;
+                        })
+                        .map((item) => `- [${item.code}] ${item.label}`);
 
-### 1. Identitas & Tujuan Proyek
+                    const selectedSecurity = securityConfig
+                        .filter((item) => {
+                            const el = document.getElementById(item.id);
+                            return el && el.checked;
+                        })
+                        .map((item) => `- ${item.label}`);
+
+                    const criteriaBlock = selectedCriteria.length > 0
+                        ? selectedCriteria.join('\n')
+                        : '- Pastikan struktur HTML semantik, responsif di mobile, dan bebas error.';
+
+                    const securityBlock = selectedSecurity.length > 0
+                        ? selectedSecurity.join('\n')
+                        : '- Terapkan praktik keamanan dasar web dan sanitasi input.';
+
+                    const promptTemplate = `Bertindaklah sebagai Senior Full-Stack Developer dan Application Security Engineer. Bangun sebuah aplikasi web yang fungsional, estetis, responsif, dan menerapkan prinsip Security by Design dengan spesifikasi berikut:
+
+### 1. Identitas & Tujuan Website
 - Nama Proyek: ${projectName}
 - Tujuan & Target Pengguna: ${projectGoal}
 
 ### 2. Arsitektur & Tech Stack
-- Teknologi: ${techStack}
+- Stack Pilihan: ${techStack}
 
 ### 3. Fitur Fungsional Utama
-${features}
+${rawFeatures}
 
-### 4. Standar Keamanan Wajib (Security by Design)
-${securitySection}
+### 4. Standar Kualitas & Kelayakan Website (Kriteria Audit)
+${criteriaBlock}
 
-### 5. Aturan Penulisan Kode
-- Tuliskan seluruh kode secara lengkap dan langsung siap dijalankan.
-- Dilarang keras memotong kode dengan placeholder seperti "// implementasikan di sini".
-- Berikan komentar ringkas pada bagian logika utama dan mekanisme keamanan.`;
+### 5. Standar Keamanan Wajib (Security by Design)
+${securityBlock}
 
-                // Gunakan .value pada textarea agar aman dari injeksi HTML
-                outputBox.value = promptText;
-            }
+### 6. Aturan Penulisan Kode (Anti-Placeholder Rule)
+- Tulis seluruh kode secara lengkap, utuh, dan siap langsung dijalankan tanpa error.
+- Dilarang menggunakan komentar pemotong kode atau placeholder seperti "// implementasikan logika di sini".
+- Jangan gunakan dialog bawaan browser seperti alert() atau confirm(); gunakan komponen notifikasi/modal UI yang ramah pengguna.`;
 
-            function initPromptGenerator() {
-                const inputs = ['inp-project-name', 'inp-project-goal', 'inp-tech-stack', 'inp-features', 'sec-xss', 'sec-env', 'sec-val', 'sec-headers'];
-                inputs.forEach((id) => {
-                    const el = document.getElementById(id);
+                    outputTextarea.value = promptTemplate;
+                }
+
+                // Pasang event listener untuk pembaruan real-time
+                [nameInp, goalInp, stackSelect, featuresInp].forEach((el) => {
                     if (el) {
-                        el.addEventListener('input', updateGeneratedPrompt);
-                        el.addEventListener('change', updateGeneratedPrompt);
+                        el.addEventListener('input', buildPromptText);
+                        el.addEventListener('change', buildPromptText);
                     }
                 });
 
-                // Tombol isi contoh otomatis
-                const fillBtn = document.getElementById('btn-fill-example');
-                if (fillBtn) {
-                    fillBtn.addEventListener('click', () => {
-                        document.getElementById('inp-project-name').value = 'Kalkulator Anggaran & Tabungan Pribadi';
-                        document.getElementById('inp-project-goal').value = 'Membantu mahasiswa dan pekerja mencatat pemasukan, pengeluaran, serta simulasi target tabungan secara lokal di browser.';
-                        document.getElementById('inp-features').value = '1. Form pencatatan transaksi (Pemasukan/Pengeluaran) dengan kategori\n2. Ringkasan saldo otomatis dan grafik persentase pengeluaran\n3. Fitur ekspor laporan ke format CSV dan penyimpanan otomatis di LocalStorage';
-                        updateGeneratedPrompt();
-                        showToast('Contoh spesifikasi proyek berhasil diisi!');
-                    });
-                }
+                [...criteriaConfig, ...securityConfig].forEach((item) => {
+                    const cb = document.getElementById(item.id);
+                    if (cb) {
+                        cb.addEventListener('change', buildPromptText);
+                    }
+                });
 
-                // Tombol salin prompt (menggunakan document.execCommand('copy') sesuai kompatibilitas iFrame)
-                const copyBtn = document.getElementById('btn-copy-prompt');
-                if (copyBtn) {
-                    copyBtn.addEventListener('click', () => {
-                        const outputBox = document.getElementById('generated-prompt-output');
-                        if (!outputBox) return;
-
-                        outputBox.select();
-                        outputBox.setSelectionRange(0, 99999);
-
-                        try {
-                            const success = document.execCommand('copy');
-                            if (success) {
-                                showToast('Template prompt berhasil disalin ke clipboard!');
-                            } else {
-                                showToast('Silakan salin teks secara manual (Ctrl+C).');
-                            }
-                        } catch (err) {
-                            showToast('Silakan salin teks secara manual (Ctrl+C).');
+                // Tombol Isi Contoh Otomatis
+                if (fillExampleBtn) {
+                    fillExampleBtn.addEventListener('click', () => {
+                        if (nameInp) nameInp.value = 'Katalog Kopi Nusantara';
+                        if (goalInp) goalInp.value = 'Menampilkan katalog biji kopi lokal, profil sangrai, keranjang belanja, dan pemesanan langsung ke WhatsApp untuk pelanggan UMKM';
+                        if (featuresInp) {
+                            featuresInp.value = '1. Katalog produk kopi dengan filter kategori (Arabika, Robusta, House Blend) dan pencarian real-time\n2. Bagian "Tentang Kami" dan informasi lokasi kedai serta kanal komunikasi umum\n3. Keranjang belanja interaktif (tambah/kurang jumlah, hitung total otomatis) tersimpan di localStorage\n4. Alur checkout dengan pilihan pembayaran (QRIS, Transfer Bank, E-Wallet) dan tombol kirim pesanan ke WhatsApp valid';
                         }
-                        window.getSelection().removeAllRanges();
+                        criteriaConfig.forEach((item) => {
+                            const cb = document.getElementById(item.id);
+                            if (cb) cb.checked = true;
+                        });
+                        buildPromptText();
+                        showToast('Contoh proyek UMKM & seluruh kriteria C1–C10 berhasil diisi!');
                     });
                 }
 
-                updateGeneratedPrompt();
+                // Tombol Salin Prompt
+                if (copyPromptBtn && outputTextarea) {
+                    copyPromptBtn.addEventListener('click', () => {
+                        copyTextSafely(outputTextarea.value, 'Prompt spesifikasi berhasil disalin ke clipboard!');
+                        if (copyPromptLabel) {
+                            copyPromptLabel.textContent = 'Tersalin!';
+                            setTimeout(() => {
+                                copyPromptLabel.textContent = 'Salin Prompt';
+                            }, 2000);
+                        }
+                    });
+                }
+
+                // Generate prompt awal saat halaman dimuat
+                buildPromptText();
             }
 
             // =========================================================================
             // 8. CEKLIS INTERAKTIF DEPLOYMENT (GITHUB & VERCEL) + PROGRESS BAR
             // =========================================================================
-            function getTotalChecklistCount() {
+            function getTotalChecklistItems() {
                 return DEPLOY_CHECKLIST_STAGES.reduce((acc, stage) => acc + stage.items.length, 0);
             }
 
             function updateProgressIndicators() {
-                const total = getTotalChecklistCount();
-                let doneCount = 0;
+                const total = getTotalChecklistItems();
+                const done = completedIds.size;
+                const percent = total > 0 ? Math.round((done / total) * 100) : 0;
 
-                DEPLOY_CHECKLIST_STAGES.forEach((stage) => {
-                    stage.items.forEach((item) => {
-                        if (completedSteps[item.id] === true) {
-                            doneCount++;
-                        }
-                    });
-                });
-
-                const percentage = total > 0 ? Math.round((doneCount / total) * 100) : 0;
-
-                const bar = document.getElementById('global-progress-bar');
-                const text = document.getElementById('global-progress-text');
+                const progressText = document.getElementById('global-progress-text');
+                const progressBar = document.getElementById('global-progress-bar');
                 const navBadge = document.getElementById('nav-badge-count');
                 const summaryPill = document.getElementById('checklist-summary-pill');
 
-                if (bar) bar.style.width = `${percentage}%`;
-                if (text) text.textContent = `${percentage}% (${doneCount}/${total})`;
-                if (navBadge) navBadge.textContent = `${doneCount}/${total}`;
-                if (summaryPill) summaryPill.textContent = `${doneCount} dari ${total} Selesai (${percentage}%)`;
+                if (progressText) progressText.textContent = `${percent}% (${done}/${total})`;
+                if (progressBar) progressBar.style.width = `${percent}%`;
+                if (navBadge) navBadge.textContent = `${done}/${total}`;
+                if (summaryPill) summaryPill.textContent = `${done} dari ${total} Selesai`;
+            }
+
+            function getPriorityBadgeClass(priority) {
+                switch (priority) {
+                    case 'Wajib':
+                        return 'bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300';
+                    case 'Keamanan':
+                        return 'bg-rose-100 dark:bg-rose-900/50 text-rose-700 dark:text-rose-300';
+                    case 'Praktik Terbaik':
+                        return 'bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-300';
+                    default:
+                        return 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300';
+                }
             }
 
             function renderChecklistStages() {
@@ -1081,143 +1473,192 @@ ${securitySection}
                     container.removeChild(container.firstChild);
                 }
 
-                DEPLOY_CHECKLIST_STAGES.forEach((stage, stageIdx) => {
+                DEPLOY_CHECKLIST_STAGES.forEach((stage) => {
                     const stageCard = document.createElement('div');
                     stageCard.className = 'rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-800/30 p-5 space-y-4';
 
-                    // Header Tahap
-                    const headerDiv = document.createElement('div');
+                    const stageHeader = document.createElement('div');
+                    stageHeader.className = 'border-b border-slate-200/80 dark:border-slate-700/80 pb-3';
+
                     const stageTitle = document.createElement('h3');
-                    stageTitle.className = 'text-base font-bold text-slate-900 dark:text-white';
+                    stageTitle.className = 'text-base sm:text-lg font-bold text-slate-900 dark:text-white';
                     stageTitle.textContent = stage.stageTitle;
 
                     const stageDesc = document.createElement('p');
-                    stageDesc.className = 'text-xs text-slate-500 dark:text-slate-400 mt-0.5';
+                    stageDesc.className = 'text-xs text-slate-500 dark:text-slate-400 mt-1';
                     stageDesc.textContent = stage.stageDesc;
 
-                    headerDiv.appendChild(stageTitle);
-                    headerDiv.appendChild(stageDesc);
-                    stageCard.appendChild(headerDiv);
+                    stageHeader.appendChild(stageTitle);
+                    stageHeader.appendChild(stageDesc);
+                    stageCard.appendChild(stageHeader);
 
-                    // Daftar Item
                     const itemsList = document.createElement('div');
                     itemsList.className = 'space-y-3';
 
                     stage.items.forEach((item) => {
-                        const isChecked = completedSteps[item.id] === true;
+                        const isChecked = completedIds.has(item.id);
 
-                        const itemWrapper = document.createElement('div');
-                        itemWrapper.className = `p-4 rounded-xl border transition ${isChecked
-                            ? 'bg-emerald-50/70 dark:bg-emerald-950/25 border-emerald-200 dark:border-emerald-900/60'
+                        const itemBox = document.createElement('div');
+                        itemBox.className = `p-4 rounded-xl border transition ${isChecked
+                            ? 'bg-emerald-50/60 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-900/60'
                             : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800'}`;
 
-                        const rowTop = document.createElement('div');
-                        rowTop.className = 'flex items-start justify-between gap-3';
+                        const topRow = document.createElement('div');
+                        topRow.className = 'flex items-start justify-between gap-3';
 
-                        // Label & Checkbox
-                        const label = document.createElement('label');
-                        label.className = 'flex items-start gap-3 cursor-pointer flex-1 select-none';
+                        const labelWrap = document.createElement('label');
+                        labelWrap.className = 'flex items-start gap-3 cursor-pointer flex-1';
 
                         const checkbox = document.createElement('input');
                         checkbox.type = 'checkbox';
                         checkbox.checked = isChecked;
-                        checkbox.className = 'mt-0.5 w-5 h-5 rounded-md text-indigo-600 focus:ring-indigo-500 border-slate-300 dark:border-slate-700 cursor-pointer shrink-0';
+                        checkbox.className = 'mt-1 w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 cursor-pointer shrink-0';
 
-                        const titleSpan = document.createElement('span');
-                        titleSpan.className = `text-sm font-medium leading-snug ${isChecked
-                            ? 'line-through text-slate-500 dark:text-slate-400'
-                            : 'text-slate-800 dark:text-slate-100'}`;
-                        titleSpan.textContent = item.title;
+                        const textWrap = document.createElement('div');
+                        textWrap.className = 'space-y-1';
 
-                        checkbox.addEventListener('change', () => {
-                            completedSteps[item.id] = checkbox.checked;
-                            saveChecklistState();
-                            updateProgressIndicators();
-                            renderChecklistStages();
-                            if (checkbox.checked) {
-                                showToast('Langkah ditandai selesai!');
-                            }
-                        });
+                        const titleRow = document.createElement('div');
+                        titleRow.className = 'flex flex-wrap items-center gap-2';
 
-                        label.appendChild(checkbox);
-                        label.appendChild(titleSpan);
+                        const priorityBadge = document.createElement('span');
+                        priorityBadge.className = `px-2 py-0.5 rounded-md text-[11px] font-bold ${getPriorityBadgeClass(item.priority)}`;
+                        priorityBadge.textContent = item.priority;
 
-                        // Tombol Panduan Detail
+                        const titleText = document.createElement('span');
+                        titleText.className = `text-sm font-semibold ${isChecked
+                            ? 'line-through text-slate-400 dark:text-slate-500'
+                            : 'text-slate-900 dark:text-white'}`;
+                        titleText.textContent = item.title;
+
+                        titleRow.appendChild(priorityBadge);
+                        titleRow.appendChild(titleText);
+                        textWrap.appendChild(titleRow);
+
+                        labelWrap.appendChild(checkbox);
+                        labelWrap.appendChild(textWrap);
+
                         const toggleGuideBtn = document.createElement('button');
                         toggleGuideBtn.type = 'button';
-                        toggleGuideBtn.className = 'px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 transition shrink-0';
-                        toggleGuideBtn.textContent = 'Panduan';
+                        toggleGuideBtn.className = 'px-2.5 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300 transition shrink-0';
+                        toggleGuideBtn.textContent = 'Detail Langkah';
 
-                        rowTop.appendChild(label);
-                        rowTop.appendChild(toggleGuideBtn);
+                        topRow.appendChild(labelWrap);
+                        topRow.appendChild(toggleGuideBtn);
+                        itemBox.appendChild(topRow);
 
-                        // Box Panduan Ekspansi
-                        const guideBox = document.createElement('div');
-                        guideBox.className = 'hidden mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300 leading-relaxed pl-8';
-                        guideBox.textContent = item.guide;
+                        // Detail panduan & catatan pribadi (collapsible)
+                        const detailsPanel = document.createElement('div');
+                        detailsPanel.className = 'hidden mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 space-y-2.5 pl-7';
+
+                        const guidePara = document.createElement('p');
+                        guidePara.className = 'text-xs text-slate-600 dark:text-slate-300 leading-relaxed';
+                        guidePara.textContent = item.guide;
+
+                        const noteInput = document.createElement('input');
+                        noteInput.type = 'text';
+                        noteInput.value = itemNotes[item.id] || '';
+                        noteInput.placeholder = item.notePlaceholder;
+                        noteInput.className = 'w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 text-xs text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none';
+
+                        noteInput.addEventListener('input', (e) => {
+                            itemNotes[item.id] = e.target.value;
+                            saveState();
+                        });
+
+                        detailsPanel.appendChild(guidePara);
+                        detailsPanel.appendChild(noteInput);
+                        itemBox.appendChild(detailsPanel);
 
                         toggleGuideBtn.addEventListener('click', () => {
-                            const isHidden = guideBox.classList.contains('hidden');
+                            const isHidden = detailsPanel.classList.contains('hidden');
                             if (isHidden) {
-                                guideBox.classList.remove('hidden');
-                                toggleGuideBtn.textContent = 'Tutup';
+                                detailsPanel.classList.remove('hidden');
+                                toggleGuideBtn.textContent = 'Tutup Detail';
                             } else {
-                                guideBox.classList.add('hidden');
-                                toggleGuideBtn.textContent = 'Panduan';
+                                detailsPanel.classList.add('hidden');
+                                toggleGuideBtn.textContent = 'Detail Langkah';
                             }
                         });
 
-                        itemWrapper.appendChild(rowTop);
-                        itemWrapper.appendChild(guideBox);
-                        itemsList.appendChild(itemWrapper);
+                        checkbox.addEventListener('change', () => {
+                            if (checkbox.checked) {
+                                completedIds.add(item.id);
+                                showToast('Langkah ditandai selesai!');
+                            } else {
+                                completedIds.delete(item.id);
+                            }
+                            saveState();
+                            updateProgressIndicators();
+                            renderChecklistStages();
+                        });
+
+                        itemsList.appendChild(itemBox);
                     });
 
                     stageCard.appendChild(itemsList);
                     container.appendChild(stageCard);
                 });
-
-                updateProgressIndicators();
             }
 
-            function initChecklistReset() {
+            function initChecklistAndCopyButtons() {
+                renderChecklistStages();
+                updateProgressIndicators();
+
+                // Tombol salin JSON / konfigurasi pada Blueprint Fase 1
+                const copyCmdBtns = document.querySelectorAll('.copy-cmd-btn');
+                copyCmdBtns.forEach((btn) => {
+                    btn.addEventListener('click', () => {
+                        const targetId = btn.getAttribute('data-copy-target');
+                        const targetEl = document.getElementById(targetId);
+                        if (targetEl) {
+                            copyTextSafely(targetEl.textContent, 'Konfigurasi berhasil disalin!');
+                        }
+                    });
+                });
+
+                // Modal Reset Progres
                 const resetBtn = document.getElementById('btn-reset-checklist');
-                const modal = document.getElementById('reset-modal');
-                const cancelBtn = document.getElementById('btn-cancel-reset');
-                const confirmBtn = document.getElementById('btn-confirm-reset');
+                const resetModal = document.getElementById('reset-modal');
+                const cancelResetBtn = document.getElementById('btn-cancel-reset');
+                const confirmResetBtn = document.getElementById('btn-confirm-reset');
 
-                if (!resetBtn || !modal) return;
+                if (resetBtn && resetModal) {
+                    resetBtn.addEventListener('click', () => {
+                        resetModal.classList.remove('hidden');
+                        resetModal.classList.add('flex');
+                    });
+                }
 
-                resetBtn.addEventListener('click', () => {
-                    modal.classList.remove('hidden');
-                    modal.classList.add('flex');
-                });
+                if (cancelResetBtn && resetModal) {
+                    cancelResetBtn.addEventListener('click', () => {
+                        resetModal.classList.add('hidden');
+                        resetModal.classList.remove('flex');
+                    });
+                }
 
-                cancelBtn.addEventListener('click', () => {
-                    modal.classList.add('hidden');
-                    modal.classList.remove('flex');
-                });
-
-                confirmBtn.addEventListener('click', () => {
-                    completedSteps = {};
-                    saveChecklistState();
-                    renderChecklistStages();
-                    modal.classList.add('hidden');
-                    modal.classList.remove('flex');
-                    showToast('Seluruh progres ceklis telah direset.');
-                });
+                if (confirmResetBtn && resetModal) {
+                    confirmResetBtn.addEventListener('click', () => {
+                        completedIds.clear();
+                        saveState();
+                        updateProgressIndicators();
+                        renderChecklistStages();
+                        resetModal.classList.add('hidden');
+                        resetModal.classList.remove('flex');
+                        showToast('Seluruh progres ceklis telah di-reset.');
+                    });
+                }
             }
 
             // =========================================================================
-            // 9. INISIALISASI APLIKASI
+            // 9. INISIALISASI APLIKASI SAAT DOM SIAP
             // =========================================================================
             document.addEventListener('DOMContentLoaded', () => {
+                loadState();
                 initTheme();
                 initTabs();
-                renderAiTools('all');
-                initAiFilters();
+                initAiFilter();
                 initPromptGenerator();
-                renderChecklistStages();
-                initChecklistReset();
+                initChecklistAndCopyButtons();
             });
         })();
     </script>
