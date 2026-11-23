@@ -233,45 +233,45 @@
     <!-- ========================================================= -->
     <!-- LAYER OVERLAY SLIDESHOW (FULL MODAL LAYER)                -->
     <!-- ========================================================= -->
-    <div id="slideshow-overlay" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-2 sm:p-5 transition-all duration-200" role="dialog" aria-modal="true" aria-labelledby="slide-modal-title">
-        <div id="slideshow-modal-box" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl w-full max-w-5xl h-[86vh] min-h-[540px] max-h-[820px] flex flex-col shadow-2xl overflow-hidden transition-all duration-200">
+    <div id="slideshow-overlay" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-2 sm:p-5" role="dialog" aria-modal="true" aria-labelledby="slide-modal-title">
+        <div id="slideshow-modal-box" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl w-full max-w-5xl h-[92vh] max-h-[92vh] flex flex-col shadow-2xl overflow-hidden">
             <!-- Top Bar Slideshow -->
-            <div class="px-5 sm:px-7 py-4 bg-slate-50 dark:bg-slate-800/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3">
-                <div class="flex items-center gap-3 min-w-0">
-                    <span id="slide-deck-badge" class="px-3 py-1 rounded-lg text-sm font-bold bg-indigo-600 text-white shrink-0">MODUL</span>
-                    <span id="slide-counter-pill" class="text-sm sm:text-base font-mono font-semibold text-slate-600 dark:text-slate-300 truncate">Slide 1 / 11</span>
+            <div class="px-4 sm:px-6 py-3 bg-slate-50 dark:bg-slate-800/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3 shrink-0">
+                <div class="flex items-center gap-2.5 min-w-0">
+                    <span id="slide-deck-badge" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-600 text-white shrink-0">MODUL</span>
+                    <span id="slide-counter-pill" class="text-xs font-mono font-semibold text-slate-600 dark:text-slate-300 truncate">Slide 1 / 11</span>
                 </div>
-                <div class="flex items-center gap-2.5 shrink-0">
-                    <button id="toggle-fullscreen-slide" type="button" class="px-3.5 py-2 rounded-xl text-sm font-semibold bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-indigo-400 transition">
+                <div class="flex items-center gap-2 shrink-0">
+                    <button id="toggle-fullscreen-slide" type="button" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-indigo-400 transition">
                         Layar Penuh
                     </button>
-                    <button id="close-slideshow" type="button" class="p-2.5 rounded-xl bg-slate-200/70 hover:bg-rose-100 dark:bg-slate-800 dark:hover:bg-rose-950/60 text-slate-700 dark:text-slate-200 hover:text-rose-600 transition" aria-label="Tutup Slideshow">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6l12 12"></path></svg>
+                    <button id="close-slideshow" type="button" class="p-2 rounded-xl bg-slate-200/70 hover:bg-rose-100 dark:bg-slate-800 dark:hover:bg-rose-950/60 text-slate-700 dark:text-slate-200 hover:text-rose-600 transition" aria-label="Tutup Slideshow">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6l12 12"></path></svg>
                     </button>
                 </div>
             </div>
 
-            <!-- Scrollable Slide Content Area (Supports Touch Swipe) -->
-            <div id="slide-touch-area" class="flex-1 overflow-y-auto p-6 sm:p-10">
-                <div id="slide-dynamic-content" class="animate-slide space-y-6 max-w-6xl mx-auto">
+            <!-- Slide Content Area (Supports Touch Swipe) -->
+            <div id="slide-touch-area" class="flex-1 overflow-y-auto p-5 sm:p-8 flex flex-col justify-between">
+                <div id="slide-dynamic-content" class="animate-slide space-y-5">
                     <!-- Diisi via JavaScript -->
                 </div>
             </div>
 
             <!-- Bottom Navigation Controls -->
-            <div class="px-5 sm:px-7 py-4 bg-slate-50 dark:bg-slate-800/70 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3">
-                <button id="prev-slide-btn" type="button" class="px-5 py-2.5 rounded-xl text-sm sm:text-base font-bold bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed transition">
+            <div class="px-4 sm:px-6 py-3.5 bg-slate-50 dark:bg-slate-800/70 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3 shrink-0">
+                <button id="prev-slide-btn" type="button" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed transition">
                     &larr; Sebelumnya
                 </button>
 
                 <!-- Slide Dots -->
-                <div id="slide-dots-container" class="flex items-center gap-2 overflow-x-auto max-w-[45%] py-1">
+                <div id="slide-dots-container" class="flex items-center gap-1.5 overflow-x-auto max-w-[45%] py-1">
                     <!-- Diisi via JavaScript -->
                 </div>
 
                 <!-- Next Button OR End of Slide Actions -->
-                <div id="next-slide-wrapper" class="flex items-center gap-2.5">
-                    <button id="next-slide-btn" type="button" class="px-5 py-2.5 rounded-xl text-sm sm:text-base font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition">
+                <div id="next-slide-wrapper" class="flex items-center gap-2">
+                    <button id="next-slide-btn" type="button" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition">
                         Berikutnya &rarr;
                     </button>
                 </div>
@@ -1116,7 +1116,7 @@
 
                 const svg = el('svg', {
                     viewBox: '0 0 740 255',
-                    class: 'w-full h-auto rounded-2xl border border-slate-300 dark:border-slate-700 bg-slate-950 shadow-sm block'
+                    class: 'w-full h-auto rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-950 shadow-sm block'
                 });
 
                 // Browser Chrome Header
@@ -1494,7 +1494,7 @@
 
                 const svg = el('svg', {
                     viewBox: '0 0 760 175',
-                    class: 'w-full max-h-44 h-auto rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-900 shadow-xs block'
+                    class: 'w-full h-auto rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-900 shadow-xs block'
                 });
 
                 // Subtle grid background
@@ -1724,29 +1724,32 @@
                 const deck = SLIDE_DECKS[activeDeckKey];
                 if (!deck) return;
                 const slides = deck.slides;
-                const slide = slides[currentSlideIndex];
-                if (!slide) return;
+                if (currentSlideIndex < 0) currentSlideIndex = 0;
+                if (currentSlideIndex >= slides.length) currentSlideIndex = slides.length - 1;
 
+                const slide = slides[currentSlideIndex];
                 const deckBadge = document.getElementById('slide-deck-badge');
                 const counterPill = document.getElementById('slide-counter-pill');
                 const contentEl = document.getElementById('slide-dynamic-content');
+                const dotsContainer = document.getElementById('slide-dots-container');
                 const prevBtn = document.getElementById('prev-slide-btn');
                 const nextWrapper = document.getElementById('next-slide-wrapper');
-                const dotsContainer = document.getElementById('slide-dots-container');
 
                 deckBadge.textContent = deck.name;
-                deckBadge.className = 'px-3 py-1 rounded-lg text-sm font-bold text-white shrink-0 ' + (deck.color === 'emerald' ? 'bg-emerald-600' : 'bg-indigo-600');
+                deckBadge.className = deck.color === 'emerald'
+                    ? 'px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-600 text-white shrink-0'
+                    : 'px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-600 text-white shrink-0';
                 counterPill.textContent = 'Slide ' + (currentSlideIndex + 1) + ' / ' + slides.length;
 
-                // Render Dots
+                // Render Slide Dots
                 dotsContainer.innerHTML = '';
                 slides.forEach((_, idx) => {
                     const dot = document.createElement('button');
                     dot.type = 'button';
                     dot.setAttribute('aria-label', 'Ke slide ' + (idx + 1));
                     dot.className = idx === currentSlideIndex
-                        ? 'w-6 h-2.5 rounded-full bg-indigo-600 dark:bg-indigo-400 transition-all shrink-0'
-                        : 'w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 transition-all shrink-0';
+                        ? 'w-5 h-2 rounded-full bg-indigo-600 dark:bg-indigo-400 transition-all shrink-0'
+                        : 'w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 transition-all shrink-0';
                     dot.addEventListener('click', () => {
                         currentSlideIndex = idx;
                         renderCurrentSlide();
@@ -1754,28 +1757,31 @@
                     dotsContainer.appendChild(dot);
                 });
 
-                // Build Slide Body Safely
+                // Build Slide Body Safely (Compact Fit-to-Screen Layout)
                 contentEl.innerHTML = '';
 
                 const headerWrap = document.createElement('div');
-                headerWrap.className = 'space-y-3';
+                headerWrap.className = 'space-y-1.5';
+                const topMetaRow = document.createElement('div');
+                topMetaRow.className = 'flex flex-wrap items-center gap-2';
                 const badgeSpan = document.createElement('span');
-                badgeSpan.className = 'inline-block px-4 py-1.5 rounded-full text-sm sm:text-base font-bold bg-indigo-50 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300';
+                badgeSpan.className = 'inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300';
                 badgeSpan.textContent = slide.badge;
                 const titleEl = document.createElement('h3');
                 titleEl.id = 'slide-modal-title';
-                titleEl.className = 'text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight tracking-tight';
+                titleEl.className = 'text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-white leading-tight tracking-tight';
                 titleEl.textContent = slide.title;
+                topMetaRow.append(badgeSpan, titleEl);
+
                 const summaryEl = document.createElement('p');
-                summaryEl.className = 'text-lg sm:text-xl text-slate-600 dark:text-slate-300 leading-relaxed';
+                summaryEl.className = 'text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed';
                 summaryEl.textContent = slide.summary;
-                headerWrap.append(badgeSpan, titleEl, summaryEl);
+                headerWrap.append(topMetaRow, summaryEl);
                 contentEl.appendChild(headerWrap);
 
                 // Custom Visual Illustration representing slide topic
                 if (slide.illustration) {
                     const illWrap = document.createElement('div');
-                    illWrap.className = 'my-1';
                     illWrap.appendChild(createConceptIllustrationSvg(slide.illustration));
                     contentEl.appendChild(illWrap);
                 }
@@ -1783,22 +1789,22 @@
                 // Interactive Flow Steps (Slide 1 Deck 2)
                 if (slide.flowSteps) {
                     const flowBox = document.createElement('div');
-                    flowBox.className = 'p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700';
+                    flowBox.className = 'p-3.5 sm:p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700';
                     const flowHint = document.createElement('p');
-                    flowHint.className = 'text-sm sm:text-base font-bold text-emerald-600 dark:text-emerald-400 mb-3.5';
+                    flowHint.className = 'text-xs font-bold text-emerald-600 dark:text-emerald-400 mb-2.5';
                     flowHint.textContent = 'Klik kotak tahapan di bawah untuk langsung menuju slide teknisnya:';
                     const flowGrid = document.createElement('div');
-                    flowGrid.className = 'grid grid-cols-1 sm:grid-cols-5 gap-3';
+                    flowGrid.className = 'grid grid-cols-1 sm:grid-cols-5 gap-2';
 
                     slide.flowSteps.forEach((fs, idx) => {
                         const stepBtn = document.createElement('button');
                         stepBtn.type = 'button';
-                        stepBtn.className = 'p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-emerald-500 hover:shadow-sm text-left transition flex flex-col justify-between gap-2';
+                        stepBtn.className = 'p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-emerald-500 hover:shadow-sm text-left transition flex flex-col justify-between gap-1';
                         const sNum = document.createElement('span');
-                        sNum.className = 'text-sm font-extrabold uppercase text-emerald-600 dark:text-emerald-400';
+                        sNum.className = 'text-[11px] font-extrabold uppercase text-emerald-600 dark:text-emerald-400';
                         sNum.textContent = fs.step + (idx < slide.flowSteps.length - 1 ? '  →' : '  ✓');
                         const sLbl = document.createElement('span');
-                        sLbl.className = 'text-base sm:text-lg font-bold text-slate-800 dark:text-slate-100 leading-snug';
+                        sLbl.className = 'text-xs font-bold text-slate-800 dark:text-slate-100 leading-snug';
                         sLbl.textContent = fs.label;
                         stepBtn.append(sNum, sLbl);
                         stepBtn.addEventListener('click', () => {
@@ -1814,21 +1820,21 @@
                 // Visual Process Diagram (Concept Slides 1 & 8)
                 if (slide.visualFlow) {
                     const vfGrid = document.createElement('div');
-                    vfGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5';
+                    vfGrid.className = 'grid grid-cols-2 lg:grid-cols-4 gap-3';
                     slide.visualFlow.forEach(vf => {
                         const card = document.createElement('div');
-                        card.className = 'p-5 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/35 border border-indigo-200/80 dark:border-indigo-900/60 flex flex-col gap-2';
+                        card.className = 'p-3.5 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/35 border border-indigo-200/80 dark:border-indigo-900/60 flex flex-col gap-1.5';
                         const top = document.createElement('div');
-                        top.className = 'flex items-center gap-2.5';
+                        top.className = 'flex items-center gap-2';
                         const ic = document.createElement('span');
-                        ic.className = 'text-2xl';
+                        ic.className = 'text-xl';
                         ic.textContent = vf.icon;
                         const st = document.createElement('span');
-                        st.className = 'text-base sm:text-lg font-extrabold text-indigo-700 dark:text-indigo-300';
+                        st.className = 'text-xs sm:text-sm font-extrabold text-indigo-700 dark:text-indigo-300';
                         st.textContent = vf.step;
                         top.append(ic, st);
                         const ds = document.createElement('p');
-                        ds.className = 'text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-snug';
+                        ds.className = 'text-xs text-slate-600 dark:text-slate-300 leading-relaxed';
                         ds.textContent = vf.desc;
                         card.append(top, ds);
                         vfGrid.appendChild(card);
@@ -1840,27 +1846,27 @@
                 if (slide.visualCards) {
                     const colsClass = slide.visualCards.length === 4 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1 sm:grid-cols-3';
                     const vcGrid = document.createElement('div');
-                    vcGrid.className = 'grid ' + colsClass + ' gap-4';
+                    vcGrid.className = 'grid ' + colsClass + ' gap-3';
                     slide.visualCards.forEach(vc => {
                         const card = document.createElement('div');
-                        card.className = 'p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 space-y-2.5';
+                        card.className = 'p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 space-y-2';
                         const headRow = document.createElement('div');
                         headRow.className = 'flex items-center justify-between gap-2';
                         const leftWrap = document.createElement('div');
-                        leftWrap.className = 'flex items-center gap-2.5';
+                        leftWrap.className = 'flex items-center gap-2';
                         const ic = document.createElement('span');
-                        ic.className = 'text-2xl';
+                        ic.className = 'text-xl';
                         ic.textContent = vc.icon;
                         const tt = document.createElement('span');
-                        tt.className = 'text-base sm:text-lg font-extrabold text-slate-900 dark:text-white';
+                        tt.className = 'text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white';
                         tt.textContent = vc.title;
                         leftWrap.append(ic, tt);
                         const bd = document.createElement('span');
-                        bd.className = 'px-3 py-1 rounded-lg text-xs sm:text-sm font-mono font-bold bg-indigo-100 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300 shrink-0';
+                        bd.className = 'px-2 py-0.5 rounded-md text-[11px] font-mono font-bold bg-indigo-100 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300 shrink-0';
                         bd.textContent = vc.badge;
                         headRow.append(leftWrap, bd);
                         const ds = document.createElement('p');
-                        ds.className = 'text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed';
+                        ds.className = 'text-xs text-slate-600 dark:text-slate-300 leading-relaxed';
                         ds.textContent = vc.desc;
                         card.append(headRow, ds);
                         vcGrid.appendChild(card);
@@ -1871,20 +1877,20 @@
                 // Visual 60-30-10 Color Palette Bar (Concept Slide 4)
                 if (slide.colorPaletteBar) {
                     const palWrap = document.createElement('div');
-                    palWrap.className = 'grid grid-cols-1 sm:grid-cols-3 gap-3.5';
+                    palWrap.className = 'grid grid-cols-1 sm:grid-cols-3 gap-3';
                     slide.colorPaletteBar.forEach(cp => {
                         const swatch = document.createElement('div');
-                        swatch.className = 'p-5 rounded-2xl border shadow-xs flex items-center justify-between gap-2.5 ' + cp.bgClass;
+                        swatch.className = 'px-4 py-3 rounded-2xl border shadow-xs flex items-center justify-between gap-2 ' + cp.bgClass;
                         const left = document.createElement('div');
                         const pctEl = document.createElement('div');
-                        pctEl.className = 'text-xl sm:text-2xl font-extrabold';
+                        pctEl.className = 'text-lg font-extrabold leading-none';
                         pctEl.textContent = cp.pct;
                         const lblEl = document.createElement('div');
-                        lblEl.className = 'text-sm sm:text-base font-semibold opacity-90';
+                        lblEl.className = 'text-xs font-semibold opacity-90 mt-1';
                         lblEl.textContent = cp.label;
                         left.append(pctEl, lblEl);
                         const hexEl = document.createElement('span');
-                        hexEl.className = 'px-3 py-1 rounded-lg text-sm font-mono font-bold bg-black/10';
+                        hexEl.className = 'px-2 py-1 rounded-md text-xs font-mono font-bold bg-black/10';
                         hexEl.textContent = cp.hex;
                         swatch.append(left, hexEl);
                         palWrap.appendChild(swatch);
@@ -1892,17 +1898,17 @@
                     contentEl.appendChild(palWrap);
                 }
 
-                // UI Screen Mockups with Multi-tab Crop Switcher (Slides 2-6 Deck 2)
+                // UI Screen Mockups (Slides 2-6 Deck 2)
                 if (slide.uiScreens && slide.uiScreens.length > 0) {
                     const screenWrapper = document.createElement('div');
-                    screenWrapper.className = 'rounded-2xl bg-slate-100 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 p-4 sm:p-5 space-y-3.5';
+                    screenWrapper.className = 'rounded-2xl bg-slate-100 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 p-3.5 sm:p-4 space-y-3';
 
                     let activeScreenIdx = 0;
                     const tabBar = document.createElement('div');
-                    tabBar.className = 'flex flex-wrap gap-2';
+                    tabBar.className = 'flex flex-wrap gap-1.5';
                     const svgHolder = document.createElement('div');
                     const captionBar = document.createElement('div');
-                    captionBar.className = 'text-sm sm:text-base text-slate-600 dark:text-slate-300 font-medium bg-white dark:bg-slate-900 px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700';
+                    captionBar.className = 'text-xs text-slate-600 dark:text-slate-300 font-medium bg-white dark:bg-slate-900 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700';
 
                     function renderActiveScreen() {
                         const scr = slide.uiScreens[activeScreenIdx];
@@ -1912,8 +1918,8 @@
                             tBtn.type = 'button';
                             tBtn.textContent = s.tabLabel;
                             tBtn.className = i === activeScreenIdx
-                                ? 'px-3.5 py-2 rounded-lg text-sm sm:text-base font-bold bg-emerald-600 text-white shadow-sm'
-                                : 'px-3.5 py-2 rounded-lg text-sm sm:text-base font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-emerald-400';
+                                ? 'px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-600 text-white shadow-sm'
+                                : 'px-3 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-emerald-400';
                             tBtn.addEventListener('click', () => {
                                 activeScreenIdx = i;
                                 renderActiveScreen();
@@ -1936,28 +1942,28 @@
                     cmpGrid.className = 'grid grid-cols-1 md:grid-cols-2 gap-4';
 
                     const badCard = document.createElement('div');
-                    badCard.className = 'p-5 rounded-2xl bg-rose-50/70 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900/60 space-y-3';
+                    badCard.className = 'p-4 rounded-2xl bg-rose-50/70 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900/60 space-y-2';
                     const badT = document.createElement('h4');
-                    badT.className = 'text-base sm:text-lg font-extrabold text-rose-700 dark:text-rose-400';
+                    badT.className = 'text-xs sm:text-sm font-extrabold text-rose-700 dark:text-rose-400';
                     badT.textContent = slide.compare.badTitle;
                     const badPre = document.createElement('pre');
-                    badPre.className = 'p-4 rounded-xl bg-white dark:bg-slate-900 text-sm sm:text-base font-mono whitespace-pre-wrap border border-rose-200/70 dark:border-rose-900/50 leading-relaxed';
+                    badPre.className = 'p-3 rounded-xl bg-white dark:bg-slate-900 text-xs font-mono whitespace-pre-wrap border border-rose-200/70 dark:border-rose-900/50';
                     badPre.textContent = slide.compare.badText;
                     const badW = document.createElement('p');
-                    badW.className = 'text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed';
+                    badW.className = 'text-xs text-slate-600 dark:text-slate-300';
                     badW.textContent = slide.compare.badWhy;
                     badCard.append(badT, badPre, badW);
 
                     const goodCard = document.createElement('div');
-                    goodCard.className = 'p-5 rounded-2xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/60 space-y-3';
+                    goodCard.className = 'p-4 rounded-2xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/60 space-y-2';
                     const goodT = document.createElement('h4');
-                    goodT.className = 'text-base sm:text-lg font-extrabold text-emerald-700 dark:text-emerald-400';
+                    goodT.className = 'text-xs sm:text-sm font-extrabold text-emerald-700 dark:text-emerald-400';
                     goodT.textContent = slide.compare.goodTitle;
                     const goodPre = document.createElement('pre');
-                    goodPre.className = 'p-4 rounded-xl bg-white dark:bg-slate-900 text-sm sm:text-base font-mono whitespace-pre-wrap border border-emerald-200/70 dark:border-emerald-900/50 leading-relaxed';
+                    goodPre.className = 'p-3 rounded-xl bg-white dark:bg-slate-900 text-xs font-mono whitespace-pre-wrap border border-emerald-200/70 dark:border-emerald-900/50';
                     goodPre.textContent = slide.compare.goodText;
                     const goodW = document.createElement('p');
-                    goodW.className = 'text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed';
+                    goodW.className = 'text-xs text-slate-600 dark:text-slate-300';
                     goodW.textContent = slide.compare.goodWhy;
                     goodCard.append(goodT, goodPre, goodW);
 
@@ -1970,13 +1976,13 @@
                     const tblWrap = document.createElement('div');
                     tblWrap.className = 'overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-700';
                     const tbl = document.createElement('table');
-                    tbl.className = 'w-full text-left border-collapse text-base sm:text-lg';
+                    tbl.className = 'w-full text-left border-collapse text-xs sm:text-sm';
                     const thead = document.createElement('thead');
                     const headRow = document.createElement('tr');
                     headRow.className = 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border-b border-slate-200 dark:border-slate-700';
                     slide.table.headers.forEach(h => {
                         const th = document.createElement('th');
-                        th.className = 'py-3.5 px-4 font-bold';
+                        th.className = 'py-2.5 px-3.5 font-bold';
                         th.textContent = h;
                         headRow.appendChild(th);
                     });
@@ -1987,7 +1993,7 @@
                         const tr = document.createElement('tr');
                         r.forEach((cell, cIdx) => {
                             const td = document.createElement('td');
-                            td.className = cIdx === 0 ? 'py-3.5 px-4 font-mono font-bold text-indigo-600 dark:text-indigo-400 whitespace-nowrap' : (cIdx === 1 ? 'py-3.5 px-4 font-bold whitespace-nowrap' : 'py-3.5 px-4 text-slate-600 dark:text-slate-300 leading-relaxed');
+                            td.className = cIdx === 0 ? 'py-2.5 px-3.5 font-mono font-bold text-indigo-600 dark:text-indigo-400 whitespace-nowrap' : (cIdx === 1 ? 'py-2.5 px-3.5 font-bold whitespace-nowrap' : 'py-2.5 px-3.5 text-slate-600 dark:text-slate-300');
                             td.textContent = cell;
                             tr.appendChild(td);
                         });
@@ -2001,12 +2007,12 @@
                 // Bullet Points
                 if (slide.points && slide.points.length > 0) {
                     const ul = document.createElement('ul');
-                    ul.className = 'space-y-3.5';
+                    ul.className = 'space-y-2.5';
                     slide.points.forEach(pt => {
                         const li = document.createElement('li');
-                        li.className = 'flex items-start gap-3.5 text-lg sm:text-xl text-slate-700 dark:text-slate-200 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-200/70 dark:border-slate-800 leading-relaxed';
+                        li.className = 'flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 dark:text-slate-200 bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl border border-slate-200/70 dark:border-slate-800';
                         const dot = document.createElement('span');
-                        dot.className = 'w-3 h-3 rounded-full bg-indigo-600 dark:bg-indigo-400 mt-2.5 shrink-0';
+                        dot.className = 'w-2 h-2 rounded-full bg-indigo-600 dark:bg-indigo-400 mt-1.5 shrink-0';
                         const txt = document.createElement('span');
                         txt.textContent = pt;
                         li.append(dot, txt);
@@ -2018,7 +2024,7 @@
                 // Highlight Note
                 if (slide.highlight) {
                     const note = document.createElement('div');
-                    note.className = 'p-4 sm:p-5 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/60 text-base sm:text-lg text-amber-900 dark:text-amber-200 font-medium leading-relaxed';
+                    note.className = 'p-3.5 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/60 text-xs sm:text-sm text-amber-900 dark:text-amber-200 font-medium';
                     note.textContent = '💡 ' + slide.highlight;
                     contentEl.appendChild(note);
                 }
@@ -2030,12 +2036,12 @@
                 nextWrapper.innerHTML = '';
                 if (currentSlideIndex >= slides.length - 1) {
                     const endLabel = document.createElement('span');
-                    endLabel.className = 'hidden sm:inline-block px-3.5 py-2 rounded-xl text-sm font-extrabold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200';
+                    endLabel.className = 'hidden sm:inline-block px-3 py-2 rounded-xl text-xs font-extrabold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200';
                     endLabel.textContent = '— End of Slide —';
 
                     const restartBtn = document.createElement('button');
                     restartBtn.type = 'button';
-                    restartBtn.className = 'px-5 py-2.5 rounded-xl text-sm sm:text-base font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition';
+                    restartBtn.className = 'px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition';
                     restartBtn.textContent = '↺ Kembali ke Slide Awal';
                     restartBtn.addEventListener('click', () => {
                         currentSlideIndex = 0;
@@ -2046,7 +2052,7 @@
                 } else {
                     const nextBtn = document.createElement('button');
                     nextBtn.type = 'button';
-                    nextBtn.className = 'px-5 py-2.5 rounded-xl text-sm sm:text-base font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition';
+                    nextBtn.className = 'px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition';
                     nextBtn.textContent = 'Berikutnya →';
                     nextBtn.addEventListener('click', () => {
                         if (currentSlideIndex < slides.length - 1) {
@@ -2069,33 +2075,8 @@
             function closeSlideshow() {
                 const overlay = document.getElementById('slideshow-overlay');
                 overlay.classList.add('hidden');
-                if (isSlideFullscreen) {
-                    setSlideFullscreen(false);
-                }
                 if (document.fullscreenElement) {
                     document.exitFullscreen().catch(() => {});
-                }
-            }
-
-            let isSlideFullscreen = false;
-            function setSlideFullscreen(active) {
-                isSlideFullscreen = active;
-                const overlay = document.getElementById('slideshow-overlay');
-                const modalBox = document.getElementById('slideshow-modal-box');
-                const fsBtn = document.getElementById('toggle-fullscreen-slide');
-
-                if (active) {
-                    overlay.classList.remove('p-2', 'sm:p-5');
-                    overlay.classList.add('p-0');
-                    modalBox.classList.remove('max-w-5xl', 'h-[86vh]', 'min-h-[540px]', 'max-h-[820px]', 'rounded-3xl');
-                    modalBox.classList.add('max-w-none', 'w-screen', 'h-screen', 'max-h-screen', 'rounded-none');
-                    fsBtn.textContent = 'Keluar Layar Penuh';
-                } else {
-                    overlay.classList.add('p-2', 'sm:p-5');
-                    overlay.classList.remove('p-0');
-                    modalBox.classList.add('max-w-5xl', 'h-[86vh]', 'min-h-[540px]', 'max-h-[820px]', 'rounded-3xl');
-                    modalBox.classList.remove('max-w-none', 'w-screen', 'h-screen', 'max-h-screen', 'rounded-none');
-                    fsBtn.textContent = 'Layar Penuh';
                 }
             }
 
@@ -2116,23 +2097,20 @@
                     }
                 });
 
-                document.getElementById('toggle-fullscreen-slide').addEventListener('click', () => {
-                    const nextState = !isSlideFullscreen;
-                    setSlideFullscreen(nextState);
-
-                    const modalBox = document.getElementById('slideshow-modal-box');
-                    if (nextState) {
-                        if (modalBox.requestFullscreen && !document.fullscreenElement) {
-                            modalBox.requestFullscreen().catch(() => {});
+                const fsBtn = document.getElementById('toggle-fullscreen-slide');
+                const modalBox = document.getElementById('slideshow-modal-box');
+                fsBtn.addEventListener('click', () => {
+                    if (!document.fullscreenElement) {
+                        if (modalBox.requestFullscreen) {
+                            modalBox.requestFullscreen().catch(() => {
+                                modalBox.classList.toggle('max-w-5xl');
+                                modalBox.classList.toggle('h-[92vh]');
+                                modalBox.classList.toggle('h-screen');
+                                modalBox.classList.toggle('rounded-3xl');
+                            });
                         }
-                    } else if (document.fullscreenElement) {
+                    } else {
                         document.exitFullscreen().catch(() => {});
-                    }
-                });
-
-                document.addEventListener('fullscreenchange', () => {
-                    if (!document.fullscreenElement && isSlideFullscreen) {
-                        setSlideFullscreen(false);
                     }
                 });
 
@@ -2142,11 +2120,7 @@
                     if (overlay.classList.contains('hidden')) return;
                     const slides = SLIDE_DECKS[activeDeckKey].slides;
                     if (e.key === 'Escape') {
-                        if (isSlideFullscreen) {
-                            setSlideFullscreen(false);
-                        } else {
-                            closeSlideshow();
-                        }
+                        closeSlideshow();
                     } else if (e.key === 'ArrowRight' && currentSlideIndex < slides.length - 1) {
                         currentSlideIndex++;
                         renderCurrentSlide();
