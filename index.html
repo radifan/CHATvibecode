@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panduan Vibe Coding & Keamanan Membangun Website</title>
+    <title>Membangun Website dengan Vibe Coding</title>
     <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Inter -->
@@ -38,16 +38,16 @@
                         </svg>
                     </div>
                     <div>
-                        <h1 class="text-base sm:text-lg font-bold tracking-tight text-slate-900 dark:text-white leading-tight">VibeCode SafeHub</h1>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">Panduan & Toolkit Web Dev Berbasis AI</p>
+                        <h1 class="text-base sm:text-lg font-bold tracking-tight text-slate-900 dark:text-white leading-tight">VibeCode GuideHub</h1>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">Panduan Web Dev Berbasis AI</p>
                     </div>
                 </div>
 
                 <!-- Global Progress Bar -->
                 <div class="flex-1 max-w-md mx-2 sm:mx-6">
                     <div class="flex items-center justify-between text-xs font-medium mb-1">
-                        <span class="text-slate-600 dark:text-slate-300">Progres Ceklis Go-Live</span>
-                        <span id="global-progress-text" class="text-indigo-600 dark:text-indigo-400 font-bold">0% (0/18)</span>
+                        <span class="text-slate-600 dark:text-slate-300">Progres Go-Live</span>
+                        <span id="global-progress-text" class="text-indigo-600 dark:text-indigo-400 font-bold">0%</span>
                     </div>
                     <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
                         <div id="global-progress-bar" class="h-full bg-gradient-to-r from-indigo-500 to-emerald-500 rounded-full transition-all duration-300" style="width: 0%"></div>
@@ -72,14 +72,14 @@
         <nav aria-label="Menu Utama" class="bg-slate-50/80 dark:bg-slate-900/60 border-t border-slate-200/80 dark:border-slate-800/80 overflow-x-auto">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-2 py-2" id="nav-tabs">
                 <button data-tab="tab-materi" class="tab-btn active-tab flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition-all bg-indigo-600 text-white shadow-sm">
-                    <span>1. Materi &amp; Keamanan (Slideshow)</span>
+                    <span>1. Mengenal VibeCoding</span>
                 </button>
                 <button data-tab="tab-ai" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-800">
-                    <span>2. Mesin AI Gratis</span>
+                    <span>2. Mesin AI</span>
                 </button>
                 <button data-tab="tab-workflow" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-800">
-                    <span>3. Langkah Vibe Coding &amp; Deploy</span>
-                    <span id="nav-badge-count" class="ml-1 px-2 py-0.5 text-xs rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-900/60 dark:text-indigo-300">0/18</span>
+                    <span>3. Langkah &amp; Deploy</span>
+                    <span id="nav-badge-count" class="ml-1 px-2 py-0.5 text-xs rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-900/60 dark:text-indigo-300">0/12</span>
                 </button>
             </div>
         </nav>
@@ -98,7 +98,7 @@
                 <div class="px-6 sm:px-10 pt-5 sm:pt-6 flex items-center justify-end">
                     <button id="btn-start-slideshow" type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs shadow-sm transition">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
-                        <span>Mode Layar Penuh</span>
+                        <span>Layar Penuh</span>
                     </button>
                 </div>
 
@@ -127,8 +127,8 @@
             <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-4">
                     <div>
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Daftar Sumber &amp; Referensi Bacaan Resmi</h3>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Klik <strong>Detail</strong> untuk melihat ringkasan materi tiap referensi, atau <strong>Kunjungi Laman</strong> untuk membuka tautan sumber aslinya.</p>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Referensi</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Klik <strong>Detail</strong> untuk melihat ringkasan materi, atau <strong>Kunjungi Laman</strong> untuk membuka tautan sumber.</p>
                     </div>
                 </div>
                 <ul id="references-list-container" class="divide-y divide-slate-200 dark:divide-slate-800">
@@ -186,11 +186,11 @@
                 <div class="space-y-1">
                     <span class="inline-block px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 text-xs font-bold uppercase tracking-wider">Alur Kerja Terpadu &middot; Tersimpan Otomatis</span>
                     <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">Langkah-Langkah Membangun Website dengan Vibe Coding Hingga Go Live</h2>
-                    <p class="text-sm text-slate-600 dark:text-slate-300">Ikuti 5 fase utama berikut secara berurutan. Setiap fase dilengkapi ceklis interaktif, alat bantu <strong>Perakitan Prompt</strong>, dan panduan <strong>GitHub Web UI &amp; Vercel</strong> langsung di dalamnya.</p>
+                    <p class="text-sm text-slate-600 dark:text-slate-300">Ikuti Langkah berikut secara berurutan.</p>
                 </div>
                 <div class="flex items-center gap-3 shrink-0">
                     <span id="checklist-summary-pill" class="px-3.5 py-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 text-xs font-bold border border-emerald-200 dark:border-emerald-900">
-                        0 dari 18 Selesai
+                        0 dari 12 Selesai
                     </span>
                     <button id="btn-reset-checklist" type="button" class="px-3.5 py-2 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-900/50 text-xs font-semibold transition border border-rose-200 dark:border-rose-900/60">
                         Reset Progres
@@ -279,7 +279,7 @@
                 </div>
 
                 <div class="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/60 space-y-1.5">
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-300">Rincian Skema Gratis &amp; Batasan Kuota</h4>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-300">Rincian Skema &amp; Batasan Kuota</h4>
                     <p id="ai-modal-scheme" class="text-xs sm:text-sm text-slate-700 dark:text-slate-200 leading-relaxed"></p>
                 </div>
 
@@ -305,8 +305,8 @@
         <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 border border-slate-200 dark:border-slate-800 shadow-2xl space-y-5">
             <div class="flex items-start justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
                 <div>
-                    <span id="ref-modal-category" class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 mb-1.5">Kategori Sumber</span>
-                    <h3 id="ref-modal-title" class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white leading-snug">Judul Referensi</h3>
+                    <span id="ref-modal-category" class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 mb-1.5">Kategori</span>
+                    <h3 id="ref-modal-title" class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white leading-snug">Judul</h3>
                 </div>
                 <button id="btn-close-ref-modal" type="button" aria-label="Tutup Detail Referensi" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-white transition shrink-0">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -315,12 +315,12 @@
 
             <div class="space-y-4 text-sm">
                 <div>
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">Penulis / Lembaga Penerbit</h4>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">Penulis</h4>
                     <p id="ref-modal-author" class="font-semibold text-slate-800 dark:text-slate-200"></p>
                 </div>
 
                 <div>
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">Ringkasan Materi</h4>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">Ringkasan</h4>
                     <p id="ref-modal-summary" class="text-slate-700 dark:text-slate-300 leading-relaxed"></p>
                 </div>
 
@@ -351,8 +351,8 @@
     <!-- Custom Confirmation Modal (Pengganti confirm() yang aman) -->
     <div id="reset-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/60 backdrop-blur-sm p-4">
         <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-6 border border-slate-200 dark:border-slate-800 shadow-xl space-y-4">
-            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Reset Seluruh Progres Ceklis?</h3>
-            <p class="text-sm text-slate-600 dark:text-slate-300">Semua tanda centang pada panduan deployment akan dikembalikan ke status belum selesai.</p>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Reset Progres</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300">Status dikembalikan ke belum selesai.</p>
             <div class="flex justify-end gap-3 pt-2">
                 <button id="btn-cancel-reset" type="button" class="px-4 py-2 rounded-xl text-sm font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">Batal</button>
                 <button id="btn-confirm-reset" type="button" class="px-4 py-2 rounded-xl text-sm font-semibold bg-rose-600 hover:bg-rose-700 text-white transition">Ya, Reset Progres</button>
@@ -363,7 +363,7 @@
     <!-- Footer -->
     <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-6 mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
-            <p>VibeCode SafeHub &mdash; Panduan Edukasi Vibe Coding, Keamanan Web & Deployment Gratis.</p>
+            <p>VibeCode GuideHub &mdash; Panduan Vibe Coding, Keamanan Web & Deployment Gratis.</p>
             <p>Dibangun dengan prinsip <em>Security by Design</em> (Zero-XSS & LocalStorage Persistence).</p>
         </div>
     </footer>
