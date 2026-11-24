@@ -31,6 +31,27 @@
             to { opacity: 1; transform: translateY(0); }
         }
         .animate-slide { animation: fadeSlide 0.25s ease-out; }
+        /* Mode Fullscreen: Konten otomatis fit-to-window tanpa scrollbar */
+        #slideshow-modal-box:fullscreen,
+        #slideshow-modal-box:-webkit-full-screen {
+            width: 100vw !important;
+            height: 100vh !important;
+            max-width: 100vw !important;
+            max-height: 100vh !important;
+            border-radius: 0 !important;
+            border: none !important;
+        }
+        #slideshow-modal-box:fullscreen #slide-touch-area,
+        #slideshow-modal-box:-webkit-full-screen #slide-touch-area {
+            overflow: hidden !important;
+            padding: 0.75rem 1.75rem !important;
+            justify-content: center !important;
+        }
+        #slideshow-modal-box:fullscreen #slide-dynamic-content,
+        #slideshow-modal-box:-webkit-full-screen #slide-dynamic-content {
+            transform-origin: center center;
+            transition: transform 0.15s ease-out;
+        }
         @media print {
             @page {
                 size: landscape;
@@ -1943,6 +1964,46 @@
             let activeDeckKey = 'concept';
             let currentSlideIndex = 0;
 
+            function fitSlideToFullscreenViewport() {
+                const box = document.getElementById('slideshow-modal-box');
+                const area = document.getElementById('slide-touch-area');
+                const content = document.getElementById('slide-dynamic-content');
+                const fsBtn = document.getElementById('toggle-fullscreen-slide');
+                if (!box || !area || !content) return;
+
+                const isFs = Boolean(document.fullscreenElement || document.webkitFullscreenElement);
+                if (fsBtn) {
+                    fsBtn.textContent = isFs ? 'Keluar Layar Penuh' : 'Layar Penuh';
+                }
+
+                content.style.transform = '';
+                content.style.width = '';
+
+                const slide = SLIDE_DECKS[activeDeckKey] && SLIDE_DECKS[activeDeckKey].slides[currentSlideIndex];
+                if (!isFs || (slide && slide.slideType === 'closing')) {
+                    return;
+                }
+
+                // Ukur ruang tersedia di dalam area slide dan skalakan agar muat 100% tanpa scroll
+                const style = window.getComputedStyle(area);
+                const padY = parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
+                const padX = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
+                const availH = area.clientHeight - padY;
+                const availW = area.clientWidth - padX;
+
+                const naturalH = content.scrollHeight;
+                const naturalW = content.scrollWidth;
+
+                if (naturalH > 0 && availH > 0) {
+                    const scaleY = availH / naturalH;
+                    const scaleX = availW / naturalW;
+                    const scale = Math.min(1, scaleY, scaleX);
+                    if (scale < 0.995) {
+                        content.style.transform = 'scale(' + scale.toFixed(4) + ')';
+                    }
+                }
+            }
+
             function buildPresenterSpaceCard(isClosing) {
                 const card = document.createElement('div');
                 card.className = 'p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 grid grid-cols-1 md:grid-cols-12 gap-4 items-center';
@@ -2344,6 +2405,8 @@
                     });
                     nextWrapper.appendChild(nextBtn);
                 }
+
+                requestAnimationFrame(fitSlideToFullscreenViewport);
             }
 
             function openSlideshow(deckKey, startIndex) {
@@ -2968,14 +3031,24 @@
 
                 document.getElementById('toggle-fullscreen-slide').addEventListener('click', () => {
                     const box = document.getElementById('slideshow-modal-box');
-                    if (!document.fullscreenElement) {
-                        box.requestFullscreen().catch(() => {
-                            showToast('Mode layar penuh tidak didukung pada jendela ini.');
-                        });
+                    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                        const reqFs = box.requestFullscreen || box.webkitRequestFullscreen;
+                        if (reqFs) {
+                            Promise.resolve(reqFs.call(box)).catch(() => {
+                                showToast('Mode layar penuh tidak didukung pada jendela ini.');
+                            });
+                        }
                     } else {
-                        document.exitFullscreen().catch(() => {});
+                        const exitFs = document.exitFullscreen || document.webkitExitFullscreen;
+                        if (exitFs) {
+                            Promise.resolve(exitFs.call(document)).catch(() => {});
+                        }
                     }
                 });
+
+                document.addEventListener('fullscreenchange', fitSlideToFullscreenViewport);
+                document.addEventListener('webkitfullscreenchange', fitSlideToFullscreenViewport);
+                window.addEventListener('resize', fitSlideToFullscreenViewport);
 
                 document.addEventListener('keydown', (e) => {
                     const overlay = document.getElementById('slideshow-overlay');
