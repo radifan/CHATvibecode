@@ -275,9 +275,28 @@
                 </aside>
 
                 <!-- Kontainer Utama 5 Fase -->
-                <div id="workflow-phases-container" class="lg:col-span-8 xl:col-span-9 space-y-6">
-                    <!-- Diisi via JavaScript -->
+                <!-- Kontainer Utama 5 Fase (Geser ke Samping) -->
+                <div class="lg:col-span-8 xl:col-span-9 min-w-0 space-y-4">
+                    <!-- Bar Kontrol Geser Fase -->
+                    <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-4 py-3 shadow-sm flex items-center justify-between gap-3">
+                        <button id="prev-phase-btn" type="button" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 disabled:opacity-40 disabled:pointer-events-none transition shrink-0">
+                            &larr; Fase Sebelumnya
+                        </button>
+                        <div class="text-center min-w-0">
+                            <div id="active-phase-indicator" class="text-xs sm:text-sm font-extrabold text-emerald-600 dark:text-emerald-400 truncate">FASE 01</div>
+                            <div class="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">Geser ke samping atau pilih fase di menu</div>
+                        </div>
+                        <button id="next-phase-btn" type="button" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white disabled:opacity-40 disabled:pointer-events-none transition shrink-0">
+                            Fase Berikutnya &rarr;
+                        </button>
+                    </div>
+                
+                    <!-- Track Geser Horizontal -->
+                    <div id="workflow-phases-container" class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-6 no-scrollbar pb-2 items-start">
+                        <!-- Diisi via JavaScript -->
+                    </div>
                 </div>
+                <!-- ------------------------------------------------ -->
             </div>
         </section>
     </main>
@@ -1155,7 +1174,8 @@
             let appState = {
                 completedSteps: {},
                 stepNotes: {},
-                theme: 'light'
+                theme: 'light',
+                activePhaseIndex: 0
             };
 
             function loadState() {
@@ -3468,7 +3488,7 @@
                     const btn = document.createElement('button');
                     btn.type = 'button';
                     btn.setAttribute('data-jump-phase', phase.id);
-                    btn.className = 'phase-nav-btn text-left px-3.5 py-2.5 rounded-2xl border transition flex items-center justify-between gap-2.5 shrink-0 lg:shrink ' + (idx === 0
+                    btn.className = 'phase-nav-btn text-left px-3.5 py-2.5 rounded-2xl border transition flex items-center justify-between gap-2.5 shrink-0 lg:shrink ' + (idx === appState.activePhaseIndex
                         ? 'bg-emerald-50/90 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800 text-emerald-900 dark:text-emerald-200 font-bold'
                         : 'bg-slate-50/70 dark:bg-slate-800/40 border-slate-200/80 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-400 font-semibold');
 
@@ -3489,15 +3509,7 @@
 
                     btn.append(leftWrap, countBadge);
                     btn.addEventListener('click', () => {
-                        document.querySelectorAll('.phase-nav-btn').forEach(b => {
-                            b.className = 'phase-nav-btn text-left px-3.5 py-2.5 rounded-2xl border transition flex items-center justify-between gap-2.5 shrink-0 lg:shrink bg-slate-50/70 dark:bg-slate-800/40 border-slate-200/80 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-400 font-semibold';
-                        });
-                        btn.className = 'phase-nav-btn text-left px-3.5 py-2.5 rounded-2xl border transition flex items-center justify-between gap-2.5 shrink-0 lg:shrink bg-emerald-50/90 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800 text-emerald-900 dark:text-emerald-200 font-bold';
-
-                        const targetCard = document.getElementById('card-' + phase.id);
-                        if (targetCard) {
-                            targetCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }
+                        syncActivePhaseUI(idx, true);
                     });
 
                     sidebarList.appendChild(btn);
@@ -3512,7 +3524,8 @@
                 WORKFLOW_PHASES.forEach(phase => {
                     const card = document.createElement('article');
                     card.id = 'card-' + phase.id;
-                    card.className = 'scroll-mt-36 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-7 shadow-sm space-y-5';
+                    // card.className = 'scroll-mt-36 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-7 shadow-sm space-y-5';
+                    card.className = 'w-full shrink-0 snap-start rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-7 shadow-sm space-y-5';
 
                     // Header Fase
                     const head = document.createElement('div');
@@ -3672,6 +3685,7 @@
                 });
 
                 updateProgressIndicators();
+                syncActivePhaseUI(appState.activePhaseIndex, false);
             }
 
             function initResetModal() {
@@ -3695,6 +3709,65 @@
             // =================================================================
             // 9. INISIALISASI APLIKASI
             // =================================================================
+            
+            function syncActivePhaseUI(phaseIdx, shouldScroll) {
+                   const total = WORKFLOW_PHASES.length;
+                   if (phaseIdx < 0) phaseIdx = 0;
+                   if (phaseIdx >= total) phaseIdx = total - 1;
+                   appState.activePhaseIndex = phaseIdx;
+            
+                   const activePhase = WORKFLOW_PHASES[phaseIdx];
+                   const indicator = document.getElementById('active-phase-indicator');
+                   if (indicator && activePhase) {
+                       indicator.textContent = activePhase.num + ' · ' + activePhase.title;
+                   }
+            
+                   const prevBtn = document.getElementById('prev-phase-btn');
+                   const nextBtn = document.getElementById('next-phase-btn');
+                   if (prevBtn) prevBtn.disabled = phaseIdx === 0;
+                   if (nextBtn) nextBtn.disabled = phaseIdx >= total - 1;
+            
+                   document.querySelectorAll('.phase-nav-btn').forEach((b, idx) => {
+                       b.className = idx === phaseIdx
+                           ? 'phase-nav-btn text-left px-3.5 py-2.5 rounded-2xl border transition flex items-center justify-between gap-2.5 shrink-0 lg:shrink bg-emerald-50/90 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800 text-emerald-900 dark:text-emerald-200 font-bold'
+                           : 'phase-nav-btn text-left px-3.5 py-2.5 rounded-2xl border transition flex items-center justify-between gap-2.5 shrink-0 lg:shrink bg-slate-50/70 dark:bg-slate-800/40 border-slate-200/80 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-400 font-semibold';
+                   });
+            
+                   if (shouldScroll) {
+                       const track = document.getElementById('workflow-phases-container');
+                       const targetCard = document.getElementById('card-' + activePhase.id);
+                       if (track && targetCard) {
+                           track.scrollTo({
+                               left: targetCard.offsetLeft - track.offsetLeft,
+                               behavior: 'smooth'
+                           });
+                       }
+                   }
+               }
+            
+               function initPhaseCarouselControls() {
+                   const track = document.getElementById('workflow-phases-container');
+                   document.getElementById('prev-phase-btn')?.addEventListener('click', () => {
+                       if (appState.activePhaseIndex > 0) syncActivePhaseUI(appState.activePhaseIndex - 1, true);
+                   });
+                   document.getElementById('next-phase-btn')?.addEventListener('click', () => {
+                       if (appState.activePhaseIndex < WORKFLOW_PHASES.length - 1) syncActivePhaseUI(appState.activePhaseIndex + 1, true);
+                   });
+                   let scrollDebounce = null;
+                   track?.addEventListener('scroll', () => {
+                       clearTimeout(scrollDebounce);
+                       scrollDebounce = setTimeout(() => {
+                           if (track.clientWidth > 0) {
+                               const newIdx = Math.round(track.scrollLeft / track.clientWidth);
+                               if (newIdx !== appState.activePhaseIndex && newIdx >= 0 && newIdx < WORKFLOW_PHASES.length) {
+                                   syncActivePhaseUI(newIdx, false);
+                               }
+                           }
+                       }, 90);
+                   }, { passive: true });
+               }
+
+            
             document.addEventListener('DOMContentLoaded', () => {
                 loadState();
                 initTheme();
