@@ -433,8 +433,18 @@
                 presenterName: '[Nama Anda] & [Nama Rekan Anda]',
                 dateTime: '[Hari, Tanggal · Pukul 00.00 WIB]',
                 venue: '[Nama Tempat / Ruangan / Instansi]',
-                closingImageSrc: 'Ingatlah Bahwa Kechilafan Satu Orang Sahaja.png'
+                closingImageSrc: 'https://raw.githubusercontent.com/radifan/CHATvibecode/80e44f0bcbddff5ba099de9be3bdf7795d0cc27e/Ingatlah%20Bahwa%20Kechilafan%20Satu%20Orang%20Sahaja.png'
             };
+
+            function normalizeImageUrl(rawUrl) {
+                if (!rawUrl) return '';
+                const trimmed = rawUrl.trim();
+                const ghBlobMatch = trimmed.match(/^https?:\/\/github\.com\/([^/]+)\/([^/]+)\/blob\/(.+)$/i);
+                if (ghBlobMatch) {
+                    return 'https://raw.githubusercontent.com/' + ghBlobMatch[1] + '/' + ghBlobMatch[2] + '/' + ghBlobMatch[3];
+                }
+                return trimmed;
+            }
 
             // =================================================================
             // 2. DATA MATERI SLIDESHOW (2 DECK + SLIDE COVER & PENUTUP)
@@ -1905,13 +1915,19 @@
                 const frame = document.createElement('div');
                 frame.className = 'rounded-3xl overflow-hidden border border-slate-700/80 shadow-xl bg-slate-950 relative';
 
+                const resolvedSrc = normalizeImageUrl(imgSrc || PRESENTATION_INFO.closingImageSrc);
                 const img = document.createElement('img');
-                img.src = imgSrc || PRESENTATION_INFO.closingImageSrc;
+                img.src = resolvedSrc;
                 img.alt = 'Kutipan dr. Roebiono Kertopati Bapak Persandian Indonesia & Perisai BSSN';
                 img.className = 'w-full h-auto max-h-[340px] sm:max-h-[390px] object-contain mx-auto block bg-[#020408]';
                 img.onerror = function () {
                     frame.innerHTML = '';
                     frame.appendChild(createClosingQuoteSvg());
+
+                    const hintBar = document.createElement('div');
+                    hintBar.className = 'px-4 py-2 bg-amber-950/90 border-t border-amber-800/70 text-[11px] text-amber-200 text-center';
+                    hintBar.textContent = 'Catatan: Gambar dari "' + resolvedSrc + '" belum dapat dimuat (pastikan repositori GitHub bersifat Public dan URL mengarah langsung ke file gambar).';
+                    frame.appendChild(hintBar);
                 };
 
                 frame.appendChild(img);
@@ -2462,7 +2478,7 @@
                     if (page.slideType === 'closing') {
                         pageDiv.style.background = '#020408';
                         pageDiv.style.color = '#ffffff';
-                        const imgSrc = page.closingImage || PRESENTATION_INFO.closingImageSrc;
+                        const imgSrc = normalizeImageUrl(page.closingImage || PRESENTATION_INFO.closingImageSrc);
                         pageDiv.innerHTML = `
                             <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.2);padding-bottom:10px;">
                                 <span style="font-size:12px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;">${deck.name} · PENUTUP</span>
@@ -2740,7 +2756,8 @@
                             fill: { color: primaryHex }
                         });
 
-                        let closingImgData = await imageFileToDataUrl(page.closingImage || PRESENTATION_INFO.closingImageSrc);
+                        const resolvedClosingSrc = normalizeImageUrl(page.closingImage || PRESENTATION_INFO.closingImageSrc);
+                        let closingImgData = await imageFileToDataUrl(resolvedClosingSrc);
                         if (!closingImgData) {
                             closingImgData = await svgElementToPngDataUrl(createClosingQuoteSvg(), 960, 540);
                         }
