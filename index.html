@@ -292,7 +292,7 @@
                     </div>
                 
                     <!-- Track Geser Horizontal -->
-                    <div id="workflow-phases-container" class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-6 no-scrollbar pb-2 items-start">
+                    <div id="workflow-phases-container" class="flex overflow-x-auto snap-x snap-mandatory gap-6 no-scrollbar pb-2 items-start">
                         <!-- Diisi via JavaScript -->
                     </div>
                 </div>
@@ -3734,15 +3734,16 @@
                    });
             
                    if (shouldScroll) {
-                       const track = document.getElementById('workflow-phases-container');
-                       const targetCard = document.getElementById('card-' + activePhase.id);
-                       if (track && targetCard) {
-                           track.scrollTo({
-                               left: targetCard.offsetLeft - track.offsetLeft,
-                               behavior: 'smooth'
-                           });
-                       }
-                   }
+                        const track = document.getElementById('workflow-phases-container');
+                        const targetCard = document.getElementById('card-' + activePhase.id);
+                        if (track && targetCard) {
+                            targetCard.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'nearest',
+                                inline: 'start'
+                            });
+                        }
+                    }
                }
             
                function initPhaseCarouselControls() {
