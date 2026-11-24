@@ -3737,11 +3737,16 @@
                         const track = document.getElementById('workflow-phases-container');
                         const targetCard = document.getElementById('card-' + activePhase.id);
                         if (track && targetCard) {
-                            targetCard.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'nearest',
-                                inline: 'start'
+                            const targetLeft = targetCard.offsetLeft - track.offsetLeft;
+                            track.classList.remove('snap-mandatory');
+                            track.scrollTo({
+                                left: targetLeft,
+                                behavior: 'smooth'
                             });
+                            clearTimeout(track._snapRestoreTimer);
+                            track._snapRestoreTimer = setTimeout(() => {
+                                track.classList.add('snap-mandatory');
+                            }, 450);
                         }
                     }
                }
