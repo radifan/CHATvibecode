@@ -43,13 +43,25 @@
         }
         #slideshow-modal-box:fullscreen #slide-touch-area,
         #slideshow-modal-box:-webkit-full-screen #slide-touch-area {
-            overflow: hidden !important;
-            padding: 0.75rem 1.75rem !important;
-            justify-content: center !important;
+            overflow-y: auto !important;
+            padding: 1.25rem 2.25rem !important;
+            justify-content: flex-start !important;
         }
         #slideshow-modal-box:fullscreen #slide-dynamic-content,
         #slideshow-modal-box:-webkit-full-screen #slide-dynamic-content {
-            transform-origin: center center;
+            max-width: 72rem;
+            margin-left: auto;
+            margin-right: auto;
+            transform-origin: top center;
+        }
+        #slideshow-modal-box:fullscreen svg.rounded-2xl,
+        #slideshow-modal-box:-webkit-full-screen svg.rounded-2xl {
+            max-height: 33vh !important;
+            width: auto !important;
+            max-width: 100% !important;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
         }
         @media print {
             @page {
@@ -460,10 +472,10 @@
             // 1. IDENTITAS PENYUSUN, WAKTU & TEMPAT (EDIT LANGSUNG DI SINI)
             // =================================================================
             const PRESENTATION_INFO = {
-                presenterName: '[Nama Anda] & [Nama Rekan Anda]',
-                dateTime: '[Hari, Tanggal · Pukul 00.00 WIB]',
-                venue: '[Nama Tempat / Ruangan / Instansi]',
-                closingImageSrc: 'https://raw.githubusercontent.com/radifan/CHATvibecode/d66b8662b73a5cdeac59f17856615737e973ec86/Ingatlah%20Bahwa%20Kechilafan%20Satu%20Orang%20Sahaja.jpg'
+                presenterName: 'Hadyan Radifan & Ryan Martin Hidayat',
+                dateTime: 'Jumat, 27 November 2026',
+                venue: 'Kota Langsa - Aceh',
+                closingImageSrc: 'https://raw.githubusercontent.com/radifan/CHATvibecode/80e44f0bcbddff5ba099de9be3bdf7795d0cc27e/Ingatlah%20Bahwa%20Kechilafan%20Satu%20Orang%20Sahaja.png'
             };
 
             function normalizeImageUrl(rawUrl) {
@@ -1435,9 +1447,9 @@
                 slideDynamicContent.style.width = '100%';
                 const areaRect = slideTouchArea.getBoundingClientRect();
                 const contentHeight = slideDynamicContent.scrollHeight;
-                const availHeight = areaRect.height - 16;
+                const availHeight = areaRect.height - 28;
                 if (contentHeight > availHeight && availHeight > 120) {
-                    const ratio = Math.max(0.58, Math.min(1, availHeight / contentHeight));
+                    const ratio = Math.max(0.82, Math.min(1, availHeight / contentHeight));
                     slideDynamicContent.style.zoom = ratio.toFixed(3);
                 }
             }
