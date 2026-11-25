@@ -473,9 +473,9 @@
             // =================================================================
             const PRESENTATION_INFO = {
                 presenterName: 'Hadyan Radifan & Ryan Martin Hidayat',
-                dateTime: 'Jumat, 27 November 2026',
+                dateTime: 'Jumat, 27 November 2026 · 10.00 WIB]',
                 venue: 'Kota Langsa - Aceh',
-                closingImageSrc: 'https://raw.githubusercontent.com/radifan/CHATvibecode/80e44f0bcbddff5ba099de9be3bdf7795d0cc27e/Ingatlah%20Bahwa%20Kechilafan%20Satu%20Orang%20Sahaja.png'
+                closingImageSrc: 'https://raw.githubusercontent.com/radifan/CHATvibecode/d66b8662b73a5cdeac59f17856615737e973ec86/Ingatlah%20Bahwa%20Kechilafan%20Satu%20Orang%20Sahaja.jpg'
             };
 
             function normalizeImageUrl(rawUrl) {
@@ -2375,12 +2375,23 @@
                 if (activeSlideIndex === total - 1) {
                     const finishBtn = document.createElement('button');
                     finishBtn.type = 'button';
-                    finishBtn.className = 'px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition';
-                    finishBtn.textContent = 'Selesai & Lanjut ke Praktik \u2192';
-                    finishBtn.addEventListener('click', () => {
-                        closeSlideshowModal();
-                        switchPrimaryTab('tab-langkah');
-                    });
+                    if (activeDeckKey === 'concept') {
+                        finishBtn.className = 'px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition';
+                        finishBtn.textContent = 'Lanjut ke Modul 02 \u2192';
+                        finishBtn.addEventListener('click', () => {
+                            activeDeckKey = 'technical';
+                            activeSlideIndex = 0;
+                            activeScreenIndex = 0;
+                            renderActiveSlide();
+                        });
+                    } else {
+                        finishBtn.className = 'px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition';
+                        finishBtn.textContent = 'Selesai & Lanjut ke Praktik \u2192';
+                        finishBtn.addEventListener('click', () => {
+                            closeSlideshowModal();
+                            switchPrimaryTab('tab-langkah');
+                        });
+                    }
                     nextSlideWrapper.appendChild(finishBtn);
                 } else {
                     const nextBtn = document.createElement('button');
