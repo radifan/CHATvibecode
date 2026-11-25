@@ -473,7 +473,7 @@
             // =================================================================
             const PRESENTATION_INFO = {
                 presenterName: 'Hadyan Radifan & Ryan Martin Hidayat',
-                dateTime: 'Jumat, 27 November 2026 · 10.00 WIB]',
+                dateTime: 'Jumat, 27 November 2026]',
                 venue: 'Kota Langsa - Aceh',
                 closingImageSrc: 'https://raw.githubusercontent.com/radifan/CHATvibecode/d66b8662b73a5cdeac59f17856615737e973ec86/Ingatlah%20Bahwa%20Kechilafan%20Satu%20Orang%20Sahaja.jpg'
             };
@@ -503,9 +503,9 @@
                             title: 'Apa Itu Vibe Coding & Keamanan Web AI',
                             subtitle: 'Panduan Menyusun Master Prompt Terstruktur, Efisiensi Token, Validasi Keamanan, dan Standar Kriteria Aplikasi Web Modern',
                             highlights: [
-                                'Paradigma Vibe Coding & Perbandingan Prompt',
-                                'Mitigasi Keamanan (Anti-XSS, Hashing, MFA, Secrets, HTTP Headers)',
-                                'Matriks Kriteria Penyusunan Web Katalog (C1–C10)'
+                                'Vibe Coding',
+                                'Keamanan (Anti-XSS, Hashing, MFA, Secrets, HTTP Headers)',
+                                'Contoh Kriteria Menyusun Web Katalog'
                             ]
                         },
                         {
@@ -701,9 +701,9 @@
                             title: 'Panduan Teknis: Dari Prompt Hingga Go Live',
                             subtitle: 'Alur Praktis 5 Fase Membangun Website dengan AI, Mengamankan Repository GitHub (2FA, Upload, Branch & PR), serta Deploy HTTPS di Vercel',
                             highlights: [
-                                'Fase 1: Rakit Master Prompt & Uji Kode Lokal',
-                                'Fase 2–4: Akun GitHub, 2FA, Upload File, Branch & Pull Request',
-                                'Fase 5: Konfigurasi 6+2 Security Headers & Publish di Vercel'
+                                'Fase 1: Master Prompt',
+                                'Fase 2–4: GitHub',
+                                'Fase 5: Vercel'
                             ]
                         },
                         {
@@ -2014,9 +2014,9 @@
                     const metaBar = document.createElement('div');
                     metaBar.className = 'pt-4 border-t border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs';
                     [
-                        { label: 'Penyusun / Pemateri', val: PRESENTATION_INFO.presenterName },
-                        { label: 'Hari, Tanggal & Waktu', val: PRESENTATION_INFO.dateTime },
-                        { label: 'Tempat / Instansi', val: PRESENTATION_INFO.venue }
+                        { label: 'Pemateri', val: PRESENTATION_INFO.presenterName },
+                        { label: 'Hari, Tanggal', val: PRESENTATION_INFO.dateTime },
+                        { label: 'Tempat', val: PRESENTATION_INFO.venue }
                     ].forEach(meta => {
                         const mCell = document.createElement('div');
                         mCell.className = 'bg-slate-900/70 px-3.5 py-2.5 rounded-xl border border-white/10';
