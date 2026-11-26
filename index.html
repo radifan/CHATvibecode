@@ -111,13 +111,23 @@
         #slideshow-modal-box:-webkit-full-screen img {
             max-height: 82vh !important;
         }
+        /* Print & Ekspor PDF Layout (Anti-Terpotong) */
         @media print {
             @page {
-                size: landscape;
-                margin: 10mm;
+                size: A4 landscape;
+                margin: 8mm 10mm;
             }
+        
+            html, body {
+                height: auto !important;
+                overflow: visible !important;
+                font-size: 92% !important;
+                background: #ffffff !important;
+            }
+        
             body > header,
             body > main,
+            #bg-ambient-canvas,
             #slideshow-overlay,
             #detail-modal,
             #reset-modal,
@@ -125,28 +135,46 @@
             #toast-box {
                 display: none !important;
             }
+        
             #print-deck-container {
                 display: block !important;
                 background: #ffffff !important;
                 color: #0f172a !important;
+                width: 100% !important;
             }
+        
             .print-slide-page {
-                page-break-after: always;
-                break-after: page;
-                min-height: 178mm;
-                padding: 20px 28px;
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                page-break-after: always !important;
+                break-after: page !important;
+                padding: 14px 20px !important;
                 border: 1px solid #cbd5e1;
-                border-radius: 14px;
-                margin-bottom: 12px;
+                border-radius: 12px;
+                margin-bottom: 10px;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
+                gap: 10px;
                 box-sizing: border-box;
                 background: #ffffff !important;
             }
+        
             .print-slide-page:last-child {
-                page-break-after: auto;
-                break-after: auto;
+                page-break-after: auto !important;
+                break-after: auto !important;
+                margin-bottom: 0 !important;
+            }
+        
+            .print-slide-page table,
+            .print-slide-page pre,
+            .print-slide-page li {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
             }
         }
     </style>
@@ -161,7 +189,12 @@
                     V
                 </div>
                 <div class="min-w-0">
-                    <h1 class="text-base sm:text-lg font-extrabold tracking-tight truncate">VibeCode GuideHub</h1>
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-base sm:text-lg font-extrabold tracking-tight truncate">VibeCode GuideHub</h1>
+                        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-sky-100 text-sky-700 dark:bg-sky-950/80 dark:text-sky-300 border border-sky-200/60 dark:border-sky-800/60 shrink-0">
+                            by Radifan
+                        </span>
+                    </div>
                     <p class="text-xs text-slate-500 dark:text-slate-400 truncate hidden sm:block">Vibe Coding, Keamanan &amp; Go Live</p>
                 </div>
             </div>
@@ -2553,6 +2586,14 @@
                 if (e.target === exportChoiceModal) closeExportChoiceModal();
             });
 
+            function getDownloadStamp() {
+                const now = new Date();
+                const dd = String(now.getDate()).padStart(2, '0');
+                const mm = String(now.getMonth() + 1).padStart(2, '0');
+                const yyyy = now.getFullYear();
+                return 'diunduh pada ' + dd + '-' + mm + '-' + yyyy;
+            }
+
             // Ekspor ke PDF via Layout Cetak Rapi
             function exportDeckToPDF(deckKey) {
                 const deck = SLIDE_DECKS[deckKey];
@@ -2733,11 +2774,12 @@
                     }
 
                     const botSec = document.createElement('div');
-                    botSec.className = 'pt-2 border-t border-slate-200 flex items-center justify-between text-[10px] text-slate-400';
+                    botSec.className = 'pt-2 border-t border-slate-200 flex items-center justify-between gap-4 text-[10px] text-slate-500';
                     const leftFoot = document.createElement('span');
                     leftFoot.textContent = slide.highlight ? 'Catatan: ' + slide.highlight : 'VibeCode GuideHub · Materi Pembelajaran';
                     const rightFoot = document.createElement('span');
-                    rightFoot.textContent = PRESENTATION_INFO.presenterName;
+                    rightFoot.className = 'shrink-0 font-mono';
+                    rightFoot.textContent = PRESENTATION_INFO.presenterName + ' · ' + getDownloadStamp();
                     botSec.appendChild(leftFoot);
                     botSec.appendChild(rightFoot);
 
@@ -2762,20 +2804,21 @@
                     showToast('Library PPTX belum termuat. Periksa koneksi internet Anda.');
                     return;
                 }
-
+        
                 const deck = SLIDE_DECKS[deckKey];
                 const isEmerald = deck.color === 'emerald';
                 const accentHex = isEmerald ? '059669' : '4F46E5';
                 const darkBgHex = isEmerald ? '022C22' : '1E1B4B';
-
+                const stampText = getDownloadStamp(); // <--- TIMESTAMP OTOMATIS
+        
                 const pptx = new window.PptxGenJS();
                 pptx.layout = 'LAYOUT_WIDE';
                 pptx.author = PRESENTATION_INFO.presenterName;
                 pptx.title = deck.name;
-
+        
                 deck.slides.forEach((slide, idx) => {
                     const s = pptx.addSlide();
-
+        
                     if (slide.slideType === 'cover') {
                         s.background = { color: darkBgHex };
                         s.addText(slide.badge.toUpperCase(), {
@@ -2790,7 +2833,7 @@
                             x: 0.7, y: 2.6, w: 11.5, h: 0.9,
                             fontSize: 15, color: 'CBD5E1'
                         });
-
+        
                         const metaCards = [
                             { l: 'PENYUSUN / PEMATERI', v: PRESENTATION_INFO.presenterName, x: 0.7 },
                             { l: 'HARI, TANGGAL & WAKTU', v: PRESENTATION_INFO.dateTime, x: 4.8 },
@@ -2810,6 +2853,13 @@
                                 fontSize: 12, bold: true, color: 'FFFFFF'
                             });
                         });
+        
+                        // Timestamp di halaman Cover
+                        s.addText(stampText, {
+                            x: 0.7, y: 6.65, w: 11.8, h: 0.35, align: 'right',
+                            fontSize: 10, italic: true, color: '94A3B8'
+                        });
+        
                     } else if (slide.slideType === 'closing') {
                         s.background = { color: '0F172A' };
                         s.addText(slide.badge.toUpperCase(), {
@@ -2836,10 +2886,13 @@
                             x: 0.7, y: 4.35, w: 11.8, h: 0.7,
                             fontSize: 14, color: 'CBD5E1'
                         });
-                        s.addText(PRESENTATION_INFO.presenterName + ' · ' + PRESENTATION_INFO.venue, {
+        
+                        // Footer + Timestamp di halaman Penutup
+                        s.addText(PRESENTATION_INFO.presenterName + ' · ' + PRESENTATION_INFO.venue + ' · ' + stampText, {
                             x: 0.7, y: 6.4, w: 11.8, h: 0.4,
                             fontSize: 11, color: '94A3B8'
                         });
+        
                     } else {
                         s.background = { color: 'FFFFFF' };
                         s.addText(deck.name + '  |  ' + slide.badge, {
@@ -2858,9 +2911,9 @@
                             x: 0.65, y: 1.42, w: 12.0, h: 0.55,
                             fontSize: 12.5, color: '475569'
                         });
-
+        
                         let curY = 2.1;
-
+        
                         if (slide.compare) {
                             s.addShape(pptx.ShapeType.roundRect, {
                                 x: 0.65, y: curY, w: 5.85, h: 3.5,
@@ -2878,7 +2931,7 @@
                                 x: 0.85, y: curY + 2.2, w: 5.45, h: 1.1,
                                 fontSize: 10.5, color: '881337'
                             });
-
+        
                             s.addShape(pptx.ShapeType.roundRect, {
                                 x: 6.8, y: curY, w: 5.85, h: 3.5,
                                 fill: { color: 'ECFDF5' }, line: { color: 'A7F3D0', width: 1 }
@@ -2897,7 +2950,7 @@
                             });
                             curY += 3.7;
                         }
-
+        
                         if (slide.visualCards) {
                             const count = slide.visualCards.length;
                             const cardW = count === 4 ? 2.85 : 3.85;
@@ -2918,7 +2971,7 @@
                             });
                             curY += 2.3;
                         }
-
+        
                         if (slide.points && slide.points.length > 0) {
                             const bulletItems = slide.points.map(pt => ({
                                 text: pt,
@@ -2928,7 +2981,7 @@
                                 x: 0.65, y: curY, w: 12.0, h: 3.4
                             });
                         }
-
+        
                         if (slide.table) {
                             const rows = [
                                 slide.table.headers.map(h => ({
@@ -2948,21 +3001,27 @@
                                 border: { pt: 0.5, color: 'CBD5E1' }
                             });
                         }
-
+        
                         if (slide.highlight) {
                             s.addShape(pptx.ShapeType.roundRect, {
-                                x: 0.65, y: 6.35, w: 12.0, h: 0.55,
+                                x: 0.65, y: 6.25, w: 12.0, h: 0.55,
                                 fill: { color: isEmerald ? 'ECFDF5' : 'EEF2FF' },
                                 line: { color: accentHex, width: 0.75 }
                             });
                             s.addText('Catatan Penting: ' + slide.highlight, {
-                                x: 0.85, y: 6.42, w: 11.6, h: 0.4,
+                                x: 0.85, y: 6.32, w: 11.6, h: 0.4,
                                 fontSize: 10.5, bold: true, color: isEmerald ? '065F46' : '3730A3'
                             });
                         }
+        
+                        // Footer + Timestamp di seluruh slide materi reguler
+                        s.addText(PRESENTATION_INFO.presenterName + ' · ' + stampText, {
+                            x: 0.65, y: 6.95, w: 12.0, h: 0.3, align: 'right',
+                            fontSize: 9.5, italic: true, color: '64748B'
+                        });
                     }
                 });
-
+        
                 closeExportChoiceModal();
                 showToast('Mengunduh file PowerPoint (.pptx)...');
                 pptx.writeFile({ fileName: deck.fileSlug + '.pptx' });
