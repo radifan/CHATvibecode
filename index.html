@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https:; base-uri 'self'; form-action 'self';">
+    <title>VibeCode GuideHub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans antialiased transition-colors duration-200 min-h-screen flex flex-col relative overflow-x-hidden">
+
+    <!-- Interactive 3D/Ambient Particle Grid Canvas -->
+    <canvas id="bg-ambient-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-50 dark:opacity-40" aria-hidden="true"></canvas>
+
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-30 bg-white/85 dark:bg-slate-900/85 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+                <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white font-extrabold flex items-center justify-center shadow-sm shrink-0">
+                    V
+                </div>
+                <div class="min-w-0">
+                    <h1 class="text-base sm:text-lg font-extrabold tracking-tight truncate">VibeCode GuideHub</h1>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 truncate hidden sm:block">Vibe Coding, Keamanan &amp; Go Live</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+                <!-- Global Go-Live Progress Pill -->
+                <div class="hidden md:flex items-center gap-2.5 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700">
+                    <span class="text-xs font-semibold text-slate-600 dark:text-slate-300">Progres Deploy:</span>
+                    <div class="w-24 h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                        <div id="top-progress-bar" class="h-full bg-emerald-500" style="width: 0%"></div>
+                    </div>
+                    <span id="top-progress-text" class="text-xs font-bold text-emerald-600 dark:text-emerald-400">0%</span>
+                </div>
+
+                <button id="theme-toggle" type="button" aria-label="Ganti Tema" class="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition">
+                    <svg id="icon-sun" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72 1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path></svg>
+                    <svg id="icon-moon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Primary Navigation Tabs -->
+        <nav class="max-w-6xl mx-auto px-4 sm:px-6 flex gap-2 overflow-x-auto no-scrollbar border-t border-slate-100 dark:border-slate-800/80 py-2" aria-label="Menu Utama">
+            <button type="button" data-tab="tab-materi" class="tab-btn active px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition bg-indigo-600 text-white shadow-sm">
+                1. Materi &amp; Panduan
+            </button>
+            <button type="button" data-tab="tab-ai" class="tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+                2. Mesin AI
+            </button>
+            <button type="button" data-tab="tab-langkah" class="tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+                3. Praktik
+            </button>
+        </nav>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="relative z-10 flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
+
+        <!-- ========================================================= -->
+        <!-- TAB 1: MATERI SLIDESHOW (2 DECK CARDS) & LIST REFERENSI   -->
+        <!-- ========================================================= -->
+        <section id="tab-materi" class="tab-panel space-y-8">
+            <!-- 2 Deck Cards dengan 3D Tilt & Stagger Animation -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" style="perspective: 1200px;">
+                <!-- Card 1: Apa Itu Vibe Coding & Keamanan -->
+                <div data-open-deck="concept" class="gsap-stagger-card tilt-card group cursor-pointer rounded-3xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border border-slate-200 dark:border-slate-800 p-6 sm:p-7 shadow-sm hover:shadow-xl hover:border-indigo-400 dark:hover:border-indigo-500 transition-colors flex flex-col justify-between gap-6 relative overflow-hidden">
+                    <div class="tilt-glare pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300"></div>
+                    <div class="space-y-3 relative z-10">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="px-3 py-1 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 dark:bg-indigo-950/80 dark:text-indigo-300 border border-indigo-200/70 dark:border-indigo-800">
+                                MODUL 01
+                            </span>
+                            <span class="text-xs font-mono text-slate-400">Konsep &amp; Keamanan</span>
+                        </div>
+                        <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
+                            Apa Itu Vibe Coding &amp; Keamanan Web AI
+                        </h2>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                            Paradigma Vibe Coding, Kualitas Prompt, Efisiensi Token, Anatomi Master Prompt, Mitigasi Keamanan.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 relative z-10">
+                        <div class="flex items-center gap-2 shrink-0">
+                            <button type="button" data-open-export="concept" class="px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm font-bold transition">
+                                ⬇ Unduh
+                            </button>
+                            <span class="px-4 py-2.5 rounded-xl bg-indigo-600 group-hover:bg-indigo-700 text-white text-xs sm:text-sm font-bold shadow-sm transition">
+                                Tampilkan &rarr;
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Panduan Teknis -->
+                <div data-open-deck="technical" class="gsap-stagger-card tilt-card group cursor-pointer rounded-3xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border border-slate-200 dark:border-slate-800 p-6 sm:p-7 shadow-sm hover:shadow-xl hover:border-emerald-400 dark:hover:border-emerald-500 transition-colors flex flex-col justify-between gap-6 relative overflow-hidden">
+                    <div class="tilt-glare pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300"></div>
+                    <div class="space-y-3 relative z-10">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/80 dark:text-emerald-300 border border-emerald-200/70 dark:border-emerald-800">
+                                MODUL 02
+                            </span>
+                            <span class="text-xs font-mono text-slate-400">Langkah-langkah</span>
+                        </div>
+                        <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition">
+                            Panduan Teknis
+                        </h2>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                            5 fase tahapan membangun web dengan AI hingga langkah deployment.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 relative z-10">
+                        <div class="flex items-center gap-2 shrink-0">
+                            <button type="button" data-open-export="technical" class="px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm font-bold transition">
+                                ⬇ Unduh
+                            </button>
+                            <span class="px-4 py-2.5 rounded-xl bg-emerald-600 group-hover:bg-emerald-700 text-white text-xs sm:text-sm font-bold shadow-sm transition">
+                                Tampilkan &rarr;
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Daftar Sumber & Referensi Bacaan (Scroll Observer Reveal) -->
+            <div class="scroll-reveal-box rounded-3xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-sm">
+                <div class="mb-5 flex items-center justify-between">
+                    <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Referensi</span>
+                    <span class="text-[11px] font-mono text-slate-400">Standar Keamanan &amp; Dokumentasi</span>
+                </div>
+                <div id="references-list" class="divide-y divide-slate-200 dark:divide-slate-800 border-t border-b border-slate-200 dark:border-slate-800">
+                    <!-- Diisi via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- TAB 2: MESIN AI GRATIS (TABEL + TOMBOL DETAIL)            -->
+        <!-- ========================================================= -->
+        <section id="tab-ai" class="tab-panel hidden space-y-6">
+            <div class="rounded-3xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-sm space-y-5">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Direktori Platform Terkurasi</span>
+                        <h2 class="text-xl sm:text-2xl font-extrabold mt-1">Beberapa Mesin AI untuk Vibe Coding</h2>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <button type="button" data-ai-filter="all" class="ai-filter-btn active px-3.5 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white">Semua</button>
+                        <button type="button" data-ai-filter="Gratis Penuh" class="ai-filter-btn px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Gratis</button>
+                        <button type="button" data-ai-filter="Freemium" class="ai-filter-btn px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Freemium</button>
+                    </div>
+                </div>
+
+                <!-- Tabel Mesin AI Gratis -->
+                <div class="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 dark:bg-slate-800/80 text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
+                                <th class="py-3.5 px-4 font-bold">No</th>
+                                <th class="py-3.5 px-4 font-bold">Nama Platform AI</th>
+                                <th class="py-3.5 px-4 font-bold">Kategori Utama</th>
+                                <th class="py-3.5 px-4 font-bold">Status Akses</th>
+                                <th class="py-3.5 px-4 font-bold text-right">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ai-table-body" class="divide-y divide-slate-200 dark:divide-slate-800 text-sm">
+                            <!-- Diisi via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- TAB 3: LANGKAH VIBE CODING & DEPLOY (5 FASE TERPADU)      -->
+        <!-- ========================================================= -->
+        <section id="tab-langkah" class="tab-panel hidden space-y-6">
+            <!-- Header & Progress Bar Utama -->
+            <div class="rounded-3xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-sm space-y-4">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div class="space-y-1">
+                        <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Panduan Teknis</span>
+                        <h2 class="text-xl sm:text-2xl font-extrabold">Prompting, Security &amp; Deploy</h2>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Ikuti seluruh tahapan secara berurutan dari perancangan prompt, keamanan, unggah GitHub, hingga publikasi HTTPS di Vercel.</p>
+                    </div>
+                    <div class="flex items-center gap-3 shrink-0">
+                        <div class="text-right">
+                            <div id="main-progress-count" class="text-sm font-extrabold text-slate-900 dark:text-white">0 / 23 Langkah</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">Progres tersimpan di browser</div>
+                        </div>
+                        <div class="w-14 h-14 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center">
+                            <span id="main-progress-pct" class="text-sm font-extrabold text-emerald-600 dark:text-emerald-400">0%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-slate-800">
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Gunakan bilah navigasi fase untuk melengkapi ceklis dan catatan atau gulir ke samping.</p>
+                    <button id="open-reset-modal" type="button" class="px-3.5 py-2 rounded-xl text-xs font-semibold text-rose-600 hover:bg-rose-50 dark:text-rose-400 dark:hover:bg-rose-950/50 border border-rose-200/70 dark:border-rose-900/60 transition">
+                        Reset Progres
+                    </button>
+                </div>
+            </div>
+
+            <!-- Layout 2 Kolom: Sidebar Navigasi Fase (Kiri) + Konten Fase (Kanan) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                <!-- Sidebar Navigasi Fase -->
+                <aside class="lg:col-span-4 xl:col-span-3 lg:sticky lg:top-32 rounded-3xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border border-slate-200 dark:border-slate-800 p-4 shadow-sm space-y-3">
+                    <div class="px-1 flex items-center justify-between">
+                        <span class="text-xs font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400">Navigasi Fase</span>
+                        <span class="text-[11px] font-mono text-emerald-600 dark:text-emerald-400">5 Tahap</span>
+                    </div>
+                    <div id="phase-sidebar-list" class="flex lg:flex-col gap-2 overflow-x-auto no-scrollbar pb-1 lg:pb-0">
+                        <!-- Diisi via JavaScript -->
+                    </div>
+                </aside>
+
+                <!-- Kontainer Utama 5 Fase (Geser ke Samping) -->
+                <div class="lg:col-span-8 xl:col-span-9 min-w-0 space-y-4">
+                    <!-- Bar Kontrol Geser Fase -->
+                    <div class="rounded-2xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border border-slate-200 dark:border-slate-800 px-4 py-3 shadow-sm flex items-center justify-between gap-3">
+                        <button id="prev-phase-btn" type="button" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 disabled:opacity-40 disabled:pointer-events-none transition shrink-0">
+                            &larr; Fase Sebelumnya
+                        </button>
+                        <div class="text-center min-w-0">
+                            <div id="active-phase-indicator" class="text-xs sm:text-sm font-extrabold text-emerald-600 dark:text-emerald-400 truncate">FASE 01</div>
+                            <div class="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">Geser ke samping atau pilih fase di menu</div>
+                        </div>
+                        <button id="next-phase-btn" type="button" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white disabled:opacity-40 disabled:pointer-events-none transition shrink-0">
+                            Fase Berikutnya &rarr;
+                        </button>
+                    </div>
+
+                    <!-- Track Geser Horizontal -->
+                    <div id="workflow-phases-container" class="flex overflow-x-auto snap-x snap-mandatory gap-6 no-scrollbar pb-2 items-start">
+                        <!-- Diisi via JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ========================================================= -->
+    <!-- SLIDESHOW MODAL OVERLAY (UNTUK KEDUA MODUL MATERI)        -->
+    <!-- ========================================================= -->
+    <div id="slideshow-overlay" class="fixed inset-0 z-50 hidden bg-slate-950/85 backdrop-blur-sm flex items-center justify-center p-2 sm:p-5" role="dialog" aria-modal="true" aria-labelledby="slide-modal-title">
+        <div id="slideshow-modal-box" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl w-full max-w-5xl max-h-[94vh] flex flex-col shadow-2xl overflow-hidden">
+            <!-- Modal Header -->
+            <div class="px-4 sm:px-6 py-3.5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3 bg-slate-50/80 dark:bg-slate-900">
+                <div class="flex items-center gap-2.5 min-w-0">
+                    <span id="slide-deck-badge" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-600 text-white shrink-0">MODUL 01</span>
+                    <span id="slide-counter-pill" class="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400 truncate">Slide 1 / 13</span>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                    <button id="open-export-from-slide" type="button" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/80 dark:hover:bg-indigo-900 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 transition" title="Unduh Slide PDF / PPTX">
+                        ⬇ Unduh
+                    </button>
+                    <button id="toggle-fullscreen-slide" type="button" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition" title="Layar Penuh">
+                        Layar Penuh
+                    </button>
+                    <button id="close-slideshow" type="button" class="p-2 rounded-xl bg-slate-200/70 hover:bg-rose-100 hover:text-rose-600 dark:bg-slate-800 dark:hover:bg-rose-950/60 dark:hover:text-rose-400 transition" aria-label="Tutup Slideshow">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Body (Slide Content Area) -->
+            <div id="slide-touch-area" class="flex-1 overflow-y-auto p-5 sm:p-8 flex flex-col">
+                <div id="slide-dynamic-content" class="space-y-5 my-auto w-full">
+                    <!-- Konten slide dirender secara dinamis -->
+                </div>
+            </div>
+
+            <!-- Modal Footer (Slide Controls) -->
+            <div class="px-4 sm:px-6 py-3.5 border-t border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-900 flex items-center justify-between gap-3">
+                <button id="prev-slide-btn" type="button" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40 disabled:pointer-events-none transition">
+                    &larr; Sebelumnya
+                </button>
+
+                <div id="slide-dots-container" class="flex items-center gap-1.5 overflow-x-auto max-w-[45%] py-1">
+                    <!-- Dot indikator slide -->
+                </div>
+
+                <div id="next-slide-wrapper" class="flex items-center gap-2">
+                    <!-- Tombol Berikutnya atau Selesai dirender dinamis -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- MODAL PILIHAN UNDUH (PDF ATAU PPTX)                       -->
+    <!-- ========================================================= -->
+    <div id="export-choice-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="export-modal-title">
+        <div class="modal-dialog-card bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl w-full max-w-lg p-6 shadow-2xl space-y-5">
+            <div class="flex items-start justify-between gap-3">
+                <div>
+                    <span id="export-modal-deck-badge" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">MODUL</span>
+                    <h3 id="export-modal-title" class="text-lg sm:text-xl font-extrabold mt-2">Unduh Materi</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Pilih format berkas presentasi yang ingin Anda simpan atau cetak.</p>
+                </div>
+                <button id="close-export-modal" type="button" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white" aria-label="Tutup Modal Unduh">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <!-- Pilihan Format Unduh -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <button id="btn-download-pdf" type="button" class="group p-4 rounded-2xl border-2 border-rose-200 dark:border-rose-900/70 bg-rose-50/50 dark:bg-rose-950/25 hover:border-rose-500 dark:hover:border-rose-500 text-left transition flex flex-col justify-between gap-2">
+                    <div class="flex items-center justify-between">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-extrabold bg-rose-600 text-white">PDF</span>
+                        <span class="text-lg">📄</span>
+                    </div>
+                    <div>
+                        <div class="text-sm font-extrabold text-slate-900 dark:text-white group-hover:text-rose-600 dark:group-hover:text-rose-400">Unduh PDF</div>
+                    </div>
+                </button>
+
+                <button id="btn-download-pptx" type="button" class="group p-4 rounded-2xl border-2 border-amber-200 dark:border-amber-900/70 bg-amber-50/50 dark:bg-amber-950/25 hover:border-amber-500 dark:hover:border-amber-500 text-left transition flex flex-col justify-between gap-2">
+                    <div class="flex items-center justify-between">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-extrabold bg-amber-600 text-white">PPTX</span>
+                        <span class="text-lg">📊</span>
+                    </div>
+                    <div>
+                        <div class="text-sm font-extrabold text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400">Unduh PPTX</div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- GENERIC DETAIL MODAL (UNTUK REFERENSI & MESIN AI)         -->
+    <!-- ========================================================= -->
+    <div id="detail-modal" class="fixed inset-0 z-50 hidden bg-slate-950/75 backdrop-blur-sm flex items-center justify-center p-4" role="dialog" aria-modal="true">
+        <div class="modal-dialog-card bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl w-full max-w-lg p-6 shadow-2xl space-y-4">
+            <div class="flex items-start justify-between gap-3">
+                <div>
+                    <span id="detail-modal-badge" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">Detail</span>
+                    <h3 id="detail-modal-title" class="text-lg sm:text-xl font-extrabold mt-2">Judul</h3>
+                </div>
+                <button id="close-detail-modal" type="button" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div id="detail-modal-body" class="text-sm text-slate-600 dark:text-slate-300 space-y-3 leading-relaxed"></div>
+            <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-end gap-2">
+                <button id="close-detail-modal-btn" type="button" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700">Tutup</button>
+                <a id="detail-modal-link" href="#" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white">Kunjungi Laman &nearr;</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- RESET CONFIRMATION MODAL                                  -->
+    <!-- ========================================================= -->
+    <div id="reset-modal" class="fixed inset-0 z-50 hidden bg-slate-950/75 backdrop-blur-sm flex items-center justify-center p-4" role="dialog" aria-modal="true">
+        <div class="modal-dialog-card bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl w-full max-w-md p-6 shadow-2xl space-y-4">
+            <h3 class="text-lg font-extrabold text-rose-600 dark:text-rose-400">Reset Semua Progres Ceklis?</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300">Tindakan ini akan menghapus seluruh centang dan catatan yang tersimpan di browser ini.</p>
+            <div class="flex justify-end gap-2 pt-2">
+                <button id="cancel-reset-btn" type="button" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800">Batal</button>
+                <button id="confirm-reset-btn" type="button" class="px-4 py-2 rounded-xl text-xs font-bold bg-rose-600 hover:bg-rose-700 text-white">Ya, Reset Semua</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast-box" class="fixed bottom-5 right-5 z-50 pointer-events-none opacity-0 translate-y-2 transition-all duration-200 bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-bold px-4 py-3 rounded-2xl shadow-lg">
+        Tersalin!
+    </div>
+
+    <!-- Container Khusus Cetak / Ekspor PDF -->
+    <div id="print-deck-container" class="hidden"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
