@@ -2982,6 +2982,18 @@
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                        <label class="space-y-1 block sm:col-span-2">
+                            <span class="font-bold text-slate-700 dark:text-slate-200">Pilih Mesin AI Tujuan (Menyesuaikan Karakter Prompting Hemat Token &amp; Pratinjau Halaman Langsung)</span>
+                            <select id="pb-engine" class="w-full px-3 py-2.5 rounded-xl bg-white dark:bg-slate-900 border-2 border-indigo-300 dark:border-indigo-700 font-semibold text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">
+                                <option value="gemini">Google Gemini (Canvas / Web Preview &amp; Kode Lengkap Langsung)</option>
+                                <option value="chatgpt">ChatGPT (Canvas Live Preview &amp; Struktur Kode Efisien Token)</option>
+                                <option value="claude">Claude (Live Artifacts Interaktif &amp; Tanpa Narasi Berlebih)</option>
+                                <option value="deepseek">DeepSeek (Efisiensi Token Maksimal &amp; Output Kode Langsung)</option>
+                                <option value="lovable">Lovable (Visual App Preview Pertama &amp; Sinkronisasi GitHub)</option>
+                                <option value="groq">Groq (Ultra-Fast Inference — Prompt Padat &amp; Langsung Render)</option>
+                                <option value="zai">Z.ai (Web Dev Artifact &amp; Pratinjau Halaman Langsung)</option>
+                            </select>
+                        </label>
                         <label class="space-y-1 block">
                             <span class="font-bold text-slate-700 dark:text-slate-200">1. Ide / Nama Website</span>
                             <input type="text" id="pb-idea" placeholder="Contoh: Kopi Nusantara Roastery" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-indigo-500">
@@ -2997,9 +3009,9 @@
                         <label class="space-y-1 block">
                             <span class="font-bold text-slate-700 dark:text-slate-200">4. Stack Teknologi</span>
                             <select id="pb-stack" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-indigo-500">
-                                <option value="Single-file HTML5, Tailwind CSS (CDN), dan Vanilla JavaScript murni">HTML5 + Tailwind CSS + Vanilla JS (1 File)</option>
+                                <option value="Multi-file Standar Web (index.html, style.css, app.js) dengan Tailwind CSS CDN — langsung tampil utuh saat pratinjau">Multi-File Web (index.html, style.css, app.js)</option>
+                                <option value="Single-file HTML5, Tailwind CSS (CDN), dan Vanilla JavaScript murni">Single-File HTML5 + Tailwind CSS + Vanilla JS</option>
                                 <option value="React (JSX), Tailwind CSS, dan Lucide Icons">React + Tailwind CSS</option>
-                                <option value="Next.js App Router + Tailwind CSS">Next.js + Tailwind CSS</option>
                             </select>
                         </label>
                     </div>
@@ -3058,6 +3070,7 @@
                 `;
 
                 const ideaEl = wrapper.querySelector('#pb-idea');
+                const engineEl = wrapper.querySelector('#pb-engine');
                 const conceptEl = wrapper.querySelector('#pb-concept');
                 const styleEl = wrapper.querySelector('#pb-style');
                 const stackEl = wrapper.querySelector('#pb-stack');
@@ -3065,7 +3078,40 @@
                 const outputEl = wrapper.querySelector('#pb-output');
                 const countEl = wrapper.querySelector('#pb-char-count');
 
+                const ENGINE_PROFILES = {
+                    gemini: {
+                        name: 'Google Gemini / Google AI Studio',
+                        directive: 'Aktifkan fitur Canvas / Web Preview. Langsung hasilkan kode sumber lengkap yang segera merender tampilan halaman website interaktif tanpa basa-basi pembuka atau penjelasan panjang. Gunakan struktur kode bersih agar hemat token.'
+                    },
+                    chatgpt: {
+                        name: 'ChatGPT (Canvas)',
+                        directive: 'Gunakan mode Canvas / pratinjau halaman web langsung. Tulis kode sumber utuh secara ringkas tanpa pengulangan komentar yang tidak perlu agar konsumsi token minimal dan halaman website langsung terlihat.'
+                    },
+                    claude: {
+                        name: 'Claude (Artifacts)',
+                        directive: 'Render aplikasi langsung di panel Artifacts agar antarmuka website segera tampil interaktif. Hindari narasi pembuka maupun penutup yang panjang; fokus pada kode sumber lengkap dan hemat token.'
+                    },
+                    deepseek: {
+                        name: 'DeepSeek',
+                        directive: 'Langsung berikan blok kode sumber inti tanpa teks pengantar bertele-tele untuk menekan penggunaan token seminimal mungkin. Pastikan struktur HTML/CSS/JS langsung dapat dirender sebagai halaman website utuh.'
+                    },
+                    lovable: {
+                        name: 'Lovable',
+                        directive: 'Bangun antarmuka website lengkap yang langsung tampil pada pratinjau visual pertama dengan tata letak responsif dan data sampel realistis. Susun struktur file rapi agar siap disinkronkan ke GitHub dan Vercel.'
+                    },
+                    groq: {
+                        name: 'Groq (Ultra-Fast Inference)',
+                        directive: 'Instruksi padat langsung eksekusi: tulis kode sumber website lengkap tanpa pembukaan naratif agar hemat token dan dapat langsung dirender di browser tanpa proses build rumit.'
+                    },
+                    zai: {
+                        name: 'Z.ai (GLM Coding)',
+                        directive: 'Gunakan mode Web Dev / pratinjau halaman langsung agar hasil website segera terlihat. Hasilkan kode sumber lengkap dengan sintaks efisien tanpa pengulangan blok kode.'
+                    }
+                };
+
                 function assemblePromptText() {
+                    const engineKey = engineEl ? engineEl.value : 'gemini';
+                    const engineSpec = ENGINE_PROFILES[engineKey] || ENGINE_PROFILES.gemini;
                     const idea = ideaEl.value.trim() || 'Website Katalog Produk & Profil Usaha UMKM';
                     const concept = conceptEl.value.trim() || 'Platform katalog online modern untuk memudahkan pelanggan melihat produk dan memesan langsung';
                     const style = styleEl.value.trim() || 'Modern, bersih, kontras tinggi dengan proporsi warna 60-30-10';
@@ -3079,7 +3125,9 @@
 
                     const promptStr = [
                         'Bertindaklah sebagai Senior Full-Stack Web Developer dan Security Engineer.',
-                        'Buatkan aplikasi web lengkap dan siap produksi dalam Bahasa Indonesia dengan rincian berikut:',
+                        'Target Mesin AI: ' + engineSpec.name + '.',
+                        'Karakter Eksekusi & Efisiensi Token: ' + engineSpec.directive,
+                        'Buatkan aplikasi web lengkap dan siap produksi dalam Bahasa Indonesia dengan spesifikasi berikut:',
                         '',
                         '1. NAMA & KONSEP PROYEK:',
                         '- Nama Website: ' + idea,
@@ -3087,19 +3135,26 @@
                         '',
                         '2. DESAIN VISUAL & TATA LETAK:',
                         '- Gaya & Palet Warna: ' + style,
-                        '- Pastikan hierarki tipografi jelas, sudut membulat (rounded), dan navigasi mudah dipahami.',
+                        '- Pastikan hierarki tipografi jelas, sudut membulat (rounded), dan navigasi responsif mobile-first.',
                         '',
                         '3. FITUR FUNGSIONAL UTAMA:',
                         '- ' + features,
                         '',
-                        '4. STACK TEKNOLOGI:',
+                        '4. STACK TEKNOLOGI & STRUKTUR BERKAS:',
                         '- ' + stack,
+                        '- Susun kode secara modular untuk file: index.html, style.css, app.js, dan vercel.json (namun pastikan pada pratinjau AI tetap dapat langsung terlihat utuh sebagai halaman website).',
                         '',
                         '5. STANDAR KEAMANAN & KUALITAS KONFIGURASI WAJIB:',
                         secRules.length > 0 ? secRules.join('\n') : '- Terapkan validasi input yang ketat dan tata letak responsif.',
                         "- Validasi Kualitas Konfigurasi (Anti-Pengurangan Poin): Pastikan CSP tidak longgar (dilarang memakai 'unsafe-eval', wildcard *, atau 'unsafe-inline' tanpa nonce/hash), HSTS memiliki max-age >= 15552000 detik, X-Content-Type-Options bernilai tepat nosniff, Referrer-Policy tidak menggunakan unsafe-url, serta header respons tidak membocorkan versi teknologi melalui X-Powered-By maupun header Server.",
                         '- Jangan gunakan alert() atau confirm() bawaan browser; gunakan modal atau notifikasi toast di dalam halaman.',
-                        '- Pastikan seluruh tautan dan tombol memiliki fungsi nyata tanpa broken link.'
+                        '- Pastikan seluruh tautan dan tombol memiliki fungsi nyata tanpa broken link.',
+                        '',
+                        '6. GAMBARAN TAHAPAN PENYIMPANAN KE GITHUB & DEPLOY DI VERCEL (WAJIB DISERTAKAN SETELAH KODE):',
+                        '- Setelah menulis kode sumber lengkap, berikan panduan langkah demi langkah yang ringkas (poin padat hemat token) agar saya dapat mempublikasikan proyek ini:',
+                        '  a. Struktur File Proyek: Jelaskan peran masing-masing berkas (index.html sebagai struktur utama, style.css untuk gaya kustom, app.js untuk logika interaktif aman, dan vercel.json untuk 6 Security Headers + 2 Cross-Origin Headers).',
+                        '  b. Tahapan Simpan ke GitHub: Cara membuat repository baru di GitHub (Public), mengunggah/commit file index.html, style.css, app.js, dan vercel.json ke branch main (atau lewat branch revisi & Pull Request), serta memastikan tidak ada file rahasia (.env) yang ikut terunggah.',
+                        '  c. Tahapan Deploy di Vercel: Cara login Vercel dengan akun GitHub, klik Add New Project -> Import repository tersebut, pastikan Application Preset bernilai Other, lalu klik Deploy hingga URL publik HTTPS aktif.'
                     ].join('\n');
 
                     outputEl.value = promptStr;
@@ -3107,24 +3162,27 @@
                 }
 
                 wrapper.querySelector('#pb-sample-btn').addEventListener('click', () => {
-                    ideaEl.value = 'Sanggar Kopi Nusantara';
-                    conceptEl.value = 'Website katalog B2C biji kopi sangrai lokal untuk penikmat kopi rumahan dengan pemesanan praktis';
-                    styleEl.value = 'Hangat & elegan (60% krem lembut #F6F1E9, 30% hijau zaitun #6B705C, 10% aksen terakota #CB6D51)';
-                    featuresEl.value = 'Navigasi responsif, Hero dengan CTA, Cerita Kami, Katalog 6 produk kopi dengan pencarian nama & filter kategori (Arabika, Robusta, House Blend), Keranjang belanja LocalStorage, dan Checkout langsung ke WhatsApp.';
+                    ideaEl.value = 'Kopi Nusantara Roastery';
+                    conceptEl.value = 'Website katalog biji kopi nusantara & pemesanan langsung via WhatsApp untuk pelanggan B2C';
+                    styleEl.value = 'Hangat & elegan, proporsi 60% krem (#F6F1E9), 30% hijau zaitun (#5C6B4B), 10% terakota (#D87355)';
+                    featuresEl.value = 'Header navigasi responsif, Hero section dengan CTA, Tentang Kami, Katalog produk dengan filter kategori & pencarian real-time, Keranjang belanja (LocalStorage), dan tombol checkout WhatsApp.';
                     assemblePromptText();
-                    showToast('Contoh proyek katalog UMKM berhasil diisi!');
+                    showToast('Contoh Master Prompt berhasil dimuat!');
                 });
 
                 wrapper.querySelector('#pb-generate-btn').addEventListener('click', () => {
                     assemblePromptText();
-                    showToast('Master Prompt berhasil diperbarui!');
+                    showToast('Master Prompt berhasil dirakit!');
                 });
 
                 wrapper.querySelector('#pb-copy-btn').addEventListener('click', () => {
                     assemblePromptText();
-                    copyTextFallback(outputEl.value, 'Master Prompt berhasil disalin ke clipboard!');
+                    copyTextFallback(outputEl.value, 'Master Prompt disalin! Tempelkan ke mesin AI pilihan Anda.');
                 });
 
+                if (engineEl) {
+                    engineEl.addEventListener('change', assemblePromptText);
+                }
                 [ideaEl, conceptEl, styleEl, featuresEl].forEach(el => {
                     el.addEventListener('input', assemblePromptText);
                 });
