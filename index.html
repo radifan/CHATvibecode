@@ -32,6 +32,7 @@
         }
         .animate-slide { animation: fadeSlide 0.25s ease-out; }
         /* Mode Fullscreen: Konten otomatis fit-to-window tanpa scrollbar */
+        /* Mode Fullscreen: Konten lebih besar memenuhi layar & bebas scroll ke bawah */
         #slideshow-modal-box:fullscreen,
         #slideshow-modal-box:-webkit-full-screen {
             width: 100vw !important;
@@ -41,27 +42,74 @@
             border-radius: 0 !important;
             border: none !important;
         }
+        
         #slideshow-modal-box:fullscreen #slide-touch-area,
         #slideshow-modal-box:-webkit-full-screen #slide-touch-area {
             overflow-y: auto !important;
-            padding: 1.25rem 2.25rem !important;
+            padding: 2rem 3.5rem !important;
             justify-content: flex-start !important;
         }
+        
         #slideshow-modal-box:fullscreen #slide-dynamic-content,
         #slideshow-modal-box:-webkit-full-screen #slide-dynamic-content {
-            max-width: 72rem;
+            width: 94vw !important;
+            max-width: 92rem !important;
             margin-left: auto;
             margin-right: auto;
-            transform-origin: top center;
+            font-size: 1.35rem !important;
+            line-height: 1.65 !important;
         }
+        
+        /* Memperbesar judul utama slide saat fullscreen */
+        #slideshow-modal-box:fullscreen #slide-dynamic-content h2,
+        #slideshow-modal-box:-webkit-full-screen #slide-dynamic-content h2 {
+            font-size: clamp(2.25rem, 3.2vw, 3.25rem) !important;
+            line-height: 1.2 !important;
+        }
+        
+        /* Memperbesar paragraf, poin daftar, dan isi tabel */
+        #slideshow-modal-box:fullscreen #slide-dynamic-content p,
+        #slideshow-modal-box:-webkit-full-screen #slide-dynamic-content p {
+            font-size: clamp(1.25rem, 1.5vw, 1.55rem) !important;
+            line-height: 1.6 !important;
+        }
+        
+        #slideshow-modal-box:fullscreen #slide-dynamic-content li,
+        #slideshow-modal-box:-webkit-full-screen #slide-dynamic-content li,
+        #slideshow-modal-box:fullscreen #slide-dynamic-content td,
+        #slideshow-modal-box:-webkit-full-screen #slide-dynamic-content td,
+        #slideshow-modal-box:fullscreen #slide-dynamic-content th,
+        #slideshow-modal-box:-webkit-full-screen #slide-dynamic-content th {
+            font-size: clamp(1.2rem, 1.4vw, 1.45rem) !important;
+            line-height: 1.55 !important;
+        }
+        
+        /* Memperbesar teks di dalam kartu perbandingan, blok kode & catatan penting */
+        #slideshow-modal-box:fullscreen #slide-dynamic-content pre,
+        #slideshow-modal-box:-webkit-full-screen #slide-dynamic-content pre {
+            font-size: 1.12rem !important;
+            line-height: 1.5 !important;
+        }
+        
+        #slideshow-modal-box:fullscreen #slide-dynamic-content > div,
+        #slideshow-modal-box:-webkit-full-screen #slide-dynamic-content > div {
+            font-size: 1.25rem !important;
+        }
+        
+        /* Memperbesar ilustrasi diagram SVG & gambar slide penutup */
         #slideshow-modal-box:fullscreen svg.rounded-2xl,
         #slideshow-modal-box:-webkit-full-screen svg.rounded-2xl {
-            max-height: 33vh !important;
-            width: auto !important;
+            max-height: 46vh !important;
+            width: 100% !important;
             max-width: 100% !important;
             margin-left: auto;
             margin-right: auto;
             display: block;
+        }
+        
+        #slideshow-modal-box:fullscreen img,
+        #slideshow-modal-box:-webkit-full-screen img {
+            max-height: 82vh !important;
         }
         @media print {
             @page {
@@ -685,7 +733,7 @@
                             badge: 'Penutup Presentasi · Modul 01',
                             title: 'Terima Kasih',
                             quote: '"Ingatlah bahwa kekhilafan satu orang sahaja tjukup sudah menjebabkan keruntuhan negara."',
-                            quoteAuthor: '— Mayjen TNI Dr. Roebiono Kertopati (Bapak Persandian Negara Republik Indonesia)',
+                            quoteAuthor: '— Mayjen TNI dr. Roebiono Kertopati (Bapak Persandian Negara Republik Indonesia)',
                             summary: 'Mari bangun aplikasi web modern dengan AI yang tidak hanya cepat dan menarik, tetapi juga aman dan bertanggung jawab.'
                         }
                     ]
@@ -911,7 +959,7 @@
                             badge: 'Penutup Presentasi · Modul 02',
                             title: 'Terima Kasih',
                             quote: '"Ingatlah bahwa kekhilafan satu orang sahaja tjukup sudah menjebabkan keruntuhan negara."',
-                            quoteAuthor: '— Mayjen TNI Dr. Roebiono Kertopati (Bapak Persandian Negara Republik Indonesia)',
+                            quoteAuthor: '— Mayjen TNI dr. Roebiono Kertopati (Bapak Persandian Negara Republik Indonesia)',
                             summary: 'Selamat mempraktikkan seluruh langkah pada Tab 3 (Praktik) hingga website Anda mengudara dengan aman.'
                         }
                     ]
@@ -1436,23 +1484,29 @@
             let activeScreenIndex = 0;
 
             function fitFullscreenSlideScale() {
-                if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-                    slideDynamicContent.style.zoom = '';
-                    slideDynamicContent.style.transform = '';
-                    slideDynamicContent.style.width = '';
-                    return;
-                }
-                slideDynamicContent.style.zoom = '1';
+                slideDynamicContent.style.zoom = '';
                 slideDynamicContent.style.transform = '';
-                slideDynamicContent.style.width = '100%';
-                const areaRect = slideTouchArea.getBoundingClientRect();
-                const contentHeight = slideDynamicContent.scrollHeight;
-                const availHeight = areaRect.height - 28;
-                if (contentHeight > availHeight && availHeight > 120) {
-                    const ratio = Math.max(0.82, Math.min(1, availHeight / contentHeight));
-                    slideDynamicContent.style.zoom = ratio.toFixed(3);
-                }
+                slideDynamicContent.style.width = '';
             }
+            
+            //function fitFullscreenSlideScale() {
+            //    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+            //        slideDynamicContent.style.zoom = '';
+            //        slideDynamicContent.style.transform = '';
+            //        slideDynamicContent.style.width = '';
+            //        return;
+            //    }
+            //    slideDynamicContent.style.zoom = '1';
+            //    slideDynamicContent.style.transform = '';
+            //    slideDynamicContent.style.width = '100%';
+            //    const areaRect = slideTouchArea.getBoundingClientRect();
+            //    const contentHeight = slideDynamicContent.scrollHeight;
+            //    const availHeight = areaRect.height - 28;
+            //    if (contentHeight > availHeight && availHeight > 120) {
+            //       const ratio = Math.max(0.82, Math.min(1, availHeight / contentHeight));
+            //        slideDynamicContent.style.zoom = ratio.toFixed(3);
+            //    }
+            //}
 
             // Generator Gambar Ilustrasi Web UI (GitHub & Vercel) menggunakan SVG murni
             function createWebUIMockupSVG(type, urlText) {
