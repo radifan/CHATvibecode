@@ -428,23 +428,55 @@
                         Kumpulkan Tautan Website Anda
                     </h2>
                     <p class="text-sm text-slate-600 dark:text-slate-400 max-w-md mx-auto leading-relaxed">
-                        Pindai QR Code di bawah ini menggunakan kamera ponsel untuk menuliskan tautan website yang telah Anda buat.
+                        Pindai QR Code di bawah ini menggunakan kamera ponsel untuk menuliskan tautan website (<span class="font-mono text-indigo-600 dark:text-indigo-400">.vercel.app</span>) yang telah Anda buat.
                     </p>
                 </div>
 
-                <!-- Bingkai QR Code -->
-                <div class="p-5 sm:p-6 rounded-3xl bg-white border-2 border-slate-200 dark:border-slate-700 shadow-lg">
+                <!-- Bingkai QR Code (Bisa Diklik Juga untuk Perbesar) -->
+                <div id="qr-preview-box" class="group relative p-5 sm:p-6 rounded-3xl bg-white border-2 border-slate-200 dark:border-slate-700 shadow-lg cursor-pointer hover:border-indigo-500 transition" title="Klik untuk memperbesar QR Code">
                     <img id="submission-qr-img" src="" alt="QR Code Pengumpulan Tugas" class="w-60 h-60 sm:w-72 sm:h-72 object-contain mx-auto rounded-xl">
                 </div>
 
-                <!-- Tautan Cadangan (Opsional jika dibuka dari laptop) -->
-                <div id="submission-link-wrap" class="pt-1">
-                    <a id="submission-form-link" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition">
-                        Buka Formulir &nearr;
-                    </a>
+                <!-- Tombol Aksi: Perbesar Layar Penuh & Tautan Formulir -->
+                <div class="flex flex-wrap items-center justify-center gap-3 pt-1">
+                    <button id="open-qr-fullscreen-btn" type="button" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-white border border-slate-700 shadow-sm transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+                        </svg>
+                        Perbesar Layar Penuh
+                    </button>
+
+                    <div id="submission-link-wrap">
+                        <a id="submission-form-link" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition">
+                            Buka Tautan Formulir &nearr;
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
+
+        <!-- MODAL FULLSCREEN QR CODE -->
+        <div id="qr-fullscreen-modal" class="fixed inset-0 z-50 hidden bg-slate-950/95 backdrop-blur-md flex flex-col items-center justify-center p-4 sm:p-8" role="dialog" aria-modal="true" aria-label="QR Code Layar Penuh">
+            <button id="close-qr-fullscreen-btn" type="button" class="absolute top-5 right-5 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-rose-600 text-white text-xs sm:text-sm font-bold border border-white/20 backdrop-blur-sm transition flex items-center gap-2">
+                <span>Tutup Layar Penuh</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6l12 12"></path></svg>
+            </button>
+
+            <div class="flex flex-col items-center justify-center space-y-5 max-w-full">
+                <span class="px-3.5 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-indigo-500/20 text-indigo-300 border border-indigo-400/30">
+                    Scan QR Code Pengumpulan Tugas
+                </span>
+
+                <div class="p-5 sm:p-7 rounded-3xl bg-white shadow-2xl border-4 border-indigo-400/40">
+                    <img id="qr-fullscreen-img" src="" alt="QR Code Layar Penuh" class="w-[74vw] h-[74vw] max-w-[72vh] max-h-[72vh] object-contain rounded-xl">
+                </div>
+
+                <p class="text-xs sm:text-sm text-slate-300 text-center">
+                    Tekan <kbd class="px-2 py-0.5 rounded bg-white/10 font-mono text-white">ESC</kbd> atau klik area luar untuk kembali
+                </p>
+            </div>
+        </div>
+        
     </main>
 
     <!-- ========================================================= -->
@@ -3700,7 +3732,54 @@
             } else if (formLinkWrap) {
                 formLinkWrap.classList.add('hidden');
             }
-            
+
+            const qrFullscreenModal = document.getElementById('qr-fullscreen-modal');
+            const qrFullscreenImg = document.getElementById('qr-fullscreen-img');
+            const openQrFsBtn = document.getElementById('open-qr-fullscreen-btn');
+            const closeQrFsBtn = document.getElementById('close-qr-fullscreen-btn');
+            const qrPreviewBox = document.getElementById('qr-preview-box');
+        
+            function openQrFullscreen() {
+                if (!qrFullscreenModal) return;
+                if (qrFullscreenImg && PRESENTATION_INFO.submissionQrSrc) {
+                    qrFullscreenImg.src = normalizeImageUrl(PRESENTATION_INFO.submissionQrSrc);
+                }
+                qrFullscreenModal.classList.remove('hidden');
+        
+                // Aktifkan Fullscreen Browser API jika didukung
+                if (qrFullscreenModal.requestFullscreen) {
+                    qrFullscreenModal.requestFullscreen().catch(() => {});
+                } else if (qrFullscreenModal.webkitRequestFullscreen) {
+                    qrFullscreenModal.webkitRequestFullscreen();
+                }
+            }
+        
+            function closeQrFullscreen() {
+                if (!qrFullscreenModal) return;
+                if (document.fullscreenElement === qrFullscreenModal || document.webkitFullscreenElement === qrFullscreenModal) {
+                    if (document.exitFullscreen) document.exitFullscreen().catch(() => {});
+                    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+                }
+                qrFullscreenModal.classList.add('hidden');
+            }
+        
+            if (openQrFsBtn) openQrFsBtn.addEventListener('click', openQrFullscreen);
+            if (qrPreviewBox) qrPreviewBox.addEventListener('click', openQrFullscreen);
+            if (closeQrFsBtn) closeQrFsBtn.addEventListener('click', closeQrFullscreen);
+        
+            if (qrFullscreenModal) {
+                qrFullscreenModal.addEventListener('click', e => {
+                    if (e.target === qrFullscreenModal) closeQrFullscreen();
+                });
+            }
+        
+            // Sinkronkan saat pengguna keluar fullscreen lewat tombol ESC browser
+            document.addEventListener('fullscreenchange', () => {
+                if (!document.fullscreenElement && qrFullscreenModal && !qrFullscreenModal.classList.contains('hidden')) {
+                    qrFullscreenModal.classList.add('hidden');
+                }
+            });
+           
             setActivePhase(0, false);
             updateGlobalProgress();
         })();
