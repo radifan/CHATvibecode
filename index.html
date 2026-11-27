@@ -227,6 +227,9 @@
             <button type="button" data-tab="tab-langkah" class="tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
                 3. Praktik
             </button>
+            <button type="button" data-tab="tab-kumpul" class="tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+                4. Kumpulkan!
+            </button>
         </nav>
     </header>
 
@@ -410,6 +413,38 @@
                 </div>
             </div>
         </section>
+        
+        <!-- ========================================================= -->
+        <!-- TAB 4: QR CODE PENGUMPULAN TUGAS                          -->
+        <!-- ========================================================= -->
+        <section id="tab-kumpul" class="tab-panel hidden">
+            <div class="rounded-3xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border border-slate-200 dark:border-slate-800 p-6 sm:p-10 shadow-sm flex flex-col items-center justify-center text-center space-y-6 max-w-2xl mx-auto">
+                <span class="px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-indigo-50 text-indigo-700 dark:bg-indigo-950/80 dark:text-indigo-300 border border-indigo-200/70 dark:border-indigo-800">
+                    Pengumpulan Hasil Praktik
+                </span>
+
+                <div class="space-y-2">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                        Kumpulkan Tautan Website Anda
+                    </h2>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 max-w-md mx-auto leading-relaxed">
+                        Pindai QR Code di bawah ini menggunakan kamera ponsel untuk menuliskan tautan website yang telah Anda buat.
+                    </p>
+                </div>
+
+                <!-- Bingkai QR Code -->
+                <div class="p-5 sm:p-6 rounded-3xl bg-white border-2 border-slate-200 dark:border-slate-700 shadow-lg">
+                    <img id="submission-qr-img" src="" alt="QR Code Pengumpulan Tugas" class="w-60 h-60 sm:w-72 sm:h-72 object-contain mx-auto rounded-xl">
+                </div>
+
+                <!-- Tautan Cadangan (Opsional jika dibuka dari laptop) -->
+                <div id="submission-link-wrap" class="pt-1">
+                    <a id="submission-form-link" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition">
+                        Buka Formulir &nearr;
+                    </a>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- ========================================================= -->
@@ -556,7 +591,9 @@
                 presenterName: 'Hadyan Radifan & Ryan Martin Hidayat',
                 dateTime: 'Jumat, 27 November 2026]',
                 venue: 'Kota Langsa - Aceh',
-                closingImageSrc: 'https://raw.githubusercontent.com/radifan/CHATvibecode/d66b8662b73a5cdeac59f17856615737e973ec86/Ingatlah%20Bahwa%20Kechilafan%20Satu%20Orang%20Sahaja.jpg'
+                closingImageSrc: 'https://raw.githubusercontent.com/radifan/CHATvibecode/d66b8662b73a5cdeac59f17856615737e973ec86/Ingatlah%20Bahwa%20Kechilafan%20Satu%20Orang%20Sahaja.jpg',
+                submissionQrSrc: 'https://raw.githubusercontent.com/radifan/CHATvibecode/main/ekraf%20pengumpulan%20tugas%20CHAT.jpeg',
+                submissionFormUrl: 'https://ekr.af/pengumpulantugaschat'
             };
 
             function normalizeImageUrl(rawUrl) {
@@ -3650,6 +3687,20 @@
             renderAiTable();
             renderPhaseSidebar();
             renderWorkflowPhases();
+
+            const qrImgEl = document.getElementById('submission-qr-img');
+            if (qrImgEl && PRESENTATION_INFO.submissionQrSrc) {
+                qrImgEl.src = normalizeImageUrl(PRESENTATION_INFO.submissionQrSrc);
+            }
+        
+            const formLinkEl = document.getElementById('submission-form-link');
+            const formLinkWrap = document.getElementById('submission-link-wrap');
+            if (formLinkEl && PRESENTATION_INFO.submissionFormUrl) {
+                formLinkEl.href = PRESENTATION_INFO.submissionFormUrl;
+            } else if (formLinkWrap) {
+                formLinkWrap.classList.add('hidden');
+            }
+            
             setActivePhase(0, false);
             updateGlobalProgress();
         })();
